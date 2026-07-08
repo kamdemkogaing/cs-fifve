@@ -1,22 +1,33 @@
-import { MapPin, Medal, Trophy, Users } from "lucide-react";
+import { MapPin, Medal, Menu, Trophy, Users, X } from "lucide-react";
+import { useState } from "react";
 import { classementRules, ranking, selectedTeams } from "./data/fifveData";
 
 export default function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const splitIndex = Math.ceil(ranking.length / 2);
+  const rankingBlockA = ranking.slice(0, splitIndex);
+  const rankingBlockB = ranking.slice(splitIndex);
+
   return (
-    <div>
-      <header className="bg-[#0646c4] text-white">
+    <div className="pt-28">
+      <header className="fixed inset-x-0 top-0 z-50 bg-[#0646c4] text-white shadow-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-4">
+          <div className="flex min-w-0 items-center gap-3 pr-3 sm:gap-4 md:pr-0">
             <img
               src="/images/logo_fifve.jpeg"
               alt="Logo FIFVE"
               className="h-20 w-20 rounded-full bg-white object-contain p-1"
             />
-            <div>
-              <p className="text-sm uppercase tracking-widest">FIFVE 2026</p>
-              <h1 className="text-2xl font-bold">
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-widest text-blue-100 sm:text-sm">
+                FIFVE 2026
+              </p>
+              <h1 className="text-sm font-bold leading-tight sm:text-2xl">
                 Fédération Internationale de Football Vétérans
               </h1>
+              <p className="text-xs text-blue-100 sm:text-sm">
+                Football our Passion
+              </p>
             </div>
           </div>
 
@@ -26,7 +37,60 @@ export default function App() {
             <a href="#retenues">Équipes retenues</a>
             <a href="#lieu">Lieu</a>
           </nav>
+
+          <button
+            type="button"
+            className="ml-2 shrink-0 inline-flex items-center justify-center rounded-xl border border-white/30 p-2 text-white transition hover:bg-white/10 md:hidden"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <nav className="border-t border-white/20 bg-[#04379a] px-6 py-4 md:hidden">
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href="#module"
+                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Module
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#classement"
+                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Classement
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#retenues"
+                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Équipes retenues
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#lieu"
+                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Lieu
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
       </header>
 
       <section className="bg-linear-to-br from-[#0646c4] via-[#0b61e8] to-[#159947] px-6 py-20 text-white">
@@ -34,7 +98,7 @@ export default function App() {
           <p className="mb-3 font-semibold uppercase tracking-widest text-yellow-300">
             Week-End FIFVE 2026
           </p>
-          <h2 className="max-w-4xl text-4xl font-extrabold md:text-6xl">
+          <h2 className="max-w-4xl text-3xl font-extrabold md:text-5xl">
             Classement officiel, module de points et équipes retenues
           </h2>
           <p className="mt-6 max-w-3xl text-lg">
@@ -57,7 +121,7 @@ export default function App() {
         </section>
 
         <section id="module" className="rounded-3xl bg-white p-6 shadow-lg">
-          <h2 className="mb-6 text-3xl font-bold text-[#0646c4]">
+          <h2 className="mb-6 text-2xl font-bold text-[#0646c4] md:text-3xl">
             Module de classement FIFVE 2026
           </h2>
 
@@ -93,38 +157,24 @@ export default function App() {
         </section>
 
         <section id="classement" className="rounded-3xl bg-white p-6 shadow-lg">
-          <h2 className="mb-6 text-3xl font-bold text-[#0646c4]">
+          <h2 className="mb-6 text-2xl font-bold text-[#0646c4] md:text-3xl">
             Classement actuel des 53 équipes FIFVE
           </h2>
 
-          <div className="max-h-162.5 overflow-auto rounded-2xl border">
-            <table className="w-full border-collapse text-sm">
-              <thead className="sticky top-0 bg-[#0646c4] text-white">
-                <tr>
-                  <th className="p-3 text-left">Nr.</th>
-                  <th className="p-3 text-left">Délégation</th>
-                  <th className="p-3 text-left">Points</th>
-                  <th className="p-3 text-left">Ajouts Londres</th>
-                  <th className="p-3 text-left">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ranking.map((team) => (
-                  <tr key={team[0]} className="border-b hover:bg-blue-50">
-                    <td className="p-3 font-bold">{team[0]}</td>
-                    <td className="p-3">{team[1]}</td>
-                    <td className="p-3">{team[2]}</td>
-                    <td className="p-3">{team[3]}</td>
-                    <td className="p-3 font-bold text-[#e6002d]">{team[4]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <RankingBlock
+              title={`Bloc 1 (${rankingBlockA[0][0]}-${rankingBlockA[rankingBlockA.length - 1][0]})`}
+              teams={rankingBlockA}
+            />
+            <RankingBlock
+              title={`Bloc 2 (${rankingBlockB[0][0]}-${rankingBlockB[rankingBlockB.length - 1][0]})`}
+              teams={rankingBlockB}
+            />
           </div>
         </section>
 
         <section id="retenues" className="rounded-3xl bg-white p-6 shadow-lg">
-          <h2 className="mb-6 text-3xl font-bold text-[#0646c4]">
+          <h2 className="mb-6 text-2xl font-bold text-[#0646c4] md:text-3xl">
             24 équipes retenues pour la FIFVE 2026
           </h2>
 
@@ -144,7 +194,7 @@ export default function App() {
         </section>
 
         <section id="lieu" className="rounded-3xl bg-white p-6 shadow-lg">
-          <h2 className="mb-4 text-3xl font-bold text-[#0646c4]">
+          <h2 className="mb-4 text-2xl font-bold text-[#0646c4] md:text-3xl">
             Lieu du tournoi
           </h2>
 
@@ -211,11 +261,49 @@ export default function App() {
   );
 }
 
+function RankingBlock({ title, teams }) {
+  return (
+    <div className="overflow-hidden rounded-3xl border border-blue-100 bg-gradient-to-b from-blue-50 to-white shadow-md">
+      <div className="bg-[#0646c4] px-4 py-3 text-sm font-bold uppercase tracking-wide text-white">
+        {title}
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse text-sm">
+          <thead className="bg-white text-[#0646c4]">
+            <tr className="border-b border-blue-100">
+              <th className="p-3 text-left">Nr.</th>
+              <th className="p-3 text-left">Délégation</th>
+              <th className="p-3 text-left">Points</th>
+              <th className="p-3 text-left">Ajouts Londres</th>
+              <th className="p-3 text-left">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {teams.map((team) => (
+              <tr
+                key={team[0]}
+                className="border-b border-blue-50 transition-colors hover:bg-blue-50/70"
+              >
+                <td className="p-3 font-bold">{team[0]}</td>
+                <td className="p-3">{team[1]}</td>
+                <td className="p-3">{team[2]}</td>
+                <td className="p-3">{team[3]}</td>
+                <td className="p-3 font-bold text-[#e6002d]">{team[4]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function Card({ icon, title, text }) {
   return (
     <div className="rounded-3xl bg-white p-6 shadow-lg">
       <div className="mb-4 text-[#0646c4]">{icon}</div>
-      <h3 className="text-4xl font-extrabold text-[#e6002d]">{title}</h3>
+      <h3 className="text-3xl font-extrabold text-[#e6002d]">{title}</h3>
       <p className="mt-2 font-medium">{text}</p>
     </div>
   );
