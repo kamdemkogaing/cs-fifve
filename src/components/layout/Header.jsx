@@ -1,4 +1,5 @@
 import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Header({
   language,
@@ -8,6 +9,18 @@ export default function Header({
   onToggleMenu,
   onCloseMenu,
 }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navItems = [
     { href: "#module", label: t.nav.module },
     { href: "#classement", label: t.nav.classement },
@@ -17,8 +30,18 @@ export default function Header({
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-[#0646c4] text-white shadow-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 text-white transition-all duration-500 ${
+        isScrolled
+          ? "border-b border-white/15 bg-[#04379a]/88 shadow-2xl backdrop-blur-xl"
+          : "bg-linear-to-r from-[#0646c4]/92 via-[#0b61e8]/84 to-[#0a5bcf]/90 shadow-lg backdrop-blur-md"
+      }`}
+    >
+      <div
+        className={`mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-500 ${
+          isScrolled ? "py-2.5" : "py-4"
+        }`}
+      >
         <a
           href="#home"
           onClick={onCloseMenu}
@@ -28,16 +51,34 @@ export default function Header({
           <img
             src="/images/logo_fifve.jpeg"
             alt="Logo FIFVE"
-            className="h-20 w-20 rounded-full bg-white object-contain p-1"
+            className={`rounded-full bg-white object-contain p-1 shadow-md transition-all duration-500 ${
+              isScrolled ? "h-14 w-14" : "h-20 w-20"
+            }`}
           />
           <div className="min-w-0">
-            <p className="text-xs uppercase tracking-widest text-blue-100 sm:text-sm">
+            <p
+              className={`uppercase tracking-widest text-blue-100 transition-all duration-500 ${
+                isScrolled ? "text-[10px] sm:text-xs" : "text-xs sm:text-sm"
+              }`}
+            >
               FIFVE 2026
             </p>
-            <h1 className="text-sm font-bold leading-tight sm:text-xl lg:text-2xl">
+            <h1
+              className={`font-bold leading-tight transition-all duration-500 ${
+                isScrolled
+                  ? "text-xs sm:text-lg lg:text-xl"
+                  : "text-sm sm:text-xl lg:text-2xl"
+              }`}
+            >
               {t.federationName}
             </h1>
-            <p className="text-xs text-blue-100 sm:text-sm">{t.slogan}</p>
+            <p
+              className={`text-blue-100 transition-all duration-500 ${
+                isScrolled ? "text-[10px] sm:text-xs" : "text-xs sm:text-sm"
+              }`}
+            >
+              {t.slogan}
+            </p>
           </div>
         </a>
 
@@ -97,7 +138,7 @@ export default function Header({
       </div>
 
       {mobileMenuOpen && (
-        <nav className="border-t border-white/20 bg-[#04379a] px-6 py-4 md:hidden">
+        <nav className="border-t border-white/20 bg-[#04379a]/95 px-6 py-4 backdrop-blur-xl md:hidden">
           <div className="mb-3 inline-flex rounded-full border border-white/25 bg-white/10 p-1">
             <button
               type="button"
