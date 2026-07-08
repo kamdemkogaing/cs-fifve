@@ -1,6 +1,10 @@
 import { MapPin, Medal, Menu, Trophy, Users, X } from "lucide-react";
 import { useState } from "react";
-import { classementRules, ranking, selectedTeams } from "./data/fifveData";
+import {
+  classementRules,
+  ranking,
+  selectedTeamsByCountry,
+} from "./data/fifveData";
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,11 +35,31 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="hidden gap-6 md:flex">
-            <a href="#module">Module</a>
-            <a href="#classement">Classement</a>
-            <a href="#retenues">Équipes retenues</a>
-            <a href="#lieu">Lieu</a>
+          <nav className="hidden items-center gap-2 rounded-full border border-white/20 bg-white/5 p-1 backdrop-blur-sm md:flex">
+            <a
+              href="#module"
+              className="relative rounded-full px-4 py-2 text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white after:absolute after:left-1/2 after:bottom-1 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
+            >
+              Module
+            </a>
+            <a
+              href="#classement"
+              className="relative rounded-full px-4 py-2 text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white after:absolute after:left-1/2 after:bottom-1 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
+            >
+              Classement
+            </a>
+            <a
+              href="#retenues"
+              className="relative rounded-full px-4 py-2 text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white after:absolute after:left-1/2 after:bottom-1 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
+            >
+              Équipes retenues
+            </a>
+            <a
+              href="#lieu"
+              className="relative rounded-full px-4 py-2 text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white after:absolute after:left-1/2 after:bottom-1 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
+            >
+              Lieu
+            </a>
           </nav>
 
           <button
@@ -55,7 +79,7 @@ export default function App() {
               <li>
                 <a
                   href="#module"
-                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  className="block rounded-xl border border-transparent px-3 py-2 font-medium text-blue-100 transition-all duration-300 hover:border-white/20 hover:bg-white/15 hover:text-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Module
@@ -64,7 +88,7 @@ export default function App() {
               <li>
                 <a
                   href="#classement"
-                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  className="block rounded-xl border border-transparent px-3 py-2 font-medium text-blue-100 transition-all duration-300 hover:border-white/20 hover:bg-white/15 hover:text-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Classement
@@ -73,7 +97,7 @@ export default function App() {
               <li>
                 <a
                   href="#retenues"
-                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  className="block rounded-xl border border-transparent px-3 py-2 font-medium text-blue-100 transition-all duration-300 hover:border-white/20 hover:bg-white/15 hover:text-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Équipes retenues
@@ -82,7 +106,7 @@ export default function App() {
               <li>
                 <a
                   href="#lieu"
-                  className="block rounded-lg px-3 py-2 font-medium transition hover:bg-white/10"
+                  className="block rounded-xl border border-transparent px-3 py-2 font-medium text-blue-100 transition-all duration-300 hover:border-white/20 hover:bg-white/15 hover:text-white"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Lieu
@@ -178,16 +202,39 @@ export default function App() {
             24 équipes retenues pour la FIFVE 2026
           </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {selectedTeams.map((team, index) => (
+          <div className="grid gap-5 md:grid-cols-2">
+            {selectedTeamsByCountry.map((group) => (
               <div
-                key={team}
-                className="rounded-2xl border border-blue-100 bg-blue-50 p-4"
+                key={group.country}
+                className="rounded-2xl border border-blue-100 bg-blue-50/60 p-4"
               >
-                <span className="mr-2 font-bold text-[#e6002d]">
-                  {index + 1}.
-                </span>
-                {team}
+                <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-[#0646c4]">
+                  <img
+                    src={`https://flagcdn.com/24x18/${group.flagCode}.png`}
+                    alt={`Drapeau ${group.country}`}
+                    className="h-4 w-6 rounded-xs object-cover shadow-sm"
+                    loading="lazy"
+                  />
+                  <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#e6002d]">
+                    {group.teams.length}{" "}
+                    {group.teams.length > 1 ? "equipes" : "equipe"}
+                  </span>
+                  <span>{group.country}</span>
+                </h3>
+
+                <ul className="space-y-2">
+                  {group.teams.map((team) => (
+                    <li
+                      key={`${group.country}-${team.number}`}
+                      className="rounded-xl bg-white px-3 py-2"
+                    >
+                      <span className="mr-2 font-bold text-[#e6002d]">
+                        {team.number}.
+                      </span>
+                      {team.name}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

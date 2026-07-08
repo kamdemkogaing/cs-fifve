@@ -3,6 +3,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 15px;
+  scroll-padding-top: 8rem;
 }
 
 body {
