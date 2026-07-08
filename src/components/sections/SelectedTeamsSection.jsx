@@ -144,6 +144,7 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
                 alt={group.country}
                 className="h-4 w-6 rounded-xs object-cover shadow-sm"
                 loading="lazy"
+                crossOrigin="anonymous"
               />
               <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#e6002d]">
                 {group.teams.length}{" "}

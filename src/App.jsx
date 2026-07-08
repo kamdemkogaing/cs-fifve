@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
+import ExportActionsSection from "./components/sections/ExportActionsSection";
 import HeroSection from "./components/sections/HeroSection";
 import LocationSection from "./components/sections/LocationSection";
 import ModuleSection from "./components/sections/ModuleSection";
@@ -49,6 +50,7 @@ export default function App() {
       />
 
       <HeroSection t={t.hero} />
+      <ExportActionsSection t={t.export} />
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
         <StatsSection t={t.stats} />
