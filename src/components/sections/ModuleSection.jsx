@@ -14,8 +14,29 @@ export default function ModuleSection({ classementRules, t }) {
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-blue-100 shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-170 border-separate border-spacing-0">
+        <div className="divide-y divide-blue-100 md:hidden">
+          {classementRules.map(([name, points], index) => (
+            <article
+              key={index}
+              className="bg-white px-4 py-3 transition-colors odd:bg-white even:bg-blue-50/30"
+            >
+              <p className="text-sm font-medium leading-relaxed text-slate-800">
+                {t.rules[index] ?? name}
+              </p>
+              <div className="mt-2 flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-wide text-[#0646c4]">
+                  {t.points}
+                </span>
+                <span className="inline-flex min-w-18.5 items-center justify-center rounded-full bg-red-50 px-3 py-1 text-sm font-bold text-[#e6002d] ring-1 ring-red-100">
+                  {points}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="hidden overflow-x-auto md:block">
+          <table className="w-full border-separate border-spacing-0">
             <thead className="sticky top-0 z-10 bg-[#0646c4] text-white">
               <tr>
                 <th className="border-b border-blue-200 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider md:text-sm">

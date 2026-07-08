@@ -11,6 +11,7 @@ export default function RankingSection({ ranking, t }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState(SORT_BY.RANK_ASC);
   const [selectedTeam, setSelectedTeam] = useState(null);
+  const [selectedTeamBlock, setSelectedTeamBlock] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const normalizeText = (value) =>
@@ -77,8 +78,9 @@ export default function RankingSection({ ranking, t }) {
     setIsModalOpen(false);
   };
 
-  const openTeamModal = (team) => {
+  const openTeamModal = (team, blockNumber) => {
     setSelectedTeam(team);
+    setSelectedTeamBlock(blockNumber);
     setIsModalOpen(true);
   };
 
@@ -149,10 +151,61 @@ export default function RankingSection({ ranking, t }) {
             key={`ranking-block-${blockIndex}`}
             className="overflow-hidden rounded-2xl border border-blue-100"
           >
-            <div className="border-b border-blue-100 bg-[#f6f9ff] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#0646c4]">
+            <div className="hidden border-b border-blue-100 bg-[#f6f9ff] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#0646c4] md:block">
               {t.block} {blockIndex + 1}
             </div>
-            <div className="overflow-x-auto">
+
+            <div className="divide-y divide-blue-100 md:hidden">
+              {blockTeams.map((team) => {
+                const isTopThree = Number(team[0]) <= 3;
+
+                return (
+                  <article
+                    key={`${team[0]}-${team[1]}`}
+                    className={`cursor-pointer px-4 py-3 transition-colors odd:bg-white even:bg-blue-50/30 hover:bg-blue-50 ${
+                      isTopThree ? "bg-yellow-50/40" : ""
+                    }`}
+                    onClick={() => openTeamModal(team, blockIndex + 1)}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="inline-flex min-w-9 items-center justify-center rounded-full bg-[#0646c4] px-2 py-1 text-xs font-bold text-white">
+                        #{team[0]}
+                      </span>
+                      <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-bold text-[#e6002d] ring-1 ring-red-100">
+                        {team[4]} pts
+                      </span>
+                    </div>
+
+                    <h3 className="mt-2 text-base font-bold text-[#0646c4]">
+                      {team[1]}
+                    </h3>
+
+                    <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-600">
+                      <div className="rounded-xl bg-white px-2.5 py-2 ring-1 ring-blue-100">
+                        <dt className="font-medium">{t.points}</dt>
+                        <dd className="mt-0.5 text-sm font-bold text-slate-800">
+                          {team[2]}
+                        </dd>
+                      </div>
+                      <div className="rounded-xl bg-white px-2.5 py-2 ring-1 ring-blue-100">
+                        <dt className="font-medium">{t.total}</dt>
+                        <dd className="mt-0.5 text-sm font-extrabold text-[#e6002d]">
+                          {team[4]}
+                        </dd>
+                      </div>
+                      <div className="col-span-2 rounded-xl bg-white px-2.5 py-2 ring-1 ring-blue-100">
+                        <dt className="font-medium">{t.additions}</dt>
+                        <dd className="mt-0.5 text-sm font-bold text-slate-800">
+                          {team[3]}
+                        </dd>
+                      </div>
+                    </dl>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="hidden overflow-x-auto md:block">
               <table className="min-w-full border-collapse bg-white text-left text-sm">
                 <thead className="bg-[#eef3ff] text-xs uppercase tracking-wide text-[#0646c4]">
                   <tr>
@@ -173,7 +226,7 @@ export default function RankingSection({ ranking, t }) {
                         className={`cursor-pointer border-t border-blue-50 transition hover:bg-blue-50/70 focus-within:bg-blue-50/70 ${
                           isTopThree ? "bg-yellow-50/35" : ""
                         }`}
-                        onClick={() => openTeamModal(team)}
+                        onClick={() => openTeamModal(team, blockIndex + 1)}
                       >
                         <td className="px-4 py-3">
                           <span className="inline-flex min-w-9 items-center justify-center rounded-full bg-[#0646c4] px-2 py-1 text-xs font-bold text-white">
@@ -186,7 +239,7 @@ export default function RankingSection({ ranking, t }) {
                             className="cursor-pointer text-left outline-none focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-[#0646c4]/40"
                             onClick={(event) => {
                               event.stopPropagation();
-                              openTeamModal(team);
+                              openTeamModal(team, blockIndex + 1);
                             }}
                           >
                             {team[1]}
@@ -234,6 +287,11 @@ export default function RankingSection({ ranking, t }) {
                 <p className="text-xs font-semibold uppercase tracking-wide text-blue-700">
                   {t.modalTitle}
                 </p>
+                {selectedTeamBlock !== null && (
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    {t.block} {selectedTeamBlock}
+                  </p>
+                )}
                 <h3 className="mt-1 text-xl font-bold text-[#0646c4]">
                   {selectedTeam[1]}
                 </h3>
