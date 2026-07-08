@@ -17,6 +17,8 @@ import {
 import { getTranslations, normalizeLanguage } from "./i18n";
 
 export default function App() {
+  const showExportSection = false;
+
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
     return normalizeLanguage(stored);
@@ -50,7 +52,7 @@ export default function App() {
       />
 
       <HeroSection t={t.hero} />
-      <ExportActionsSection t={t.export} />
+      {showExportSection && <ExportActionsSection t={t.export} />}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
         <StatsSection t={t.stats} />

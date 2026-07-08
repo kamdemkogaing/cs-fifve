@@ -38,13 +38,22 @@ const translations = {
       preparingExport: "Préparation de l'export...",
       creatingPdf: "Création du PDF en cours...",
       creatingPng: "Création du PNG en cours...",
+      fallbackCapture:
+        "Compatibilité export activée (rendu simplifié) pour contourner une limitation de style.",
       successPdf: "PDF téléchargé avec succès.",
       successPng: "PNG téléchargé avec succès.",
+      successPdfFallback:
+        "PDF téléchargé avec succès (version simplifiée compatible).",
+      successPngFallback:
+        "PNG téléchargé avec succès (version simplifiée compatible).",
       errorMissingSections:
         "Impossible de trouver toutes les sections à exporter.",
       errorCrossOrigin:
         "Certaines images externes ne peuvent pas être exportées. Relancez l'export: le contenu principal sera bien téléchargé.",
       errorGeneric: "Une erreur est survenue pendant l'export.",
+      debugLabel: "Détail technique",
+      debugHint:
+        "Mode debug actif (dev/admin). Activez aussi avec ?debugExport=1 ou localStorage fifve-export-debug=1.",
     },
     stats: {
       teamsRanked: "équipes classées",
@@ -121,10 +130,17 @@ const translations = {
       title: "Combinaisons des rencontres FIFVE Cologne 2026",
       subtitle:
         "La programmation officielle sera publiée le vendredi 24/07/2026 à 20h00 (Europe/Berlin).",
+      releaseLabel: "Publication",
+      timezoneLabel: "Fuseau horaire",
+      timezoneValue: "Europe/Berlin",
+      statusLabel: "Statut",
+      statusOpen: "Disponible",
+      statusLocked: "Verrouillé",
       lockedUntil: "Accès verrouillé jusqu'au",
       days: "Jours",
       hours: "Heures",
       minutes: "Minutes",
+      linksLabel: "Lien officiel",
       linkOne: "Tableau principal - Part 1 (6 fields)",
       linkTwo: "Tableau principal - Part 2",
       openLink: "Ouvrir le lien",
@@ -137,8 +153,16 @@ const translations = {
     },
     location: {
       title: "Lieu du tournoi",
+      venueLabel: "Site officiel",
+      venueName: "FIFVE Cologne - Lindenthal",
+      dateLabel: "Date",
       date: "Samedi 25 juillet 2026",
+      addressLabel: "Adresse",
+      address: "Salzburger Weg 20, 50858 Lindenthal",
       mapsButton: "Ouvrir dans Google Maps",
+      routeButton: "Itinéraire",
+      locationNote:
+        "Astuce: arrivez 2h  avant le coup d'envoi pour faciliter l'accès et le stationnement.",
     },
     footer: {
       slogan: "Football our Passion",
@@ -192,12 +216,21 @@ const translations = {
       preparingExport: "Preparing export...",
       creatingPdf: "Creating PDF...",
       creatingPng: "Creating PNG...",
+      fallbackCapture:
+        "Export compatibility mode enabled (simplified rendering) to bypass a style limitation.",
       successPdf: "PDF downloaded successfully.",
       successPng: "PNG downloaded successfully.",
+      successPdfFallback:
+        "PDF downloaded successfully (compatible simplified version).",
+      successPngFallback:
+        "PNG downloaded successfully (compatible simplified version).",
       errorMissingSections: "Unable to find all sections to export.",
       errorCrossOrigin:
         "Some external images cannot be exported. Retry export: the main content will still be downloaded.",
       errorGeneric: "An error occurred during export.",
+      debugLabel: "Technical detail",
+      debugHint:
+        "Debug mode active (dev/admin). You can also enable it with ?debugExport=1 or localStorage fifve-export-debug=1.",
     },
     stats: {
       teamsRanked: "ranked teams",
@@ -274,10 +307,17 @@ const translations = {
       title: "FIFVE Cologne 2026 match combinations",
       subtitle:
         "The official schedule will be published on Friday 24/07/2026 at 20:00 (Europe/Berlin).",
+      releaseLabel: "Release",
+      timezoneLabel: "Time zone",
+      timezoneValue: "Europe/Berlin",
+      statusLabel: "Status",
+      statusOpen: "Available",
+      statusLocked: "Locked",
       lockedUntil: "Access locked until",
       days: "Days",
       hours: "Hours",
       minutes: "Minutes",
+      linksLabel: "Official link",
       linkOne: "Main bracket - Part 1 (6 fields)",
       linkTwo: "Main bracket - Part 2",
       openLink: "Open link",
@@ -290,8 +330,16 @@ const translations = {
     },
     location: {
       title: "Tournament venue",
+      venueLabel: "Official venue",
+      venueName: "FIFVE Cologne - Lindenthal",
+      dateLabel: "Date",
       date: "Saturday, July 25, 2026",
+      addressLabel: "Address",
+      address: "Salzburger Weg 20, 50858 Lindenthal",
       mapsButton: "Open in Google Maps",
+      routeButton: "Get directions",
+      locationNote:
+        "Tip: arrive 2 hours before kickoff for easier access and parking.",
     },
     footer: {
       slogan: "Football our Passion",

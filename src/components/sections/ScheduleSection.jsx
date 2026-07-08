@@ -1,4 +1,11 @@
-import { CalendarClock, ExternalLink, Lock, QrCode } from "lucide-react";
+import {
+  CalendarClock,
+  Clock3,
+  ExternalLink,
+  Link2,
+  Lock,
+  QrCode,
+} from "lucide-react";
 
 function getRemainingParts(ms) {
   const totalMinutes = Math.floor(ms / 60000);
@@ -11,7 +18,7 @@ function getRemainingParts(ms) {
 
 function CountdownCard({ value, label }) {
   return (
-    <div className="rounded-xl border border-amber-200 bg-white px-3 py-2 text-center">
+    <div className="rounded-xl border border-amber-200 bg-white px-3 py-2 text-center shadow-sm">
       <p className="text-2xl font-extrabold text-[#0646c4]">{value}</p>
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
         {label}
@@ -22,8 +29,11 @@ function CountdownCard({ value, label }) {
 
 function ScheduleLinkCard({ title, url, isVisible, t }) {
   return (
-    <article className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
-      <p className="text-base font-semibold text-[#0646c4]">{title}</p>
+    <article className="rounded-2xl border border-blue-100 bg-linear-to-b from-white to-blue-50/40 p-4 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {t.linksLabel}
+      </p>
+      <p className="mt-1 text-base font-semibold text-[#0646c4]">{title}</p>
 
       {isVisible ? (
         <a
@@ -84,6 +94,42 @@ export default function ScheduleSection({ currentTime, language, t }) {
           {t.subtitle}
         </p>
 
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          <div className="rounded-xl border border-blue-100 bg-white px-4 py-3 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              {t.releaseLabel}
+            </p>
+            <p className="mt-1 text-sm font-semibold text-[#0646c4]">
+              {releaseDateLabel}
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-blue-100 bg-white px-4 py-3 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              {t.timezoneLabel}
+            </p>
+            <p className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-[#0646c4]">
+              <Clock3 size={14} />
+              {t.timezoneValue}
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-blue-100 bg-white px-4 py-3 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              {t.statusLabel}
+            </p>
+            <p
+              className={`mt-1 inline-flex rounded-full px-2.5 py-1 text-xs font-bold ${
+                isScheduleVisible
+                  ? "bg-emerald-100 text-emerald-800"
+                  : "bg-amber-100 text-amber-900"
+              }`}
+            >
+              {isScheduleVisible ? t.statusOpen : t.statusLocked}
+            </p>
+          </div>
+        </div>
+
         {!isScheduleVisible && (
           <div className="mt-6 rounded-2xl border border-amber-300/70 bg-amber-50 p-4">
             <div className="flex flex-wrap items-center gap-2 text-amber-900">
@@ -118,14 +164,14 @@ export default function ScheduleSection({ currentTime, language, t }) {
 
         <div className="mt-5 rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
           <div className="flex items-center gap-2 text-[#0646c4]">
-            <QrCode size={18} />
+            <Link2 size={18} />
             <p className="text-base font-semibold">{t.qrTitle}</p>
           </div>
 
           <p className="mt-2 text-sm text-slate-600">{t.qrDescription}</p>
 
           <div className="mt-4 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50/40 p-5 text-center sm:flex-row sm:justify-start sm:gap-5">
-            <div className="flex h-28 w-28 items-center justify-center rounded-xl border border-blue-200 bg-white text-[#0646c4]">
+            <div className="flex h-28 w-28 items-center justify-center rounded-xl border border-blue-200 bg-white text-[#0646c4] shadow-sm">
               <QrCode size={44} />
             </div>
 

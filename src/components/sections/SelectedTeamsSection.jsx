@@ -42,26 +42,34 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
     }));
   }, [selectedTeamsByCountry, t.countryNames]);
 
+  const totalVisibleTeams = useMemo(
+    () => visibleGroups.reduce((sum, group) => sum + group.teams.length, 0),
+    [visibleGroups],
+  );
+
   return (
-    <section id="retenues" className="rounded-3xl bg-white p-6 shadow-lg">
+    <section
+      id="retenues"
+      className="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg"
+    >
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <h2 className="text-2xl font-bold text-[#0646c4] md:text-3xl">
           {t.title}
         </h2>
 
-        <div className="w-full rounded-2xl border border-blue-100 bg-linear-to-r from-blue-50 to-white p-3 shadow-sm lg:max-w-md">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[#0646c4]">
+        <div className="w-full rounded-2xl border border-blue-100 bg-linear-to-r from-blue-50 via-white to-blue-50 p-4 shadow-sm lg:max-w-xl">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#0646c4]">
             {t.filterPanelTitle}
           </p>
 
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             <label className="flex flex-col gap-1 text-sm font-medium text-slate-700">
               {t.filterByCountry}
               <div className="relative">
                 <select
                   value={selectedCountry}
                   onChange={(event) => setSelectedCountry(event.target.value)}
-                  className="w-full cursor-pointer appearance-none rounded-xl border border-blue-200 bg-white px-3 py-2 pr-10 text-sm text-slate-900 outline-none transition hover:border-blue-300 focus:border-[#0646c4] focus:ring-2 focus:ring-blue-100"
+                  className="w-full cursor-pointer appearance-none rounded-xl border border-blue-200 bg-white px-3 py-2.5 pr-10 text-sm text-slate-900 outline-none transition hover:border-blue-300 focus:border-[#0646c4] focus:ring-2 focus:ring-blue-100"
                 >
                   <option value="all">{t.allCountries}</option>
                   {countryOptions.map((country) => (
@@ -85,7 +93,7 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
                 <select
                   value={sortMode}
                   onChange={(event) => setSortMode(event.target.value)}
-                  className="w-full cursor-pointer appearance-none rounded-xl border border-blue-200 bg-white px-3 py-2 pr-10 text-sm text-slate-900 outline-none transition hover:border-blue-300 focus:border-[#0646c4] focus:ring-2 focus:ring-blue-100"
+                  className="w-full cursor-pointer appearance-none rounded-xl border border-blue-200 bg-white px-3 py-2.5 pr-10 text-sm text-slate-900 outline-none transition hover:border-blue-300 focus:border-[#0646c4] focus:ring-2 focus:ring-blue-100"
                 >
                   <option value="alpha-asc">{t.sortAlphaAsc}</option>
                   <option value="alpha-desc">{t.sortAlphaDesc}</option>
@@ -103,14 +111,14 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
         </div>
       </div>
 
-      <div className="mb-5 flex flex-wrap gap-2">
+      <div className="mb-5 flex flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={() => setSelectedCountry("all")}
           className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition ${
             selectedCountry === "all"
               ? "bg-[#0646c4] text-white shadow"
-              : "bg-blue-50 text-[#0646c4] hover:bg-blue-100"
+              : "border border-blue-200 bg-white text-[#0646c4] hover:bg-blue-50"
           }`}
         >
           {t.allCountries}
@@ -124,47 +132,54 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
             className={`cursor-pointer rounded-full px-3 py-1.5 text-sm font-medium transition ${
               selectedCountry === country.code
                 ? "bg-[#0646c4] text-white shadow"
-                : "bg-blue-50 text-[#0646c4] hover:bg-blue-100"
+                : "border border-blue-200 bg-white text-[#0646c4] hover:bg-blue-50"
             }`}
           >
             {country.name} ({country.count})
           </button>
         ))}
+
+        <span className="ml-auto rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-[#0646c4]">
+          {totalVisibleTeams}{" "}
+          {totalVisibleTeams > 1 ? t.teamPlural : t.teamSingular}
+        </span>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-5 xl:grid-cols-2">
         {visibleGroups.map((group) => (
           <div
             key={group.country}
-            className="rounded-2xl border border-blue-100 bg-blue-50/60 p-4"
+            className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm"
           >
-            <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-[#0646c4]">
-              <img
-                src={`https://flagcdn.com/24x18/${group.flagCode}.png`}
-                alt={group.country}
-                className="h-4 w-6 rounded-xs object-cover shadow-sm"
-                loading="lazy"
-                crossOrigin="anonymous"
-              />
-              <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#e6002d]">
+            <div className="flex items-center justify-between gap-3 border-b border-blue-100 bg-linear-to-r from-blue-50 to-white px-4 py-3">
+              <h3 className="flex items-center gap-3 text-base font-bold text-[#0646c4] md:text-lg">
+                <img
+                  src={`https://flagcdn.com/24x18/${group.flagCode}.png`}
+                  alt={group.country}
+                  className="h-5 w-7 rounded-xs object-cover shadow-sm"
+                  loading="lazy"
+                  crossOrigin="anonymous"
+                />
+                <span>{t.countryNames[group.flagCode] ?? group.country}</span>
+              </h3>
+              <span className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-[#e6002d] ring-1 ring-red-100">
                 {group.teams.length}{" "}
                 {group.teams.length > 1 ? t.teamPlural : t.teamSingular}
               </span>
-              <span>{t.countryNames[group.flagCode] ?? group.country}</span>
-            </h3>
+            </div>
 
-            <ul className="space-y-2">
+            <ul className="space-y-2 p-4">
               {group.teams.map((team) => (
                 <li
                   key={`${group.country}-${team.number}`}
-                  className="flex items-center gap-2 rounded-xl bg-white px-3 py-2"
+                  className="group flex items-center gap-3 rounded-xl border border-blue-100 bg-blue-50/40 px-3 py-2.5 transition hover:border-blue-200 hover:bg-blue-50"
                 >
-                  <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-[#0646c4]">
-                    <span className="text-sm leading-none" aria-hidden="true">
-                      ⚽
-                    </span>
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#0646c4] text-sm text-white">
+                    <span aria-hidden="true">⚽</span>
                   </span>
-                  <span>{team.name}</span>
+                  <span className="text-sm font-medium text-slate-800 group-hover:text-[#0646c4] md:text-base">
+                    {team.name}
+                  </span>
                 </li>
               ))}
             </ul>

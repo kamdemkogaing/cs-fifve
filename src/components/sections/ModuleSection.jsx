@@ -1,32 +1,50 @@
 export default function ModuleSection({ classementRules, t }) {
   return (
-    <section id="module" className="rounded-3xl bg-white p-6 shadow-lg">
+    <section
+      id="module"
+      className="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg"
+    >
       <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <h2 className="text-2xl font-bold text-[#0646c4] md:text-3xl">
           {t.title}
         </h2>
-        <p className="text-sm font-semibold text-[#0646c4] md:text-base">
+        <p className="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-[#0646c4] md:text-base">
           {t.effectiveDate}
         </p>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead className="bg-[#0646c4] text-white">
-            <tr>
-              <th className="p-3 text-left">{t.performance}</th>
-              <th className="p-3 text-left">{t.points}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {classementRules.map(([name, points], index) => (
-              <tr key={index} className="border-b">
-                <td className="p-3">{t.rules[index] ?? name}</td>
-                <td className="p-3 font-bold text-[#e6002d]">{points}</td>
+      <div className="overflow-hidden rounded-2xl border border-blue-100 shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-170 border-separate border-spacing-0">
+            <thead className="sticky top-0 z-10 bg-[#0646c4] text-white">
+              <tr>
+                <th className="border-b border-blue-200 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider md:text-sm">
+                  {t.performance}
+                </th>
+                <th className="border-b border-blue-200 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider md:text-sm">
+                  {t.points}
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {classementRules.map(([name, points], index) => (
+                <tr
+                  key={index}
+                  className="transition-colors odd:bg-white even:bg-blue-50/40 hover:bg-blue-50"
+                >
+                  <td className="border-b border-blue-100 px-4 py-3 text-sm text-slate-800 md:text-base">
+                    {t.rules[index] ?? name}
+                  </td>
+                  <td className="border-b border-blue-100 px-4 py-3">
+                    <span className="inline-flex min-w-18.5 items-center justify-center rounded-full bg-red-50 px-3 py-1 text-sm font-bold text-[#e6002d] ring-1 ring-red-100 md:text-base">
+                      {points}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="mt-6 rounded-2xl border border-blue-100 bg-linear-to-r from-blue-50 via-white to-blue-50 p-5 shadow-sm">
