@@ -30,11 +30,18 @@ const translations = {
     },
     module: {
       title: "Module de classement FIFVE 2026",
+      effectiveDate: "Applicable à compter du 01 janvier 2025",
       performance: "Performance",
       points: "Points",
       protectionTitle: "Protection sportive",
       protectionText:
-        "Les équipes issues d’une même ville ne pourront pas s’affronter lors des matchs de groupe : Bruxelles, Karlsruhe, Londres et Paris.",
+        "Afin de garantir une meilleure répartition sportive, les équipes issues d'une même ville ne pourront pas s'affronter lors des matchs de groupe du championnat simple.",
+      protectionRules: [
+        "Les équipes de Bruxelles ne pourront pas se rencontrer.",
+        "Les équipes de Karlsruhe ne pourront pas se rencontrer.",
+        "Les équipes de Londres ne pourront pas se rencontrer.",
+        "Les équipes de Paris ne pourront pas se rencontrer.",
+      ],
       rules: [
         "Vainqueur du tournoi FIFVE",
         "Finaliste",
@@ -150,11 +157,18 @@ const translations = {
     },
     module: {
       title: "FIFVE 2026 Scoring Module",
+      effectiveDate: "Applicable from January 1, 2025",
       performance: "Performance",
       points: "Points",
       protectionTitle: "Sporting protection",
       protectionText:
-        "Teams from the same city cannot play each other in the group stage: Brussels, Karlsruhe, London and Paris.",
+        "To ensure a better sporting distribution, teams from the same city will not be allowed to face each other during the single championship group-stage matches.",
+      protectionRules: [
+        "Teams from Brussels cannot face each other.",
+        "Teams from Karlsruhe cannot face each other.",
+        "Teams from London cannot face each other.",
+        "Teams from Paris cannot face each other.",
+      ],
       rules: [
         "FIFVE tournament winner",
         "Finalist",
