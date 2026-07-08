@@ -1,4 +1,9 @@
+import { MessageCircle } from "lucide-react";
+
 export default function Footer({ t }) {
+  const whatsappNumber = "491711721204";
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+
   return (
     <footer className="bg-[#0646c4] px-6 py-10 text-white">
       <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
@@ -18,6 +23,27 @@ export default function Footer({ t }) {
           <p>44787 Bochum, {t.country}</p>
           <p>bureau@fifve.com</p>
           <p>www.fifve.com</p>
+
+          <div className="mt-4 rounded-2xl border border-white/25 bg-white/10 p-3 backdrop-blur-sm">
+            <p className="text-sm text-blue-100">{t.whatsappLabel}</p>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 font-semibold text-[#06341d] transition-transform duration-200 hover:scale-[1.02] hover:bg-[#2af07a] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+              aria-label={`${t.whatsappAction} +49 171 1721204`}
+            >
+              <MessageCircle size={18} />
+              {t.whatsappAction}
+            </a>
+            <p className="mt-2 text-xs text-blue-100">+49 171 1721204</p>
+            <p className="mt-1 text-xs text-blue-100">
+              {t.contactPersonLabel}:{" "}
+              <span className="font-semibold text-white">
+                Téofile Tchakoumi
+              </span>
+            </p>
+          </div>
         </div>
 
         <div>

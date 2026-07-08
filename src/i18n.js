@@ -119,6 +119,9 @@ const translations = {
     footer: {
       slogan: "Football our Passion",
       contact: "Contact",
+      whatsappLabel: "Assistance rapide",
+      whatsappAction: "Contacter sur WhatsApp",
+      contactPersonLabel: "Personne de contact",
       tournament: "Tournoi 2026",
       date: "Samedi 25 juillet 2026",
       country: "Allemagne",
@@ -246,6 +249,9 @@ const translations = {
     footer: {
       slogan: "Football our Passion",
       contact: "Contact",
+      whatsappLabel: "Quick support",
+      whatsappAction: "Contact on WhatsApp",
+      contactPersonLabel: "Contact person",
       tournament: "Tournament 2026",
       date: "Saturday, July 25, 2026",
       country: "Germany",
