@@ -140,7 +140,7 @@ const translations = {
       subtitle:
         "Official page presenting sports information for the 2026 edition.",
       ballAlt: "Official FIFA World Cup 2026 match ball",
-      ballLabel: "Official FIFA World Cup 2026 match ball",
+      ballLabel: "",
     },
     stats: {
       teamsRanked: "ranked teams",
