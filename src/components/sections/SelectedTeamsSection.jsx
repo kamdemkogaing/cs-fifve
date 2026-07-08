@@ -1,8 +1,8 @@
-export default function SelectedTeamsSection({ selectedTeamsByCountry }) {
+export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
   return (
     <section id="retenues" className="rounded-3xl bg-white p-6 shadow-lg">
       <h2 className="mb-6 text-2xl font-bold text-[#0646c4] md:text-3xl">
-        24 équipes retenues pour la FIFVE 2026
+        {t.title}
       </h2>
 
       <div className="grid gap-5 md:grid-cols-2">
@@ -14,15 +14,15 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry }) {
             <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-[#0646c4]">
               <img
                 src={`https://flagcdn.com/24x18/${group.flagCode}.png`}
-                alt={`Drapeau ${group.country}`}
+                alt={group.country}
                 className="h-4 w-6 rounded-xs object-cover shadow-sm"
                 loading="lazy"
               />
               <span className="rounded-full bg-white px-2 py-0.5 text-xs font-semibold text-[#e6002d]">
                 {group.teams.length}{" "}
-                {group.teams.length > 1 ? "equipes" : "equipe"}
+                {group.teams.length > 1 ? t.teamPlural : t.teamSingular}
               </span>
-              <span>{group.country}</span>
+              <span>{t.countryNames[group.flagCode] ?? group.country}</span>
             </h3>
 
             <ul className="space-y-2">

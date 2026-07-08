@@ -20,7 +20,7 @@ function CountdownCard({ value, label }) {
   );
 }
 
-function ScheduleLinkCard({ title, url, isVisible }) {
+function ScheduleLinkCard({ title, url, isVisible, t }) {
   return (
     <article className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
       <p className="text-base font-semibold text-[#0646c4]">{title}</p>
@@ -32,24 +32,24 @@ function ScheduleLinkCard({ title, url, isVisible }) {
           rel="noreferrer"
           className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#0646c4] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#04379a]"
         >
-          Ouvrir le lien
+          {t.openLink}
           <ExternalLink size={16} />
         </a>
       ) : (
         <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-500">
           <Lock size={14} />
-          Lien indisponible pour le moment
+          {t.linkUnavailable}
         </div>
       )}
     </article>
   );
 }
 
-export default function ScheduleSection({ currentTime }) {
+export default function ScheduleSection({ currentTime, language, t }) {
   const scheduleReleaseTimestamp = Date.parse("2026-07-24T18:00:00Z");
   const isScheduleVisible = currentTime >= scheduleReleaseTimestamp;
   const releaseDateLabel = new Date(scheduleReleaseTimestamp).toLocaleString(
-    "fr-FR",
+    language === "en" ? "en-GB" : "fr-FR",
     {
       timeZone: "Europe/Berlin",
       day: "2-digit",
@@ -74,15 +74,14 @@ export default function ScheduleSection({ currentTime }) {
       <div className="relative">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#0646c4]/20 bg-white/90 px-3 py-1 text-sm font-semibold text-[#0646c4]">
           <CalendarClock size={16} />
-          Programmation des matchs
+          {t.badge}
         </div>
 
         <h2 className="text-2xl font-bold text-[#0646c4] md:text-3xl">
-          Combinaisons des rencontres FIFVE Cologne 2026
+          {t.title}
         </h2>
         <p className="mt-3 max-w-3xl text-sm text-slate-700 md:text-base">
-          La programmation officielle sera publiée le vendredi 24/07/2026 à
-          20h00 (Europe/Berlin).
+          {t.subtitle}
         </p>
 
         {!isScheduleVisible && (
@@ -90,41 +89,40 @@ export default function ScheduleSection({ currentTime }) {
             <div className="flex flex-wrap items-center gap-2 text-amber-900">
               <Lock size={16} />
               <p className="font-semibold">
-                Accès verrouillé jusqu'au {releaseDateLabel}
+                {t.lockedUntil} {releaseDateLabel}
               </p>
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3 sm:max-w-md">
-              <CountdownCard value={remaining.days} label="Jours" />
-              <CountdownCard value={remaining.hours} label="Heures" />
-              <CountdownCard value={remaining.minutes} label="Minutes" />
+              <CountdownCard value={remaining.days} label={t.days} />
+              <CountdownCard value={remaining.hours} label={t.hours} />
+              <CountdownCard value={remaining.minutes} label={t.minutes} />
             </div>
           </div>
         )}
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <ScheduleLinkCard
-            title="Tableau principal - Part 1 (6 fields)"
+            title={t.linkOne}
             url="https://www.meinturnierplan.de/c/tmfs3ecd/fifve-cologne-2026-part-1-6-felds/"
             isVisible={isScheduleVisible}
+            t={t}
           />
           <ScheduleLinkCard
-            title="Tableau principal - Part 2"
+            title={t.linkTwo}
             url="https://www.meinturnierplan.de/showit.php?id=2jw4wox3ow"
             isVisible={isScheduleVisible}
+            t={t}
           />
         </div>
 
         <div className="mt-5 rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
           <div className="flex items-center gap-2 text-[#0646c4]">
             <QrCode size={18} />
-            <p className="text-base font-semibold">Accès rapide QR Code</p>
+            <p className="text-base font-semibold">{t.qrTitle}</p>
           </div>
 
-          <p className="mt-2 text-sm text-slate-600">
-            Espace réservé pour le QR Code donnant accès aux combinaisons des
-            rencontres.
-          </p>
+          <p className="mt-2 text-sm text-slate-600">{t.qrDescription}</p>
 
           <div className="mt-4 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50/40 p-5 text-center sm:flex-row sm:justify-start sm:gap-5">
             <div className="flex h-28 w-28 items-center justify-center rounded-xl border border-blue-200 bg-white text-[#0646c4]">
@@ -133,11 +131,9 @@ export default function ScheduleSection({ currentTime }) {
 
             <div className="mt-3 sm:mt-0">
               <p className="text-sm font-semibold text-[#0646c4]">
-                Emplacement du visuel QR
+                {t.qrPlaceholderTitle}
               </p>
-              <p className="mt-1 text-xs text-slate-600">
-                Suggestion: public/images/qr-combinaisons-fifve.png
-              </p>
+              <p className="mt-1 text-xs text-slate-600">{t.qrSuggestion}</p>
             </div>
           </div>
         </div>

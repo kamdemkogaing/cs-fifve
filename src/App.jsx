@@ -13,10 +13,21 @@ import {
   ranking,
   selectedTeamsByCountry,
 } from "./data/fifveData";
+import { getTranslations, normalizeLanguage } from "./i18n";
 
 export default function App() {
+  const [language, setLanguage] = useState(() => {
+    const stored = window.localStorage.getItem("fifve-language");
+    return normalizeLanguage(stored);
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(() => Date.now());
+  const t = getTranslations(language);
+
+  useEffect(() => {
+    window.localStorage.setItem("fifve-language", language);
+    document.documentElement.lang = language;
+  }, [language]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,25 +38,35 @@ export default function App() {
   }, []);
 
   return (
-    <div className="pt-28">
+    <div id="home" className="pt-28">
       <Header
+        language={language}
+        setLanguage={setLanguage}
+        t={t.header}
         mobileMenuOpen={mobileMenuOpen}
         onToggleMenu={() => setMobileMenuOpen((prev) => !prev)}
         onCloseMenu={() => setMobileMenuOpen(false)}
       />
 
-      <HeroSection />
+      <HeroSection t={t.hero} />
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
-        <StatsSection />
-        <ModuleSection classementRules={classementRules} />
-        <RankingSection ranking={ranking} />
-        <SelectedTeamsSection selectedTeamsByCountry={selectedTeamsByCountry} />
-        <ScheduleSection currentTime={currentTime} />
-        <LocationSection />
+        <StatsSection t={t.stats} />
+        <ModuleSection classementRules={classementRules} t={t.module} />
+        <RankingSection ranking={ranking} t={t.ranking} />
+        <SelectedTeamsSection
+          selectedTeamsByCountry={selectedTeamsByCountry}
+          t={t.selected}
+        />
+        <ScheduleSection
+          currentTime={currentTime}
+          language={language}
+          t={t.schedule}
+        />
+        <LocationSection t={t.location} />
       </main>
 
-      <Footer />
+      <Footer t={t.footer} />
     </div>
   );
 }

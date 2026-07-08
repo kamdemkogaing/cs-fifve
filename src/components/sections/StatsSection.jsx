@@ -10,13 +10,13 @@ function Card({ icon, title, text }) {
   );
 }
 
-export default function StatsSection() {
+export default function StatsSection({ t }) {
   return (
     <section className="grid gap-6 md:grid-cols-4">
-      <Card icon={<Trophy />} title="53" text="équipes classées" />
-      <Card icon={<Users />} title="24" text="équipes retenues" />
-      <Card icon={<Medal />} title="116" text="points du leader" />
-      <Card icon={<MapPin />} title="25 juillet 2026" text="tournoi FIFVE" />
+      <Card icon={<Trophy />} title="53" text={t.teamsRanked} />
+      <Card icon={<Users />} title="24" text={t.teamsSelected} />
+      <Card icon={<Medal />} title="116" text={t.leaderPoints} />
+      <Card icon={<MapPin />} title="25 juillet 2026" text={t.tournament} />
     </section>
   );
 }

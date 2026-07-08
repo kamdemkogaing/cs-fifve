@@ -1,13 +1,13 @@
-export default function LocationSection() {
+export default function LocationSection({ t }) {
   return (
     <section id="lieu" className="rounded-3xl bg-white p-6 shadow-lg">
       <h2 className="mb-4 text-2xl font-bold text-[#0646c4] md:text-3xl">
-        Lieu du tournoi
+        {t.title}
       </h2>
 
       <div className="grid gap-8 md:grid-cols-2">
         <div>
-          <p className="text-lg font-semibold">Samedi 25 juillet 2026</p>
+          <p className="text-lg font-semibold">{t.date}</p>
           <p className="mt-3 text-xl">Salzburger Weg 20, 50858 Lindenthal</p>
 
           <a
@@ -16,7 +16,7 @@ export default function LocationSection() {
             rel="noreferrer"
             className="mt-6 inline-block rounded-full bg-[#e6002d] px-6 py-3 font-bold text-white"
           >
-            Ouvrir dans Google Maps
+            {t.mapsButton}
           </a>
         </div>
 
