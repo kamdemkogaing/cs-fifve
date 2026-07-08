@@ -19,6 +19,8 @@ const translations = {
       title: "Classement officiel, module de points et équipes retenues",
       subtitle:
         "Page officielle de présentation des informations sportives de l’édition 2026.",
+      ballAlt: "Ballon officiel de la Coupe du monde 2026",
+      ballLabel: "",
     },
     stats: {
       teamsRanked: "équipes classées",
@@ -137,6 +139,8 @@ const translations = {
       title: "Official rankings, scoring module and selected teams",
       subtitle:
         "Official page presenting sports information for the 2026 edition.",
+      ballAlt: "Official FIFA World Cup 2026 match ball",
+      ballLabel: "Official FIFA World Cup 2026 match ball",
     },
     stats: {
       teamsRanked: "ranked teams",
