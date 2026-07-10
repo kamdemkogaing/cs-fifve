@@ -6,6 +6,7 @@ import {
   Lock,
   QrCode,
 } from "lucide-react";
+import { useState } from "react";
 
 function getRemainingParts(ms) {
   const totalMinutes = Math.floor(ms / 60000);
@@ -51,6 +52,55 @@ function ScheduleLinkCard({ title, url, isVisible, t }) {
           {t.linkUnavailable}
         </div>
       )}
+    </article>
+  );
+}
+
+function QrAccessCard({ title, imagePath, linkUrl, hint, isVisible, t }) {
+  const [hasImageError, setHasImageError] = useState(false);
+
+  return (
+    <article className="rounded-2xl border border-blue-200 bg-white p-4 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+        {t.linksLabel}
+      </p>
+      <h3 className="mt-1 text-base font-semibold text-[#0646c4]">{title}</h3>
+
+      <div className="mt-3 flex items-center gap-4 rounded-xl border border-blue-100 bg-blue-50/40 p-3">
+        <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-lg border border-blue-200 bg-white text-[#0646c4] shadow-sm">
+          {hasImageError ? (
+            <QrCode size={36} />
+          ) : (
+            <img
+              src={imagePath}
+              alt={`${title} QR code`}
+              className="h-20 w-20 rounded-md object-contain"
+              loading="lazy"
+              onError={() => setHasImageError(true)}
+            />
+          )}
+        </div>
+
+        <div>
+          <p className="text-xs font-medium text-slate-600">{hint}</p>
+          {isVisible ? (
+            <a
+              href={linkUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex items-center gap-2 rounded-full bg-[#0646c4] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#04379a]"
+            >
+              {t.openLink}
+              <ExternalLink size={14} />
+            </a>
+          ) : (
+            <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-500">
+              <Lock size={13} />
+              {t.linkUnavailable}
+            </div>
+          )}
+        </div>
+      </div>
     </article>
   );
 }
@@ -170,18 +220,26 @@ export default function ScheduleSection({ currentTime, language, t }) {
 
           <p className="mt-2 text-sm text-slate-600">{t.qrDescription}</p>
 
-          <div className="mt-4 flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50/40 p-5 text-center sm:flex-row sm:justify-start sm:gap-5">
-            <div className="flex h-28 w-28 items-center justify-center rounded-xl border border-blue-200 bg-white text-[#0646c4] shadow-sm">
-              <QrCode size={44} />
-            </div>
-
-            <div className="mt-3 sm:mt-0">
-              <p className="text-sm font-semibold text-[#0646c4]">
-                {t.qrPlaceholderTitle}
-              </p>
-              <p className="mt-1 text-xs text-slate-600">{t.qrSuggestion}</p>
-            </div>
+          <div className="mt-4 grid gap-3 lg:grid-cols-2">
+            <QrAccessCard
+              title={t.linkOne}
+              imagePath="/images/qr-combinaisons-fifve-part-1.png"
+              linkUrl="https://www.meinturnierplan.de/c/tmfs3ecd/fifve-cologne-2026-part-1-6-felds/"
+              hint={t.qrPartOneHint}
+              isVisible={isScheduleVisible}
+              t={t}
+            />
+            <QrAccessCard
+              title={t.linkTwo}
+              imagePath="/images/qr-combinaisons-fifve-part-2.png"
+              linkUrl="https://www.meinturnierplan.de/showit.php?id=2jw4wox3ow"
+              hint={t.qrPartTwoHint}
+              isVisible={isScheduleVisible}
+              t={t}
+            />
           </div>
+
+          <p className="mt-3 text-xs text-slate-500">{t.qrSuggestion}</p>
         </div>
       </div>
     </section>
