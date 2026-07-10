@@ -6,21 +6,30 @@ import {
   Lock,
   QrCode,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function getRemainingParts(ms) {
-  const totalMinutes = Math.floor(ms / 60000);
-  const days = Math.floor(totalMinutes / 1440);
-  const hours = Math.floor((totalMinutes % 1440) / 60);
-  const minutes = totalMinutes % 60;
+  const totalSeconds = Math.floor(ms / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
-  return { days, hours, minutes };
+  return { days, hours, minutes, seconds };
 }
 
-function CountdownCard({ value, label }) {
+function CountdownCard({ value, label, isSeconds = false }) {
+  const displayValue = String(value).padStart(2, "0");
+
   return (
     <div className="rounded-xl border border-amber-200 bg-white px-3 py-2 text-center shadow-sm">
-      <p className="text-2xl font-extrabold text-[#0646c4]">{value}</p>
+      <p
+        className={`text-2xl font-extrabold tabular-nums text-[#0646c4] ${
+          isSeconds ? "animate-pulse" : ""
+        }`}
+      >
+        {displayValue}
+      </p>
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
         {label}
       </p>
@@ -56,7 +65,15 @@ function ScheduleLinkCard({ title, url, isVisible, t }) {
   );
 }
 
-function QrAccessCard({ title, imagePath, linkUrl, hint, isVisible, t }) {
+function QrAccessCard({
+  title,
+  imagePath,
+  linkUrl,
+  hint,
+  isVisible,
+  releaseDateLabel,
+  t,
+}) {
   const [hasImageError, setHasImageError] = useState(false);
 
   return (
@@ -68,7 +85,14 @@ function QrAccessCard({ title, imagePath, linkUrl, hint, isVisible, t }) {
 
       <div className="mt-3 flex items-center gap-4 rounded-xl border border-blue-100 bg-blue-50/40 p-3">
         <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-lg border border-blue-200 bg-white text-[#0646c4] shadow-sm">
-          {hasImageError ? (
+          {!isVisible ? (
+            <div className="flex flex-col items-center text-slate-500">
+              <Lock size={26} />
+              <span className="mt-1 text-[10px] font-semibold uppercase tracking-wide">
+                Lock
+              </span>
+            </div>
+          ) : hasImageError ? (
             <QrCode size={36} />
           ) : (
             <img
@@ -82,7 +106,9 @@ function QrAccessCard({ title, imagePath, linkUrl, hint, isVisible, t }) {
         </div>
 
         <div>
-          <p className="text-xs font-medium text-slate-600">{hint}</p>
+          <p className="text-xs font-medium text-slate-600">
+            {isVisible ? hint : `${t.lockedUntil} ${releaseDateLabel}`}
+          </p>
           {isVisible ? (
             <a
               href={linkUrl}
@@ -106,8 +132,22 @@ function QrAccessCard({ title, imagePath, linkUrl, hint, isVisible, t }) {
 }
 
 export default function ScheduleSection({ currentTime, language, t }) {
+  const [liveTime, setLiveTime] = useState(currentTime);
+
+  useEffect(() => {
+    setLiveTime(currentTime);
+  }, [currentTime]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLiveTime(Date.now());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const scheduleReleaseTimestamp = Date.parse("2026-07-24T18:00:00Z");
-  const isScheduleVisible = currentTime >= scheduleReleaseTimestamp;
+  const isScheduleVisible = liveTime >= scheduleReleaseTimestamp;
   const releaseDateLabel = new Date(scheduleReleaseTimestamp).toLocaleString(
     language === "en" ? "en-GB" : "fr-FR",
     {
@@ -120,7 +160,7 @@ export default function ScheduleSection({ currentTime, language, t }) {
     },
   );
 
-  const remainingMs = Math.max(0, scheduleReleaseTimestamp - currentTime);
+  const remainingMs = Math.max(0, scheduleReleaseTimestamp - liveTime);
   const remaining = getRemainingParts(remainingMs);
 
   return (
@@ -189,10 +229,15 @@ export default function ScheduleSection({ currentTime, language, t }) {
               </p>
             </div>
 
-            <div className="mt-4 grid grid-cols-3 gap-3 sm:max-w-md">
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:max-w-2xl sm:grid-cols-4">
               <CountdownCard value={remaining.days} label={t.days} />
               <CountdownCard value={remaining.hours} label={t.hours} />
               <CountdownCard value={remaining.minutes} label={t.minutes} />
+              <CountdownCard
+                value={remaining.seconds}
+                label={t.seconds}
+                isSeconds
+              />
             </div>
           </div>
         )}
@@ -227,6 +272,7 @@ export default function ScheduleSection({ currentTime, language, t }) {
               linkUrl="https://www.meinturnierplan.de/c/tmfs3ecd/fifve-cologne-2026-part-1-6-felds/"
               hint={t.qrPartOneHint}
               isVisible={isScheduleVisible}
+              releaseDateLabel={releaseDateLabel}
               t={t}
             />
             <QrAccessCard
@@ -235,6 +281,7 @@ export default function ScheduleSection({ currentTime, language, t }) {
               linkUrl="https://www.meinturnierplan.de/showit.php?id=2jw4wox3ow"
               hint={t.qrPartTwoHint}
               isVisible={isScheduleVisible}
+              releaseDateLabel={releaseDateLabel}
               t={t}
             />
           </div>
