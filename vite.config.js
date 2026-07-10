@@ -6,20 +6,19 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
 
   build: {
+    // Neuer Build-Ordner
+    outDir: "dist_cs",
+
     // Warnung erst ab 700 kB anzeigen
     chunkSizeWarningLimit: 700,
 
-    // Rolldown Build-Optionen
-    rolldownOptions: {
+    rollupOptions: {
       output: {
         codeSplitting: true,
       },
     },
 
-    // Minifizierung aktivieren
     minify: true,
-
-    // Source Maps im Production-Build deaktivieren
     sourcemap: false,
   },
 
