@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "oxlint",
+    "deploy": "node scripts/deploy.js",
+    "build:deploy": "npm run build && npm run deploy",
     "preview": "vite preview",
     "desktop:icon": "node scripts/generate-desktop-icon.mjs",
     "desktop:dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
@@ -30,10 +31,12 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "concurrently": "^9.2.1",
+    "dotenv": "^17.4.2",
     "electron": "^38.1.0",
     "electron-builder": "^26.0.12",
     "oxlint": "^1.71.0",
     "sharp": "^0.35.3",
+    "ssh2-sftp-client": "^12.1.1",
     "to-ico": "^1.1.5",
     "vite": "^8.1.1",
     "wait-on": "^8.0.5"
@@ -42,7 +45,7 @@
     "appId": "org.fifve.desktop",
     "productName": "FIFVE",
     "files": [
-      "dist/**/*",
+      "dist_cs/**/*",
       "electron/**/*",
       "package.json"
     ],

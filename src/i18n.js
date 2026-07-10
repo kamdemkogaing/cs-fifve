@@ -59,7 +59,7 @@ const translations = {
       teamsRanked: "équipes classées",
       teamsSelected: "équipes retenues",
       leaderPoints: "points du leader",
-      tournament: "tournoi FIFVE",
+      tournament: "tournoi FIFVE Cologne",
     },
     module: {
       title: "Module de classement FIFVE 2026",
@@ -245,7 +245,7 @@ const translations = {
       teamsRanked: "ranked teams",
       teamsSelected: "selected teams",
       leaderPoints: "leader points",
-      tournament: "FIFVE tournament",
+      tournament: "FIFVE tournament Cologne",
     },
     module: {
       title: "FIFVE 2026 Scoring Module",

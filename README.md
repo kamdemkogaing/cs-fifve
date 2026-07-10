@@ -67,3 +67,9 @@ Sortie par defaut:
 ```text
 C:/temp/fifve-release/win-unpacked
 ```
+
+### 5) deployen
+
+Nur lokal bauen : npm run build
+Bauen und automatisch zu IONOS hochladen : npm run build:deploy
+Nur zu IONOS hochladen : npm run deploy
