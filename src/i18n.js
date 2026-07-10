@@ -91,8 +91,7 @@ const translations = {
     ranking: {
       title: "Classement actuel des 53 équipes FIFVE",
       block: "Bloc",
-      tableHint:
-        "Tableau simplifié: cliquez sur une équipe pour voir les détails.",
+      tableHint: "Cliquez sur une équipe pour voir les détails.",
       clickRowHint: "Cliquez sur une ligne pour afficher la fiche équipe",
       searchLabel: "Rechercher une équipe",
       searchPlaceholder: "Nom de l'équipe",
@@ -277,7 +276,7 @@ const translations = {
     ranking: {
       title: "Current ranking of the 53 FIFVE teams",
       block: "Block",
-      tableHint: "Simplified table: click a team to view details.",
+      tableHint: "Click a team to view details.",
       clickRowHint: "Click a row to open team details",
       searchLabel: "Search a team",
       searchPlaceholder: "Team name",
