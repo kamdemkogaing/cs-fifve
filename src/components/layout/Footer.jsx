@@ -1,8 +1,38 @@
-import { Globe, Mail, MapPin, MessageCircle, Trophy } from "lucide-react";
+import {
+  ExternalLink,
+  Globe,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Trophy,
+} from "lucide-react";
 
 export default function Footer({ t }) {
   const whatsappNumber = "491711721204";
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+  const venueAddresses = [
+    {
+      key: "stadium",
+      label: t.stadiumLabel,
+      lines: ["Salzburger Weg 20", "50933 Koln"],
+      mapsUrl:
+        "https://www.google.com/maps/search/?api=1&query=Salzburger+Weg+20,+50933+Koln",
+    },
+    {
+      key: "conference",
+      label: t.conferenceLabel,
+      lines: ["Friedrich-Ebert-Strasse 40", "50354 Hurth"],
+      mapsUrl:
+        "https://www.google.com/maps/search/?api=1&query=Friedrich-Ebert-Strasse+40,+50354+Hurth",
+    },
+    {
+      key: "partyHall",
+      label: t.partyHallLabel,
+      lines: ["Biesterfeldstrasse 7", "50829 Koln"],
+      mapsUrl:
+        "https://www.google.com/maps/search/?api=1&query=Biesterfeldstrasse+7,+50829+Koln",
+    },
+  ];
 
   return (
     <footer className="relative overflow-hidden border-t border-white/15 bg-linear-to-br from-[#04379a] via-[#0646c4] to-[#0a5bcf] px-6 py-10 text-white">
@@ -84,8 +114,35 @@ export default function Footer({ t }) {
             <Trophy size={14} />
             {t.date}
           </p>
-          <p className="mt-3 text-sm text-blue-100">Salzburger Weg 20</p>
-          <p className="text-sm text-blue-100">50858 Lindenthal</p>
+
+          <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-blue-100">
+            {t.venuesTitle}
+          </p>
+
+          <div className="mt-3 space-y-3">
+            {venueAddresses.map((venue) => (
+              <article
+                key={venue.key}
+                className="rounded-xl border border-white/20 bg-white/10 p-3"
+              >
+                <p className="text-sm font-semibold text-white">
+                  {venue.label}
+                </p>
+                <p className="mt-1 text-sm text-blue-100">{venue.lines[0]}</p>
+                <p className="text-sm text-blue-100">{venue.lines[1]}</p>
+                <a
+                  href={venue.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/25"
+                >
+                  <MapPin size={13} />
+                  {t.openMap}
+                  <ExternalLink size={12} />
+                </a>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -22,6 +22,8 @@ export default function Header({
   }, []);
 
   const navItems = [
+    { href: "#reunion", label: t.nav.reunion },
+    { href: "#team", label: t.nav.team },
     { href: "#module", label: t.nav.module },
     { href: "#classement", label: t.nav.classement },
     { href: "#retenues", label: t.nav.retenues },

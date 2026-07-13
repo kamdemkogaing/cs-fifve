@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
+import ClubTeamSection from "./components/sections/ClubTeamSection";
 import ExportActionsSection from "./components/sections/ExportActionsSection";
 import HeroSection from "./components/sections/HeroSection";
 import LocationSection from "./components/sections/LocationSection";
+import MeetingSection from "./components/sections/MeetingSection";
 import ModuleSection from "./components/sections/ModuleSection";
 import RankingSection from "./components/sections/RankingSection";
 import ScheduleSection from "./components/sections/ScheduleSection";
@@ -69,7 +71,7 @@ export default function App() {
   const remaining = getRemainingParts(remainingMs);
 
   return (
-    <div id="home" className="pt-28">
+    <div id="home" className="pt-36 md:pt-42">
       <Header
         language={language}
         setLanguage={setLanguage}
@@ -86,9 +88,11 @@ export default function App() {
         isScheduleVisible={isScheduleVisible}
         scheduleT={t.schedule}
       />
+      <MeetingSection t={t.meeting} />
       {showExportSection && <ExportActionsSection t={t.export} />}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
+        <ClubTeamSection t={t.team} />
         <StatsSection t={t.stats} />
         <ModuleSection classementRules={classementRules} t={t.module} />
         <RankingSection ranking={ranking} t={t.ranking} />

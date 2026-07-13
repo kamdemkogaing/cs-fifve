@@ -4,6 +4,8 @@ const translations = {
       federationName: "Fédération Internationale de Football Vétérans",
       slogan: "Football our Passion",
       nav: {
+        reunion: "Réunion",
+        team: "Equipe",
         module: "Module",
         classement: "Classement",
         retenues: "Équipes retenues",
@@ -159,6 +161,58 @@ const translations = {
       qrPartTwoHint: "Scanner pour ouvrir directement la Part 2.",
       qrSuggestion: "",
     },
+    meeting: {
+      badge: "Séance de travail",
+      title: "Meet with Coachs, DS, DT, TM / FIFVE 2026",
+      description:
+        "Salut chers (chères) membres (Entraîneurs, Coach, Directeurs sportifs, Directeurs techniques, Team manager) de la FIFVE. Vous êtes invités à une séance de travail dédiée au Week-end FIFVE 2026 à Cologne.",
+      dateLabel: "Date",
+      dateValue: "Vendredi 17 juillet 2026",
+      timeLabel: "Heure",
+      timeValue: "21h00 à 22h30 (Cologne) / 20h00 à 21h30 (Londres)",
+      joinButton: "Rejoindre sur Google Meet",
+      copyButton: "Copier le lien",
+      copiedLabel: "Lien copié",
+      meetHint:
+        "Durée: 90 minutes. Merci de vous connecter quelques minutes avant le début.",
+      meetUrl: "https://meet.google.com/huk-ijth-nnx",
+      agendaTitle: "Ordre de séance",
+      agenda: [
+        {
+          time: "21h00 - 21h05",
+          title: "Connexion et commentaire",
+          points: [],
+        },
+        {
+          time: "21h05 - 22h20",
+          title: "Informations générales concernant le Week-end FIFVE 2026",
+          points: [
+            "Module classement FIFVE juillet 2026",
+            "Module des stades",
+            "Module des contrôles des licences",
+            "Module cérémonie évènementielle",
+            "Module du calendrier des matches",
+            "Tirage au sort",
+          ],
+        },
+        {
+          time: "22h20 - 22h30",
+          title: "Divers et débat ouvert",
+          points: [],
+        },
+      ],
+      footerNote:
+        "Bonne préparation au Week-end FIFVE 2026. Club sportif de la FIFVE.",
+    },
+    team: {
+      badge: "Club Sportif FIFVE",
+      title: "Notre equipe",
+      subtitle:
+        "Cliquez sur un membre pour ouvrir WhatsApp et envoyer rapidement un message.",
+      whatsappAction: "WhatsApp",
+      whatsappTemplate:
+        "Bonjour Club Sportif FIFVE, je souhaite contacter {name}.",
+    },
     location: {
       title: "Lieu du tournoi",
       venueLabel: "Site officiel",
@@ -181,6 +235,11 @@ const translations = {
       tournament: "Tournoi 2026",
       date: "Samedi 25 juillet 2026",
       country: "Allemagne",
+      venuesTitle: "Adresses officielles FIFVE",
+      stadiumLabel: "Adresse du stade FIFVE",
+      conferenceLabel: "Adresse Conference FIFVE",
+      partyHallLabel: "Adresse sale de fete FIFVE",
+      openMap: "Ouvrir dans Google Maps",
       rights:
         "© 2026 Fédération Internationale de Football Vétérans — Tous droits réservés.",
     },
@@ -190,6 +249,8 @@ const translations = {
       federationName: "International Veterans Football Federation",
       slogan: "Football our Passion",
       nav: {
+        reunion: "Meeting",
+        team: "Team",
         module: "Scoring Module",
         classement: "Ranking",
         retenues: "Selected Teams",
@@ -345,6 +406,58 @@ const translations = {
       qrSuggestion:
         "Suggestions: public/images/qr-combinaisons-fifve-part-1.png and public/images/qr-combinaisons-fifve-part-2.png",
     },
+    meeting: {
+      badge: "Working session",
+      title: "Meet with Coaches, SD, TD, TM / FIFVE 2026",
+      description:
+        "Dear FIFVE members (Coaches, Sports Directors, Technical Directors, Team Managers), you are invited to a dedicated working session for the FIFVE 2026 weekend in Cologne.",
+      dateLabel: "Date",
+      dateValue: "Friday, July 17, 2026",
+      timeLabel: "Time",
+      timeValue: "21:00 to 22:30 (Cologne) / 20:00 to 21:30 (London)",
+      joinButton: "Join on Google Meet",
+      copyButton: "Copy link",
+      copiedLabel: "Link copied",
+      meetHint:
+        "Duration: 90 minutes. Please connect a few minutes before start time.",
+      meetUrl: "https://meet.google.com/huk-ijth-nnx",
+      agendaTitle: "Agenda",
+      agenda: [
+        {
+          time: "21:00 - 21:05",
+          title: "Connection and opening remarks",
+          points: [],
+        },
+        {
+          time: "21:05 - 22:20",
+          title: "General information about FIFVE Weekend 2026",
+          points: [
+            "FIFVE ranking module - July 2026",
+            "Stadium module",
+            "License control module",
+            "Event ceremony module",
+            "Match calendar module",
+            "Draw",
+          ],
+        },
+        {
+          time: "22:20 - 22:30",
+          title: "Miscellaneous and open discussion",
+          points: [],
+        },
+      ],
+      footerNote:
+        "Good preparation for the FIFVE 2026 Weekend. FIFVE Sports Club.",
+    },
+    team: {
+      badge: "FIFVE Sports Club",
+      title: "Our team",
+      subtitle:
+        "Click a member card to open WhatsApp and send a quick message.",
+      whatsappAction: "WhatsApp",
+      whatsappTemplate:
+        "Hello FIFVE Sports Club, I would like to contact {name}.",
+    },
     location: {
       title: "Tournament venue",
       venueLabel: "Official venue",
@@ -367,6 +480,11 @@ const translations = {
       tournament: "Tournament 2026",
       date: "Saturday, July 25, 2026",
       country: "Germany",
+      venuesTitle: "Official FIFVE venues",
+      stadiumLabel: "FIFVE stadium address",
+      conferenceLabel: "FIFVE conference address",
+      partyHallLabel: "FIFVE party hall address",
+      openMap: "Open in Google Maps",
       rights:
         "© 2026 International Veterans Football Federation — All rights reserved.",
     },
