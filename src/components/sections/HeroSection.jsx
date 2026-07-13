@@ -28,7 +28,7 @@ export default function HeroSection({
     "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/FIFA_World_Cup_2026_Draw_Reception_%2854972841852%29.jpg/960px-FIFA_World_Cup_2026_Draw_Reception_%2854972841852%29.jpg";
 
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-[#04379a] via-[#0b61e8] to-[#159947] px-6 py-16 text-white md:py-20">
+    <section className="relative overflow-hidden bg-linear-to-br from-[#04379a] via-[#0b61e8] to-[#159947] px-6 pt-36 pb-16 text-white md:pt-56 md:pb-20 lg:pt-56">
       <div className="pointer-events-none absolute -top-28 -left-24 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl"></div>
       <div className="pointer-events-none absolute -right-24 -bottom-28 h-72 w-72 rounded-full bg-emerald-300/20 blur-3xl"></div>
 

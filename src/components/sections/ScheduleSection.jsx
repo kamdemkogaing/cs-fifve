@@ -21,15 +21,17 @@ function ScheduleLinkCard({ title, url, isVisible, t }) {
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#0646c4] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#04379a]"
+          className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full bg-[#0646c4] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#04379a]"
         >
           {t.openLink}
           <ExternalLink size={16} />
         </a>
       ) : (
-        <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-500">
+        <div className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-100 px-4 py-2 text-center text-sm font-semibold text-slate-500">
           <Lock size={14} />
-          {t.linkUnavailable}
+          <span className="min-w-0 whitespace-normal wrap-break-word">
+            {t.linkUnavailable}
+          </span>
         </div>
       )}
     </article>
@@ -54,7 +56,7 @@ function QrAccessCard({
       </p>
       <h3 className="mt-1 text-base font-semibold text-[#0646c4]">{title}</h3>
 
-      <div className="mt-3 flex items-center gap-4 rounded-xl border border-blue-100 bg-blue-50/40 p-3">
+      <div className="mt-3 flex flex-col gap-4 rounded-xl border border-blue-100 bg-blue-50/40 p-3 sm:flex-row sm:items-center">
         <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-lg border border-blue-200 bg-white text-[#0646c4] shadow-sm">
           {!isVisible ? (
             <div className="flex flex-col items-center text-slate-500">
@@ -76,7 +78,7 @@ function QrAccessCard({
           )}
         </div>
 
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-medium text-slate-600">
             {isVisible ? hint : `${t.lockedUntil} ${releaseDateLabel}`}
           </p>
@@ -85,15 +87,17 @@ function QrAccessCard({
               href={linkUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-2 inline-flex items-center gap-2 rounded-full bg-[#0646c4] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#04379a]"
+              className="mt-2 inline-flex max-w-full items-center gap-2 rounded-full bg-[#0646c4] px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-[#04379a]"
             >
               {t.openLink}
               <ExternalLink size={14} />
             </a>
           ) : (
-            <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-500">
+            <div className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-100 px-3 py-1.5 text-center text-xs font-semibold text-slate-500">
               <Lock size={13} />
-              {t.linkUnavailable}
+              <span className="min-w-0 whitespace-normal wrap-break-word">
+                {t.linkUnavailable}
+              </span>
             </div>
           )}
         </div>

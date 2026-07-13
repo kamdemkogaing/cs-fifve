@@ -71,7 +71,7 @@ export default function App() {
   const remaining = getRemainingParts(remainingMs);
 
   return (
-    <div id="home" className="pt-36 md:pt-42">
+    <div id="home">
       <Header
         language={language}
         setLanguage={setLanguage}

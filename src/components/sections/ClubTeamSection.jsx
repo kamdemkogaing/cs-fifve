@@ -3,6 +3,15 @@ import { useState } from "react";
 
 const teamMembers = [
   {
+    id: "teofile",
+    firstName: "Téofile",
+    fullName: "Teofile Tchakoumi Nzepan",
+    photo: "Teofile Tchakoumi Nzepan.jpeg",
+    photoObjectPosition: "center 24%",
+    whatsappNumber: "491711721204",
+    isManager: true,
+  },
+  {
     id: "jean-jaures",
     firstName: "Jean Jaures",
     fullName: "Jean Jaures Mboune Essangui",
@@ -22,13 +31,6 @@ const teamMembers = [
     fullName: "Eutrope FOTSO NEAM",
     photo: "Eutrope FOTSO NEAM.jpeg",
     whatsappNumber: "32472690852",
-  },
-  {
-    id: "teofile",
-    firstName: "Téofile",
-    fullName: "Teofile Tchakoumi Nzepan",
-    photo: "Teofile Tchakoumi Nzepan.jpeg",
-    whatsappNumber: "491711721204",
   },
   {
     id: "stephane",
@@ -98,6 +100,7 @@ const teamMembers = [
     firstName: "Achille",
     fullName: "Achille Kapya",
     photo: "Achille Kapya.jpeg",
+    photoObjectPosition: "center 24%",
     whatsappNumber: "491729028332",
   },
 ];
@@ -122,6 +125,11 @@ function TeamMemberCard({ member, t }) {
               alt={member.fullName}
               loading="lazy"
               className="h-full w-full object-cover object-center"
+              style={
+                member.photoObjectPosition
+                  ? { objectPosition: member.photoObjectPosition }
+                  : undefined
+              }
               onError={() => setImageMissing(true)}
             />
           </div>
@@ -135,8 +143,16 @@ function TeamMemberCard({ member, t }) {
           </p>
           <p className="mt-1 text-sm text-slate-600">{member.fullName}</p>
         </div>
-        <span className="inline-flex w-fit items-center rounded-full border border-blue-200/70 bg-blue-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-blue-700 transition group-hover:border-blue-300 group-hover:bg-blue-100/70">
-          {t.memberLabel ?? "Team member"}
+        <span
+          className={`inline-flex w-fit items-center rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide transition ${
+            member.isManager
+              ? "border border-amber-300 bg-amber-50 text-amber-800 group-hover:border-amber-400 group-hover:bg-amber-100/80"
+              : "border border-blue-200/70 bg-blue-50 text-blue-700 group-hover:border-blue-300 group-hover:bg-blue-100/70"
+          }`}
+        >
+          {member.isManager
+            ? (t.clubManagerLabel ?? "Club Manager")
+            : (t.memberLabel ?? "Team member")}
         </span>
       </div>
     </article>

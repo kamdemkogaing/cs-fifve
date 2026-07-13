@@ -2,8 +2,15 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 15px;
+  font-size: 16px;
   scroll-padding-top: 8rem;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 17px;
+    scroll-padding-top: 7rem;
+  }
 }
 
 body {
