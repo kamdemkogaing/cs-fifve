@@ -209,6 +209,7 @@ const translations = {
       title: "Notre equipe",
       subtitle:
         "Cliquez sur un membre pour ouvrir WhatsApp et envoyer rapidement un message.",
+      memberLabel: "Membre de l'equipe",
       whatsappAction: "WhatsApp",
       whatsappTemplate:
         "Bonjour Club Sportif FIFVE, je souhaite contacter {name}.",
@@ -454,6 +455,7 @@ const translations = {
       title: "Our team",
       subtitle:
         "Click a member card to open WhatsApp and send a quick message.",
+      memberLabel: "Team member",
       whatsappAction: "WhatsApp",
       whatsappTemplate:
         "Hello FIFVE Sports Club, I would like to contact {name}.",

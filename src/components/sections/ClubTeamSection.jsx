@@ -1,31 +1,5 @@
-import { MessageCircle, Users } from "lucide-react";
-import { useMemo, useState } from "react";
-
-const PHONE_PREFIX_TO_COUNTRY = [
-  { prefix: "49", flag: "🇩🇪", code: "DE" },
-  { prefix: "44", flag: "🇬🇧", code: "GB" },
-  { prefix: "41", flag: "🇨🇭", code: "CH" },
-  { prefix: "39", flag: "🇮🇹", code: "IT" },
-  { prefix: "33", flag: "🇫🇷", code: "FR" },
-  { prefix: "32", flag: "🇧🇪", code: "BE" },
-];
-
-function getCountryFromPhone(phoneNumber) {
-  const normalized = String(phoneNumber).replace(/\D/g, "");
-  const country = PHONE_PREFIX_TO_COUNTRY.find(({ prefix }) =>
-    normalized.startsWith(prefix),
-  );
-
-  return country ?? { flag: "🌍", code: "INT" };
-}
-
-function getFlagIconUrl(countryCode) {
-  if (!countryCode || countryCode === "INT") {
-    return null;
-  }
-
-  return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
-}
+import { Users } from "lucide-react";
+import { useState } from "react";
 
 const teamMembers = [
   {
@@ -128,32 +102,15 @@ const teamMembers = [
   },
 ];
 
-function TeamMemberCard({ member, t, messageTemplate }) {
+function TeamMemberCard({ member, t }) {
   const [imageMissing, setImageMissing] = useState(false);
 
-  const message = useMemo(
-    () => messageTemplate.replace("{name}", member.fullName),
-    [member.fullName, messageTemplate],
-  );
-  const country = useMemo(
-    () => getCountryFromPhone(member.whatsappNumber),
-    [member.whatsappNumber],
-  );
-  const flagIconUrl = useMemo(
-    () => getFlagIconUrl(country.code),
-    [country.code],
-  );
-  const whatsappUrl = `https://wa.me/${member.whatsappNumber}?text=${encodeURIComponent(message)}`;
-
   return (
-    <a
-      href={whatsappUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="group block rounded-2xl border border-blue-100 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
-      aria-label={`${t.whatsappAction} ${member.fullName}`}
-    >
-      <div className="flex h-48 items-center justify-center rounded-xl border border-blue-100 bg-linear-to-br from-slate-100 to-blue-50 p-2">
+    <article className="group relative overflow-hidden rounded-3xl border border-blue-100 bg-white/95 p-4 shadow-md ring-1 ring-transparent transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:ring-blue-100">
+      <div className="pointer-events-none absolute -top-20 -right-16 h-36 w-36 rounded-full bg-blue-100/40 blur-2xl" />
+      <div className="pointer-events-none absolute -bottom-16 -left-14 h-32 w-32 rounded-full bg-emerald-100/50 blur-2xl" />
+
+      <div className="relative flex h-48 items-center justify-center rounded-2xl border border-blue-100 bg-linear-to-br from-slate-100 via-white to-blue-50 p-2">
         {imageMissing ? (
           <div className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-white bg-[#0646c4] text-3xl font-black text-white shadow-md">
             {member.firstName.charAt(0).toUpperCase()}
@@ -171,35 +128,18 @@ function TeamMemberCard({ member, t, messageTemplate }) {
         )}
       </div>
 
-      <div className="mt-4 flex flex-col gap-3">
+      <div className="relative mt-4 flex flex-col gap-3">
         <div>
-          <p className="flex items-center gap-2 text-lg font-extrabold text-[#0646c4]">
+          <p className="text-xl font-extrabold tracking-tight text-[#0646c4]">
             {member.firstName}
-            <span className="inline-flex items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] font-bold text-blue-700">
-              {flagIconUrl ? (
-                <img
-                  src={flagIconUrl}
-                  alt={country.code}
-                  title={country.code}
-                  loading="lazy"
-                  className="h-3.5 w-5 rounded-[2px] object-cover"
-                />
-              ) : (
-                <span>{country.flag}</span>
-              )}
-            </span>
           </p>
-          <p className="mt-1 text-xs text-slate-500">{member.fullName}</p>
-          <p className="mt-2 text-xs font-medium text-slate-500">
-            +{member.whatsappNumber}
-          </p>
+          <p className="mt-1 text-sm text-slate-600">{member.fullName}</p>
         </div>
-        <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#25D366] px-3 py-2 text-xs font-bold text-[#06341d] transition group-hover:brightness-110">
-          <MessageCircle size={14} />
-          {t.whatsappAction}
+        <span className="inline-flex w-fit items-center rounded-full border border-blue-200/70 bg-blue-50 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-blue-700 transition group-hover:border-blue-300 group-hover:bg-blue-100/70">
+          {t.memberLabel ?? "Team member"}
         </span>
       </div>
-    </a>
+    </article>
   );
 }
 
@@ -227,12 +167,7 @@ export default function ClubTeamSection({ t }) {
 
         <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {teamMembers.map((member) => (
-            <TeamMemberCard
-              key={member.id}
-              member={member}
-              t={t}
-              messageTemplate={t.whatsappTemplate}
-            />
+            <TeamMemberCard key={member.id} member={member} t={t} />
           ))}
         </div>
       </div>
