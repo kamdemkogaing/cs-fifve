@@ -21,7 +21,7 @@ const teamMembers = [
     firstName: "Eutrope",
     fullName: "Eutrope FOTSO NEAM",
     photo: "Eutrope FOTSO NEAM.jpeg",
-    whatsappNumber: "491711721204",
+    whatsappNumber: "32472690852",
   },
   {
     id: "teofile",
@@ -122,7 +122,7 @@ function TeamMemberCard({ member, t, messageTemplate }) {
       <div className="flex h-48 items-center justify-center rounded-xl border border-blue-100 bg-linear-to-br from-slate-100 to-blue-50 p-2">
         {imageMissing ? (
           <div className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-white bg-[#0646c4] text-3xl font-black text-white shadow-md">
-              {member.firstName.charAt(0).toUpperCase()}
+            {member.firstName.charAt(0).toUpperCase()}
           </div>
         ) : (
           <div className="h-36 w-36 overflow-hidden rounded-full border-4 border-white bg-slate-50 shadow-md">
