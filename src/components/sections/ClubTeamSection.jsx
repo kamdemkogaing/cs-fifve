@@ -1,6 +1,32 @@
 import { MessageCircle, Users } from "lucide-react";
 import { useMemo, useState } from "react";
 
+const PHONE_PREFIX_TO_COUNTRY = [
+  { prefix: "49", flag: "🇩🇪", code: "DE" },
+  { prefix: "44", flag: "🇬🇧", code: "GB" },
+  { prefix: "41", flag: "🇨🇭", code: "CH" },
+  { prefix: "39", flag: "🇮🇹", code: "IT" },
+  { prefix: "33", flag: "🇫🇷", code: "FR" },
+  { prefix: "32", flag: "🇧🇪", code: "BE" },
+];
+
+function getCountryFromPhone(phoneNumber) {
+  const normalized = String(phoneNumber).replace(/\D/g, "");
+  const country = PHONE_PREFIX_TO_COUNTRY.find(({ prefix }) =>
+    normalized.startsWith(prefix),
+  );
+
+  return country ?? { flag: "🌍", code: "INT" };
+}
+
+function getFlagIconUrl(countryCode) {
+  if (!countryCode || countryCode === "INT") {
+    return null;
+  }
+
+  return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+}
+
 const teamMembers = [
   {
     id: "jean-jaures",
@@ -109,6 +135,14 @@ function TeamMemberCard({ member, t, messageTemplate }) {
     () => messageTemplate.replace("{name}", member.fullName),
     [member.fullName, messageTemplate],
   );
+  const country = useMemo(
+    () => getCountryFromPhone(member.whatsappNumber),
+    [member.whatsappNumber],
+  );
+  const flagIconUrl = useMemo(
+    () => getFlagIconUrl(country.code),
+    [country.code],
+  );
   const whatsappUrl = `https://wa.me/${member.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -139,8 +173,21 @@ function TeamMemberCard({ member, t, messageTemplate }) {
 
       <div className="mt-4 flex flex-col gap-3">
         <div>
-          <p className="text-lg font-extrabold text-[#0646c4]">
+          <p className="flex items-center gap-2 text-lg font-extrabold text-[#0646c4]">
             {member.firstName}
+            <span className="inline-flex items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] font-bold text-blue-700">
+              {flagIconUrl ? (
+                <img
+                  src={flagIconUrl}
+                  alt={country.code}
+                  title={country.code}
+                  loading="lazy"
+                  className="h-3.5 w-5 rounded-[2px] object-cover"
+                />
+              ) : (
+                <span>{country.flag}</span>
+              )}
+            </span>
           </p>
           <p className="mt-1 text-xs text-slate-500">{member.fullName}</p>
           <p className="mt-2 text-xs font-medium text-slate-500">
