@@ -16,6 +16,18 @@ import {
 } from "./data/fifveData";
 import { getTranslations, normalizeLanguage } from "./i18n";
 
+const SCHEDULE_RELEASE_ISO = "2026-07-24T18:00:00Z";
+
+function getRemainingParts(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return { days, hours, minutes, seconds };
+}
+
 export default function App() {
   const showExportSection = false;
 
@@ -35,10 +47,26 @@ export default function App() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(Date.now());
-    }, 30000);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);
+
+  const scheduleReleaseTimestamp = Date.parse(SCHEDULE_RELEASE_ISO);
+  const isScheduleVisible = currentTime >= scheduleReleaseTimestamp;
+  const releaseDateLabel = new Date(scheduleReleaseTimestamp).toLocaleString(
+    language === "en" ? "en-GB" : "fr-FR",
+    {
+      timeZone: "Europe/Berlin",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    },
+  );
+  const remainingMs = Math.max(0, scheduleReleaseTimestamp - currentTime);
+  const remaining = getRemainingParts(remainingMs);
 
   return (
     <div id="home" className="pt-28">
@@ -51,7 +79,13 @@ export default function App() {
         onCloseMenu={() => setMobileMenuOpen(false)}
       />
 
-      <HeroSection t={t.hero} />
+      <HeroSection
+        t={t.hero}
+        countdown={remaining}
+        releaseDateLabel={releaseDateLabel}
+        isScheduleVisible={isScheduleVisible}
+        scheduleT={t.schedule}
+      />
       {showExportSection && <ExportActionsSection t={t.export} />}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
@@ -63,8 +97,8 @@ export default function App() {
           t={t.selected}
         />
         <ScheduleSection
-          currentTime={currentTime}
-          language={language}
+          isScheduleVisible={isScheduleVisible}
+          releaseDateLabel={releaseDateLabel}
           t={t.schedule}
         />
         <LocationSection t={t.location} />

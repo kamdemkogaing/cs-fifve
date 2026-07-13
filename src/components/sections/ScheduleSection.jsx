@@ -6,36 +6,7 @@ import {
   Lock,
   QrCode,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-
-function getRemainingParts(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const days = Math.floor(totalSeconds / 86400);
-  const hours = Math.floor((totalSeconds % 86400) / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return { days, hours, minutes, seconds };
-}
-
-function CountdownCard({ value, label, isSeconds = false }) {
-  const displayValue = String(value).padStart(2, "0");
-
-  return (
-    <div className="rounded-xl border border-amber-200 bg-white px-3 py-2 text-center shadow-sm">
-      <p
-        className={`text-2xl font-extrabold tabular-nums text-[#0646c4] ${
-          isSeconds ? "animate-pulse" : ""
-        }`}
-      >
-        {displayValue}
-      </p>
-      <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
-        {label}
-      </p>
-    </div>
-  );
-}
+import { useState } from "react";
 
 function ScheduleLinkCard({ title, url, isVisible, t }) {
   return (
@@ -131,38 +102,11 @@ function QrAccessCard({
   );
 }
 
-export default function ScheduleSection({ currentTime, language, t }) {
-  const [liveTime, setLiveTime] = useState(currentTime);
-
-  useEffect(() => {
-    setLiveTime(currentTime);
-  }, [currentTime]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setLiveTime(Date.now());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const scheduleReleaseTimestamp = Date.parse("2026-07-24T18:00:00Z");
-  const isScheduleVisible = liveTime >= scheduleReleaseTimestamp;
-  const releaseDateLabel = new Date(scheduleReleaseTimestamp).toLocaleString(
-    language === "en" ? "en-GB" : "fr-FR",
-    {
-      timeZone: "Europe/Berlin",
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    },
-  );
-
-  const remainingMs = Math.max(0, scheduleReleaseTimestamp - liveTime);
-  const remaining = getRemainingParts(remainingMs);
-
+export default function ScheduleSection({
+  isScheduleVisible,
+  releaseDateLabel,
+  t,
+}) {
   return (
     <section
       id="programmation"
@@ -227,17 +171,6 @@ export default function ScheduleSection({ currentTime, language, t }) {
               <p className="font-semibold">
                 {t.lockedUntil} {releaseDateLabel}
               </p>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-3 sm:max-w-2xl sm:grid-cols-4">
-              <CountdownCard value={remaining.days} label={t.days} />
-              <CountdownCard value={remaining.hours} label={t.hours} />
-              <CountdownCard value={remaining.minutes} label={t.minutes} />
-              <CountdownCard
-                value={remaining.seconds}
-                label={t.seconds}
-                isSeconds
-              />
             </div>
           </div>
         )}
