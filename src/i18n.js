@@ -3,6 +3,7 @@ const translations = {
     header: {
       federationName: "Fédération Internationale de Football Vétérans",
       slogan: "Football our Passion",
+      homeLabel: "Home",
       nav: {
         reunion: "Réunion",
         team: "Equipe",
@@ -250,6 +251,7 @@ const translations = {
     header: {
       federationName: "International Veterans Football Federation",
       slogan: "Football our Passion",
+      homeLabel: "Home",
       nav: {
         reunion: "Meeting",
         team: "Team",

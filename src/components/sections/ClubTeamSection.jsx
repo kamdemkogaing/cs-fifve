@@ -39,13 +39,13 @@ const teamMembers = [
     photo: "Stephane Besong.jpeg",
     whatsappNumber: "447432599332",
   },
-  {
+  /*   {
     id: "samson",
     firstName: "Franck",
     fullName: "Samson",
     photo: "Samson.jpeg",
     whatsappNumber: "4915771365401",
-  },
+  }, */
   {
     id: "patrick",
     firstName: "Patrick",

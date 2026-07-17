@@ -40,14 +40,14 @@ export default function Header({
       }`}
     >
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between px-6 transition-all duration-500 ${
+        className={`mx-auto flex w-full max-w-[1600px] items-center justify-between pl-2 pr-4 transition-all duration-500 sm:pl-3 sm:pr-6 lg:pl-4 lg:pr-8 ${
           isScrolled ? "py-2.5" : "py-4"
         }`}
       >
         <a
           href="#home"
           onClick={onCloseMenu}
-          className="flex min-w-0 items-center gap-3 pr-3 sm:gap-4 md:mr-6 md:pr-0 lg:mr-10"
+          className="flex min-w-0 items-center gap-2 pr-1 sm:gap-3 md:mr-4 md:pr-0 lg:mr-6"
           aria-label="Home"
         >
           <img
@@ -57,7 +57,7 @@ export default function Header({
               isScrolled ? "h-14 w-14" : "h-20 w-20"
             }`}
           />
-          <div className="min-w-0">
+          <div className="min-w-0 max-w-44 sm:max-w-52 lg:max-w-none">
             <p
               className={`uppercase tracking-widest text-blue-100 transition-all duration-500 ${
                 isScrolled ? "text-[10px] sm:text-xs" : "text-xs sm:text-sm"
@@ -68,8 +68,8 @@ export default function Header({
             <h1
               className={`font-bold leading-tight transition-all duration-500 ${
                 isScrolled
-                  ? "text-xs sm:text-lg lg:text-xl"
-                  : "text-sm sm:text-xl lg:text-2xl"
+                  ? "text-xs sm:text-base lg:text-xl"
+                  : "text-sm sm:text-lg lg:text-2xl"
               }`}
             >
               {t.federationName}
@@ -84,9 +84,19 @@ export default function Header({
           </div>
         </a>
 
-        <div className="ml-4 hidden shrink-0 items-center gap-3 md:flex lg:ml-6">
-          <div className="rounded-full border border-white/25 bg-white/10 p-1 backdrop-blur-sm">
-            <p className="sr-only">{t.languageLabel}</p>
+        <div className="ml-2 hidden flex-1 items-center justify-end gap-3 md:flex lg:gap-4">
+          <a
+            href="#home"
+            onClick={onCloseMenu}
+            className="hidden rounded-full border border-white/20 bg-white/6 px-4 py-2 text-sm font-medium text-blue-50 shadow-sm backdrop-blur-sm transition hover:border-white/35 hover:bg-white/14 hover:text-white xl:inline-flex"
+          >
+            {t.homeLabel}
+          </a>
+
+          <div className="hidden items-center gap-2 rounded-full border border-white/20 bg-white/8 p-1.5 pl-3 shadow-sm backdrop-blur-sm lg:inline-flex">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-100/80">
+              {t.languageLabel}
+            </span>
             <div className="inline-flex items-center gap-1">
               <button
                 type="button"
@@ -115,12 +125,12 @@ export default function Header({
             </div>
           </div>
 
-          <nav className="items-center gap-2 rounded-full border border-white/20 bg-white/5 p-1 backdrop-blur-sm lg:flex">
+          <nav className="flex items-center gap-1 rounded-full border border-white/20 bg-white/6 p-1.5 shadow-sm backdrop-blur-sm">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="relative rounded-full px-4 py-2 text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white after:absolute after:left-1/2 after:bottom-1 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
+                className="relative whitespace-nowrap rounded-full px-3 py-2 text-sm text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white lg:px-4 after:absolute after:bottom-1 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
               >
                 {item.label}
               </a>
@@ -141,7 +151,18 @@ export default function Header({
 
       {mobileMenuOpen && (
         <nav className="border-t border-white/20 bg-[#04379a]/95 px-6 py-4 backdrop-blur-xl md:hidden">
-          <div className="mb-3 inline-flex rounded-full border border-white/25 bg-white/10 p-1">
+          <a
+            href="#home"
+            className="mb-4 block rounded-xl border border-white/15 bg-white/8 px-3 py-2 font-medium text-blue-50 transition hover:bg-white/14"
+            onClick={onCloseMenu}
+          >
+            {t.homeLabel}
+          </a>
+
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 p-1 pl-3">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-100/80">
+              {t.languageLabel}
+            </span>
             <button
               type="button"
               onClick={() => setLanguage("fr")}
