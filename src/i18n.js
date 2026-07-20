@@ -205,6 +205,37 @@ const translations = {
       footerNote:
         "Bonne préparation au Week-end FIFVE 2026. Club sportif de la FIFVE.",
     },
+    documents: {
+      badge: "Documents officiels",
+      title: "Téléchargez les documents de référence du tournoi",
+      subtitle:
+        "Retrouvez en un seul endroit le règlement intérieur complet et la charte sportive du Week-end FIFVE 2026. Chaque document est proposé en PDF, prêt à être consulté ou partagé.",
+      fileLabel: "Document PDF",
+      languageLabel: "Langue",
+      typeLabel: "Format",
+      updatedLabel: "Mise à jour",
+      languageValue: "Français",
+      updatedValue: "Juillet 2026",
+      downloadCta: "Télécharger le PDF",
+      reglementTitle: "Règlement intérieur",
+      reglementBadge: "Règles du tournoi",
+      reglementDescription:
+        "Le document central pour les inscriptions, licences, composition des équipes, gestion disciplinaire, classement, temps de jeu, sanctions et récompenses.",
+      reglementHighlights: [
+        "Inscription et engagement",
+        "Licences et participation",
+        "Sanctions et litiges",
+      ],
+      charteTitle: "Charte sportive",
+      charteBadge: "Fair-play et organisation",
+      charteDescription:
+        "La charte à remettre et consulter pour les consignes terrain, les obligations des délégations, le fair-play et les règles opérationnelles de chaque phase de jeu.",
+      charteHighlights: [
+        "Injonctions aux délégations",
+        "Règles par phase de jeu",
+        "Sécurité et respect",
+      ],
+    },
     team: {
       badge: "Club Sportif FIFVE",
       title: "Notre equipe",
@@ -452,6 +483,37 @@ const translations = {
       ],
       footerNote:
         "Good preparation for the FIFVE 2026 Weekend. FIFVE Sports Club.",
+    },
+    documents: {
+      badge: "Official documents",
+      title: "Download the tournament reference documents",
+      subtitle:
+        "Find the full internal regulations and the sports charter for FIFVE Weekend 2026 in one clear place. Each document is available as a PDF, ready to read or share.",
+      fileLabel: "PDF document",
+      languageLabel: "Language",
+      typeLabel: "Format",
+      updatedLabel: "Updated",
+      languageValue: "French",
+      updatedValue: "July 2026",
+      downloadCta: "Download PDF",
+      reglementTitle: "Internal regulations",
+      reglementBadge: "Tournament rules",
+      reglementDescription:
+        "The main reference for registration, licenses, team composition, discipline, rankings, playing time, sanctions and awards.",
+      reglementHighlights: [
+        "Registration and commitment",
+        "Licenses and participation",
+        "Sanctions and disputes",
+      ],
+      charteTitle: "Sports charter",
+      charteBadge: "Fair play and operations",
+      charteDescription:
+        "The charter covering field instructions, delegation obligations, fair play expectations and operational rules for each match phase.",
+      charteHighlights: [
+        "Delegation instructions",
+        "Rules by competition phase",
+        "Safety and respect",
+      ],
     },
     team: {
       badge: "FIFVE Sports Club",

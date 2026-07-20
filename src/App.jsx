@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
+import DocumentsSection from "./components/sections/DocumentsSection";
 import ExportActionsSection from "./components/sections/ExportActionsSection";
 import HeroSection from "./components/sections/HeroSection";
 import LocationSection from "./components/sections/LocationSection";
@@ -89,6 +90,7 @@ export default function App() {
         scheduleT={t.schedule}
       />
       <MeetingSection t={t.meeting} />
+      <DocumentsSection t={t.documents} />
       {showExportSection && <ExportActionsSection t={t.export} />}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
