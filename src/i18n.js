@@ -164,13 +164,17 @@ const translations = {
     },
     meeting: {
       badge: "Séance de travail",
-      title: "Meet with Coachs, DS, DT, TM / FIFVE 2026",
+      title: "Réunion à venir",
       description:
-        "Salut chers (chères) membres (Entraîneurs, Coach, Directeurs sportifs, Directeurs techniques, Team manager) de la FIFVE. Vous êtes invités à une séance de travail dédiée au Week-end FIFVE 2026 à Cologne.",
+        "Aucune réunion n’est prévue pour le moment. Dès qu’un nouveau meeting sera programmé, nous publierons rapidement le lien ici.",
+      blockedTitle: "Lien de réunion non disponible pour le moment",
+      blockedMessage:
+        "Une nouvelle séance sera communiquée prochainement. Dès qu’elle sera programmée, le lien sera publié ici rapidement.",
+      blockedNote: "Merci de revenir régulièrement sur cette page.",
       dateLabel: "Date",
-      dateValue: "Vendredi 17 juillet 2026",
+      dateValue: "À définir",
       timeLabel: "Heure",
-      timeValue: "21h00 à 22h30 (Cologne) / 20h00 à 21h30 (Londres)",
+      timeValue: "À définir",
       joinButton: "Rejoindre sur Google Meet",
       copyButton: "Copier le lien",
       copiedLabel: "Lien copié",
@@ -178,32 +182,17 @@ const translations = {
         "Durée: 90 minutes. Merci de vous connecter quelques minutes avant le début.",
       meetUrl: "https://meet.google.com/huk-ijth-nnx",
       agendaTitle: "Ordre de séance",
-      agenda: [
-        {
-          time: "21h00 - 21h05",
-          title: "Connexion et commentaire",
-          points: [],
-        },
-        {
-          time: "21h05 - 22h20",
-          title: "Informations générales concernant le Week-end FIFVE 2026",
-          points: [
-            "Module classement FIFVE juillet 2026",
-            "Module des stades",
-            "Module des contrôles des licences",
-            "Module cérémonie évènementielle",
-            "Module du calendrier des matches",
-            "Tirage au sort",
-          ],
-        },
-        {
-          time: "22h20 - 22h30",
-          title: "Divers et débat ouvert",
-          points: [],
-        },
-      ],
+      agenda: [],
       footerNote:
         "Bonne préparation au Week-end FIFVE 2026. Club sportif de la FIFVE.",
+    },
+    modal: {
+      badge: "Merci",
+      title: "Merci à tous les participants",
+      message:
+        "Merci à tous les participants du Week-end FIFVE 2026 pour votre disponibilité, votre énergie et votre patience pendant cette belle aventure sportive.",
+      note: "Votre engagement fait toute la richesse de cet événement.",
+      cta: "Continuer",
     },
     documents: {
       badge: "Documents officiels",
@@ -443,13 +432,17 @@ const translations = {
     },
     meeting: {
       badge: "Working session",
-      title: "Meet with Coaches, SD, TD, TM / FIFVE 2026",
+      title: "Upcoming meeting",
       description:
-        "Dear FIFVE members (Coaches, Sports Directors, Technical Directors, Team Managers), you are invited to a dedicated working session for the FIFVE 2026 weekend in Cologne.",
+        "No meeting is scheduled yet. As soon as a new meeting is planned, we will publish the link here quickly.",
+      blockedTitle: "Meeting link currently unavailable",
+      blockedMessage:
+        "A new session will be announced soon. As soon as it is scheduled, the link will be published here promptly.",
+      blockedNote: "Please check back regularly.",
       dateLabel: "Date",
-      dateValue: "Friday, July 17, 2026",
+      dateValue: "To be defined",
       timeLabel: "Time",
-      timeValue: "21:00 to 22:30 (Cologne) / 20:00 to 21:30 (London)",
+      timeValue: "To be defined",
       joinButton: "Join on Google Meet",
       copyButton: "Copy link",
       copiedLabel: "Link copied",
@@ -457,32 +450,17 @@ const translations = {
         "Duration: 90 minutes. Please connect a few minutes before start time.",
       meetUrl: "https://meet.google.com/huk-ijth-nnx",
       agendaTitle: "Agenda",
-      agenda: [
-        {
-          time: "21:00 - 21:05",
-          title: "Connection and opening remarks",
-          points: [],
-        },
-        {
-          time: "21:05 - 22:20",
-          title: "General information about FIFVE Weekend 2026",
-          points: [
-            "FIFVE ranking module - July 2026",
-            "Stadium module",
-            "License control module",
-            "Event ceremony module",
-            "Match calendar module",
-            "Draw",
-          ],
-        },
-        {
-          time: "22:20 - 22:30",
-          title: "Miscellaneous and open discussion",
-          points: [],
-        },
-      ],
+      agenda: [],
       footerNote:
         "Good preparation for the FIFVE 2026 Weekend. FIFVE Sports Club.",
+    },
+    modal: {
+      badge: "Thank you",
+      title: "Thank you to all participants",
+      message:
+        "Thank you to all participants of the FIFVE 2026 Weekend for your availability, your energy, and your patience during this wonderful sporting adventure.",
+      note: "Your commitment is what makes this event so special.",
+      cta: "Continue",
     },
     documents: {
       badge: "Official documents",
