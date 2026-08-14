@@ -88,7 +88,7 @@ export default function App() {
     <div id="home">
       {showWelcomeModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 py-6 backdrop-blur-sm">
-          <div className="relative w-full max-w-xl overflow-hidden rounded-[28px] border border-white/20 bg-gradient-to-br from-[#f2f7ff] via-white to-[#ecf7ef] p-6 shadow-2xl sm:p-8">
+          <div className="relative w-full max-w-xl overflow-hidden rounded-[28px] border border-white/20 bg-linear-to-br from-[#f2f7ff] via-white to-[#ecf7ef] p-6 shadow-2xl sm:p-8">
             <button
               type="button"
               onClick={closeWelcomeModal}
