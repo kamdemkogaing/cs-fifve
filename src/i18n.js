@@ -33,7 +33,7 @@ const translations = {
       downloadPng: "Télécharger PNG",
       includes: "Inclus",
       sectionModule: "Module de classement FIFVE 2026",
-      sectionRanking: "Classement actuel des 53 équipes FIFVE",
+      sectionRanking: "Classement actuel des 54 équipes FIFVE",
       sectionSelected: "24 équipes retenues pour la FIFVE 2026",
       withLogo: "Logo FIFVE automatique",
       exportDocumentTitle: "Pack classement et équipes retenues",
@@ -92,7 +92,7 @@ const translations = {
       ],
     },
     ranking: {
-      title: "Classement actuel des 53 équipes FIFVE",
+      title: "Classement actuel des 54 équipes FIFVE",
       block: "Bloc",
       tableHint: "Cliquez sur une équipe pour voir les détails.",
       clickRowHint: "Cliquez sur une ligne pour afficher la fiche équipe",
@@ -109,7 +109,14 @@ const translations = {
       nr: "Nr.",
       delegation: "Délégation",
       points: "Points",
-      additions: "Ajouts Londres",
+      additions: "Bonus Cologne",
+      bonusLegendTitle: "Bonus Cologne",
+      bonusLegend: [
+        "30 = Vainqueur",
+        "20 = Finaliste",
+        "10 = Demi-finaliste",
+        "5 = Participation / Fair Play / ville hôte",
+      ],
       total: "Total",
     },
     selected: {
@@ -336,6 +343,14 @@ const translations = {
           summary:
             "Suivi des accès au site, des besoins terrain et de l'accueil des délégations.",
         },
+        {
+          date: "25 juillet 2026",
+          title: "Rapport sportif FIFVE 2026",
+          summary:
+            "Synthèse des résultats, du déroulement sportif et des décisions de gestion du Week-end FIFVE 2026.",
+          href: "/documents/Rapport_sportif_FIFVE_2026.docx",
+          filename: "Rapport_sportif_FIFVE_2026.docx",
+        },
       ],
       notes: [
         {
@@ -452,7 +467,7 @@ const translations = {
       downloadPng: "Download PNG",
       includes: "Includes",
       sectionModule: "FIFVE 2026 Scoring Module",
-      sectionRanking: "Current ranking of the 53 FIFVE teams",
+      sectionRanking: "Current ranking of the 54 FIFVE teams",
       sectionSelected: "24 teams selected for FIFVE 2026",
       withLogo: "Automatic FIFVE logo",
       exportDocumentTitle: "Ranking and selected teams pack",
@@ -510,7 +525,7 @@ const translations = {
       ],
     },
     ranking: {
-      title: "Current ranking of the 53 FIFVE teams",
+      title: "Current ranking of the 54 FIFVE teams",
       block: "Block",
       tableHint: "Click a team to view details.",
       clickRowHint: "Click a row to open team details",
@@ -527,7 +542,14 @@ const translations = {
       nr: "No.",
       delegation: "Delegation",
       points: "Points",
-      additions: "London Add-ons",
+      additions: "Cologne Bonus",
+      bonusLegendTitle: "Cologne bonus",
+      bonusLegend: [
+        "30 = Winner",
+        "20 = Finalist",
+        "10 = Semi-finalist",
+        "5 = Participation / Fair Play / host city",
+      ],
       total: "Total",
     },
     selected: {
@@ -751,6 +773,14 @@ const translations = {
           title: "Cologne logistics update",
           summary:
             "Follow-up on venue access, field requirements and delegation reception.",
+        },
+        {
+          date: "25 July 2026",
+          title: "FIFVE 2026 sports report",
+          summary:
+            "Summary of results, tournament flow, and operational decisions from the FIFVE 2026 weekend.",
+          href: "/documents/Rapport_sportif_FIFVE_2026.docx",
+          filename: "Rapport_sportif_FIFVE_2026.docx",
         },
       ],
       notes: [

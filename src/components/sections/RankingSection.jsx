@@ -20,6 +20,26 @@ export default function RankingSection({ ranking, t }) {
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
 
+  const bonusMeta = [
+    { value: 30, label: "Vainqueur" },
+    { value: 20, label: "Finaliste" },
+    { value: 10, label: "Demi-finaliste" },
+    { value: 5, label: "Participation / Fair Play / Hôte" },
+  ];
+
+  const parseBonusValues = (value) => {
+    const raw = String(value ?? "").replace(/\s+/g, "");
+    if (!raw || raw === "0") {
+      return [];
+    }
+
+    return raw
+      .split("+")
+      .filter(Boolean)
+      .map((token) => Number(token))
+      .filter((number) => Number.isFinite(number) && number > 0);
+  };
+
   const filteredRanking = useMemo(() => {
     const query = searchTerm.trim();
     if (!query) {
@@ -107,6 +127,17 @@ export default function RankingSection({ ranking, t }) {
             {t.title}
           </h2>
           <p className="mt-1 text-sm text-slate-600">{t.tableHint}</p>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {t.bonusLegend.map((item) => (
+              <span
+                key={item}
+                className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-[#0646c4] shadow-sm"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="w-full rounded-2xl border border-blue-100 bg-linear-to-r from-blue-50 to-white p-3 shadow-sm lg:max-w-xl">
@@ -195,8 +226,27 @@ export default function RankingSection({ ranking, t }) {
                       </div>
                       <div className="col-span-2 rounded-xl bg-white px-2.5 py-2 ring-1 ring-blue-100">
                         <dt className="font-medium">{t.additions}</dt>
-                        <dd className="mt-0.5 text-sm font-bold text-slate-800">
-                          {team[3]}
+                        <dd className="mt-2 flex flex-wrap gap-1.5">
+                          {parseBonusValues(team[3]).length === 0 ? (
+                            <span className="text-sm font-medium text-slate-500">
+                              0
+                            </span>
+                          ) : (
+                            parseBonusValues(team[3]).map((value) => {
+                              const meta = bonusMeta.find(
+                                (item) => item.value === value,
+                              ) ?? { value, label: "Bonus" };
+
+                              return (
+                                <span
+                                  key={`${team[1]}-${team[0]}-${value}`}
+                                  className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-[10px] font-bold text-[#0646c4]"
+                                >
+                                  +{value} {meta.label}
+                                </span>
+                              );
+                            })
+                          )}
                         </dd>
                       </div>
                     </dl>
@@ -212,7 +262,9 @@ export default function RankingSection({ ranking, t }) {
                     <th className="px-4 py-3 font-semibold">{t.nr}</th>
                     <th className="px-4 py-3 font-semibold">{t.delegation}</th>
                     <th className="px-4 py-3 font-semibold">{t.points}</th>
-                    <th className="px-4 py-3 font-semibold">{t.additions}</th>
+                    <th className="px-4 py-3 font-semibold text-blue-700">
+                      {t.additions}
+                    </th>
                     <th className="px-4 py-3 font-semibold">{t.total}</th>
                   </tr>
                 </thead>
@@ -248,8 +300,29 @@ export default function RankingSection({ ranking, t }) {
                         <td className="px-4 py-3 font-medium text-slate-700">
                           {team[2]}
                         </td>
-                        <td className="px-4 py-3 font-medium text-slate-700">
-                          {team[3]}
+                        <td className="px-4 py-3">
+                          <div className="flex flex-wrap gap-1.5">
+                            {parseBonusValues(team[3]).length === 0 ? (
+                              <span className="text-xs font-medium text-slate-500">
+                                0
+                              </span>
+                            ) : (
+                              parseBonusValues(team[3]).map((value) => {
+                                const meta = bonusMeta.find(
+                                  (item) => item.value === value,
+                                ) ?? { value, label: "Bonus" };
+
+                                return (
+                                  <span
+                                    key={`${team[1]}-${team[0]}-${value}`}
+                                    className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-[10px] font-bold text-[#0646c4]"
+                                  >
+                                    +{value}
+                                  </span>
+                                );
+                              })
+                            )}
+                          </div>
                         </td>
                         <td className="px-4 py-3 font-bold text-[#e6002d]">
                           {team[4]}
@@ -324,12 +397,31 @@ export default function RankingSection({ ranking, t }) {
                 </dd>
               </div>
 
-              <div className="rounded-xl bg-blue-50 p-3">
+              <div className="rounded-xl bg-blue-50 p-3 sm:col-span-2">
                 <dt className="text-xs font-semibold uppercase tracking-wide text-slate-600">
                   {t.additions}
                 </dt>
-                <dd className="mt-1 text-lg font-bold text-[#0646c4]">
-                  {selectedTeam[3]}
+                <dd className="mt-2 flex flex-wrap gap-2">
+                  {parseBonusValues(selectedTeam[3]).length === 0 ? (
+                    <span className="text-base font-bold text-slate-500">
+                      0
+                    </span>
+                  ) : (
+                    parseBonusValues(selectedTeam[3]).map((value) => {
+                      const meta = bonusMeta.find(
+                        (item) => item.value === value,
+                      ) ?? { value, label: "Bonus" };
+
+                      return (
+                        <span
+                          key={`${selectedTeam[1]}-${selectedTeam[0]}-${value}`}
+                          className="inline-flex items-center rounded-full bg-white px-2.5 py-1 text-xs font-bold text-[#0646c4] ring-1 ring-blue-200"
+                        >
+                          +{value} {meta.label}
+                        </span>
+                      );
+                    })
+                  )}
                 </dd>
               </div>
 

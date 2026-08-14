@@ -204,8 +204,8 @@ export default function TeamWorkspaceSection({ t }) {
                   <div className="grid gap-4 lg:grid-cols-2">
                     {t.reports.map((report) => (
                       <article
-                        key={report.date}
-                        className="border border-slate-200 bg-slate-50 p-5"
+                        key={`${report.date}-${report.title}`}
+                        className="flex h-full flex-col border border-slate-200 bg-slate-50 p-5"
                       >
                         <div className="flex items-start justify-between gap-4">
                           <div>
@@ -224,6 +224,19 @@ export default function TeamWorkspaceSection({ t }) {
                         <p className="mt-3 text-sm leading-6 text-slate-600">
                           {report.summary}
                         </p>
+
+                        {report.href && (
+                          <a
+                            href={report.href}
+                            download={report.filename || true}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg border border-[#0646c4]/20 bg-white px-3 py-2 text-sm font-bold text-[#0646c4] transition hover:bg-blue-50"
+                          >
+                            <FileText size={16} />
+                            {report.filename || "Télécharger le document"}
+                          </a>
+                        )}
                       </article>
                     ))}
                   </div>
