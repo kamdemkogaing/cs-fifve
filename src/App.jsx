@@ -6,6 +6,7 @@ import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
 import ExportActionsSection from "./components/sections/ExportActionsSection";
 import HeroSection from "./components/sections/HeroSection";
+import LicenseApplicationSection from "./components/sections/LicenseApplicationSection";
 import LocationSection from "./components/sections/LocationSection";
 import MeetingSection from "./components/sections/MeetingSection";
 import ModuleSection from "./components/sections/ModuleSection";
@@ -22,6 +23,9 @@ import {
 import { getTranslations, normalizeLanguage } from "./i18n";
 
 const SCHEDULE_RELEASE_ISO = "2026-07-24T18:00:00Z";
+const licenseTeams = selectedTeamsByCountry.flatMap(({ country, teams }) =>
+  teams.map((team) => ({ ...team, country })),
+);
 
 function getRemainingParts(ms) {
   const totalSeconds = Math.floor(ms / 1000);
@@ -153,6 +157,7 @@ export default function App() {
       />
       <MeetingSection t={t.meeting} />
       <DocumentsSection t={t.documents} />
+      <LicenseApplicationSection t={t.license} teams={licenseTeams} />
       <TeamWorkspaceSection t={t.teamWorkspace} />
       {showExportSection && <ExportActionsSection t={t.export} />}
 

@@ -225,6 +225,88 @@ const translations = {
         "Sécurité et respect",
       ],
     },
+    license: {
+      badge: "Licence joueur FIFVE",
+      title: "Établir ma licence",
+      subtitle:
+        "Préparez votre demande en quelques minutes. Votre équipe, votre photo et vos coordonnées seront vérifiées avant émission.",
+      steps: {
+        identity: "Vos informations",
+        team: "Votre équipe",
+        payment: "Paiement",
+      },
+      identityTitle: "Votre identité",
+      identityDescription:
+        "Saisissez les informations qui figureront sur votre licence FIFVE.",
+      privacyNote:
+        "Vos données ne sont pas enregistrées dans cette version de démonstration.",
+      firstNameLabel: "Prénom",
+      lastNameLabel: "Nom",
+      birthDateLabel: "Date de naissance",
+      emailLabel: "E-mail",
+      photoLabel: "Photo d'identité",
+      photoAction: "Ajouter votre photo",
+      photoReplace: "Remplacer la photo",
+      photoHint:
+        "Portrait récent, JPG ou PNG. Le visage doit être bien visible.",
+      requiredError: "Ce champ est requis.",
+      teamTitle: "Votre équipe",
+      teamDescription:
+        "Sélectionnez l'équipe avec laquelle vous participerez au Week-end FIFVE.",
+      teamLabel: "Équipe",
+      teamPlaceholder: "Choisir mon équipe",
+      licenceTypeLabel: "Type de demande",
+      newLicenceLabel: "Nouvelle licence",
+      newLicenceDescription:
+        "Je n'étais pas licencié dans une autre équipe l'année dernière.",
+      transferLabel: "Transfert d'équipe",
+      transferDescription:
+        "Je change d'équipe par rapport à la saison précédente.",
+      previousTeamLabel: "Équipe de la saison précédente",
+      previousTeamPlaceholder: "Choisir mon ancienne équipe",
+      previousTeamError:
+        "Choisissez une équipe différente de votre nouvelle équipe.",
+      consentLabel:
+        "Je confirme que les informations fournies sont exactes et j'accepte leur utilisation pour l'établissement de ma licence FIFVE.",
+      consentError: "Votre accord est nécessaire pour continuer.",
+      paymentTitle: "Paiement de la licence",
+      paymentDescription:
+        "Vous contrôlez une dernière fois votre demande avant d'être redirigé vers le paiement sécurisé.",
+      paymentMethodLabel: "Paiement sécurisé",
+      paypalLabel: "PayPal",
+      paypalDescription: "Payer avec votre compte PayPal.",
+      cardLabel: "Carte bancaire",
+      cardDescription: "Visa, Mastercard et autres cartes acceptées.",
+      paymentFutureNote:
+        "Le prestataire de paiement sera connecté lors de la mise en place du backend.",
+      summaryLabel: "Récapitulatif de la demande",
+      playerLabel: "Joueur",
+      amountLabel: "Montant de la licence",
+      amountValue: "10 €",
+      transferAmountValue: "25 €",
+      backAction: "Retour",
+      continueAction: "Continuer",
+      paymentAction: "Prévisualiser la confirmation",
+      previewTitle: "Parcours de licence prêt",
+      previewDescription:
+        "Dans la version finale, le paiement validé créera votre licence, puis vous recevrez par e-mail une carte avec son code-barres et son QR code.",
+      previewNotice:
+        "Démonstration : aucun paiement n'a été effectué et aucune donnée n'a été transmise. Le contrôle des licences et l'envoi par e-mail nécessiteront le backend et l'espace administrateur.",
+      viewLicenceAction: "Voir la licence de démonstration",
+      demoLabel: "Aperçu de démonstration",
+      modalLicenceTitle: "Votre licence FIFVE",
+      modalLicenceDescription:
+        "Voici l'apparence proposée pour la licence envoyée après validation du paiement. Le PDF contient les informations de contrôle, le logo et la photo du joueur.",
+      closeLicenceAction: "Fermer",
+      downloadLicenceAction: "Télécharger le PDF",
+      pdfTitle: "Licence joueur",
+      licenceNumberLabel: "Numéro de licence",
+      statusLabel: "Statut",
+      statusValue: "Paiement validé",
+      pdfControlHint:
+        "Document de démonstration. Les codes seront sécurisés et vérifiables avec le backend.",
+      restartAction: "Nouvelle demande",
+    },
     teamWorkspace: {
       badge: "Espace de travail interne",
       title: "Espace équipe",
@@ -561,6 +643,86 @@ const translations = {
         "Rules by competition phase",
         "Safety and respect",
       ],
+    },
+    license: {
+      badge: "FIFVE player licence",
+      title: "Apply for my licence",
+      subtitle:
+        "Prepare your application in a few minutes. Your team, photo and contact details will be checked before issue.",
+      steps: {
+        identity: "Your details",
+        team: "Your team",
+        payment: "Payment",
+      },
+      identityTitle: "Your identity",
+      identityDescription:
+        "Enter the information that will appear on your FIFVE licence.",
+      privacyNote:
+        "Your information is not stored in this demonstration version.",
+      firstNameLabel: "First name",
+      lastNameLabel: "Last name",
+      birthDateLabel: "Date of birth",
+      emailLabel: "Email",
+      photoLabel: "ID photo",
+      photoAction: "Add your photo",
+      photoReplace: "Replace photo",
+      photoHint:
+        "Recent portrait, JPG or PNG. Your face must be clearly visible.",
+      requiredError: "This field is required.",
+      teamTitle: "Your team",
+      teamDescription:
+        "Select the team you will play for at the FIFVE Weekend.",
+      teamLabel: "Team",
+      teamPlaceholder: "Choose my team",
+      licenceTypeLabel: "Application type",
+      newLicenceLabel: "New licence",
+      newLicenceDescription:
+        "I was not licensed with another team last season.",
+      transferLabel: "Team transfer",
+      transferDescription: "I am changing team from the previous season.",
+      previousTeamLabel: "Previous season's team",
+      previousTeamPlaceholder: "Choose my previous team",
+      previousTeamError: "Choose a team different from your new team.",
+      consentLabel:
+        "I confirm that the information provided is accurate and accept its use to issue my FIFVE licence.",
+      consentError: "Your agreement is required to continue.",
+      paymentTitle: "Licence payment",
+      paymentDescription:
+        "Check your application one final time before being redirected to secure payment.",
+      paymentMethodLabel: "Secure payment",
+      paypalLabel: "PayPal",
+      paypalDescription: "Pay with your PayPal account.",
+      cardLabel: "Bank card",
+      cardDescription: "Visa, Mastercard and other accepted cards.",
+      paymentFutureNote:
+        "The payment provider will be connected when the backend is implemented.",
+      summaryLabel: "Application summary",
+      playerLabel: "Player",
+      amountLabel: "Licence fee",
+      amountValue: "€10",
+      transferAmountValue: "€25",
+      backAction: "Back",
+      continueAction: "Continue",
+      paymentAction: "Preview confirmation",
+      previewTitle: "Licence journey ready",
+      previewDescription:
+        "In the final version, a successful payment will create your licence and email you a card with its barcode and QR code.",
+      previewNotice:
+        "Demonstration: no payment was taken and no data was sent. Licence checks and email delivery will require the backend and admin workspace.",
+      viewLicenceAction: "View demonstration licence",
+      demoLabel: "Demonstration preview",
+      modalLicenceTitle: "Your FIFVE licence",
+      modalLicenceDescription:
+        "This is the proposed appearance for the licence sent after payment confirmation. The PDF includes player details, logo and photo for checks.",
+      closeLicenceAction: "Close",
+      downloadLicenceAction: "Download PDF",
+      pdfTitle: "Player licence",
+      licenceNumberLabel: "Licence number",
+      statusLabel: "Status",
+      statusValue: "Payment confirmed",
+      pdfControlHint:
+        "Demonstration document. Codes will be secured and verifiable with the backend.",
+      restartAction: "New application",
     },
     teamWorkspace: {
       badge: "Internal workspace",
