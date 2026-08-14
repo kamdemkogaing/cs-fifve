@@ -12,6 +12,7 @@ import RankingSection from "./components/sections/RankingSection";
 import ScheduleSection from "./components/sections/ScheduleSection";
 import SelectedTeamsSection from "./components/sections/SelectedTeamsSection";
 import StatsSection from "./components/sections/StatsSection";
+import TeamWorkspaceSection from "./components/sections/TeamWorkspaceSection";
 import {
   classementRules,
   ranking,
@@ -91,6 +92,7 @@ export default function App() {
       />
       <MeetingSection t={t.meeting} />
       <DocumentsSection t={t.documents} />
+      <TeamWorkspaceSection t={t.teamWorkspace} />
       {showExportSection && <ExportActionsSection t={t.export} />}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">

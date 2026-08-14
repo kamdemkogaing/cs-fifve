@@ -236,6 +236,75 @@ const translations = {
         "Sécurité et respect",
       ],
     },
+    teamWorkspace: {
+      badge: "Espace de travail interne",
+      title: "Espace équipe",
+      subtitle:
+        "Le point de coordination réservé aux membres de l'organisation.",
+      lockAction: "Verrouiller l'espace",
+      lockedTitle: "Accès réservé à l'équipe",
+      lockedDescription:
+        "Retrouvez les comptes rendus, les notes de coordination et les actions à suivre au même endroit.",
+      passwordHint: "Le mot de passe est communiqué par la coordination FIFVE.",
+      passwordLabel: "Mot de passe équipe",
+      passwordError: "Le mot de passe saisi n'est pas correct.",
+      unlockAction: "Accéder à l'espace",
+      reportsLabel: "Rapports",
+      notesLabel: "Notes",
+      todosLabel: "TODOs",
+      reports: [
+        {
+          date: "17 juillet 2026",
+          title: "Réunion de coordination",
+          summary:
+            "Validation des priorités opérationnelles, répartition des rôles et rappel des échéances avant le tournoi.",
+        },
+        {
+          date: "10 juillet 2026",
+          title: "Point logistique Cologne",
+          summary:
+            "Suivi des accès au site, des besoins terrain et de l'accueil des délégations.",
+        },
+      ],
+      notes: [
+        {
+          category: "Organisation",
+          title: "Accueil des équipes",
+          text: "Centraliser les horaires d'arrivée et confirmer les contacts référents de chaque délégation.",
+        },
+        {
+          category: "Communication",
+          title: "Informations officielles",
+          text: "Publier les mises à jour validées dans les canaux de communication avant toute diffusion externe.",
+        },
+        {
+          category: "Terrain",
+          title: "Jour du tournoi",
+          text: "Prévoir un point rapide avec les responsables de terrain avant l'ouverture des matchs.",
+        },
+      ],
+      todosTitle: "Actions de l'équipe",
+      todosDescription:
+        "Les cases cochées restent enregistrées sur cet appareil.",
+      todos: [
+        {
+          id: "confirm-contacts",
+          label: "Confirmer les contacts des délégations",
+          done: false,
+        },
+        {
+          id: "share-agenda",
+          label: "Partager le dernier compte rendu",
+          done: false,
+        },
+        { id: "check-venue", label: "Valider les accès au site", done: false },
+        {
+          id: "prepare-briefing",
+          label: "Préparer le briefing des responsables",
+          done: false,
+        },
+      ],
+    },
     team: {
       badge: "Club Sportif FIFVE",
       title: "Notre equipe",
@@ -513,6 +582,73 @@ const translations = {
         "Delegation instructions",
         "Rules by competition phase",
         "Safety and respect",
+      ],
+    },
+    teamWorkspace: {
+      badge: "Internal workspace",
+      title: "Team workspace",
+      subtitle: "The coordination hub reserved for organisation members.",
+      lockAction: "Lock workspace",
+      lockedTitle: "Team-only access",
+      lockedDescription:
+        "Find meeting reports, coordination notes and actions to follow in one place.",
+      passwordHint: "The password is shared by FIFVE coordination.",
+      passwordLabel: "Team password",
+      passwordError: "The password entered is incorrect.",
+      unlockAction: "Open workspace",
+      reportsLabel: "Reports",
+      notesLabel: "Notes",
+      todosLabel: "To-dos",
+      reports: [
+        {
+          date: "17 July 2026",
+          title: "Coordination meeting",
+          summary:
+            "Operational priorities, role allocation and key deadlines validated ahead of the tournament.",
+        },
+        {
+          date: "10 July 2026",
+          title: "Cologne logistics update",
+          summary:
+            "Follow-up on venue access, field requirements and delegation reception.",
+        },
+      ],
+      notes: [
+        {
+          category: "Organisation",
+          title: "Team reception",
+          text: "Centralise arrival times and confirm the contact person for each delegation.",
+        },
+        {
+          category: "Communication",
+          title: "Official information",
+          text: "Publish approved updates through communication channels before any external release.",
+        },
+        {
+          category: "Venue",
+          title: "Tournament day",
+          text: "Schedule a short check-in with field leads before matches begin.",
+        },
+      ],
+      todosTitle: "Team actions",
+      todosDescription: "Checked items remain saved on this device.",
+      todos: [
+        {
+          id: "confirm-contacts",
+          label: "Confirm delegation contacts",
+          done: false,
+        },
+        {
+          id: "share-agenda",
+          label: "Share the latest meeting report",
+          done: false,
+        },
+        { id: "check-venue", label: "Validate venue access", done: false },
+        {
+          id: "prepare-briefing",
+          label: "Prepare the leads briefing",
+          done: false,
+        },
       ],
     },
     team: {
