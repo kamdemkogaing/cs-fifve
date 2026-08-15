@@ -537,11 +537,11 @@ export default function LicenseApplicationSection({ t, teams }) {
                       </p>
                     </div>
                   </div>
-                  <aside className="rounded-lg border border-blue-100 bg-linear-to-b from-[#f2f7ff] to-white p-5 shadow-sm lg:sticky lg:top-28 lg:self-start">
-                    <p className="text-xs font-bold uppercase tracking-wide text-[#0646c4]">
+                  <aside className="mx-auto w-full max-w-md rounded-2xl border border-blue-100 bg-linear-to-b from-[#f2f7ff] to-white p-4 shadow-sm sm:p-5 lg:sticky lg:top-28 lg:mx-0 lg:max-w-none lg:self-start">
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0646c4]">
                       {t.summaryLabel}
                     </p>
-                    <dl className="mt-4 space-y-3 text-sm">
+                    <dl className="mt-4 space-y-2 text-sm sm:space-y-3">
                       <SummaryRow
                         label={t.playerLabel}
                         value={`${form.firstName} ${form.lastName}`}
@@ -576,19 +576,19 @@ export default function LicenseApplicationSection({ t, teams }) {
                   <button
                     type="button"
                     onClick={() => setStep((currentStep) => currentStep - 1)}
-                    className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-300 px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+                    className="order-2 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-300 px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50 sm:order-1 sm:w-auto"
                   >
                     <ArrowLeft size={16} />
                     {t.backAction}
                   </button>
                 ) : (
-                  <span />
+                  <span className="hidden sm:block" />
                 )}
                 {step < 3 ? (
                   <button
                     type="button"
                     onClick={moveForward}
-                    className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#0646c4] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition hover:-translate-y-0.5 hover:bg-[#04379a] hover:shadow-xl"
+                    className="order-1 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#0646c4] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-500/25 transition hover:-translate-y-0.5 hover:bg-[#04379a] hover:shadow-xl sm:w-auto"
                   >
                     {t.continueAction}
                     <ArrowRight size={16} />
@@ -597,7 +597,7 @@ export default function LicenseApplicationSection({ t, teams }) {
                   <button
                     type="button"
                     onClick={submitPreview}
-                    className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#159947] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:bg-[#087f43] hover:shadow-xl"
+                    className="order-1 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#159947] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:bg-[#087f43] hover:shadow-xl sm:w-auto"
                   >
                     <CreditCard size={16} />
                     {t.paymentAction}
@@ -686,10 +686,10 @@ function LicenseModal({ data, t, onClose }) {
       aria-modal="true"
       aria-label={t.modalLicenceTitle}
     >
-      <div className="max-h-full w-full max-w-2xl overflow-y-auto bg-white shadow-2xl">
+      <div className="max-h-full w-full max-w-[420px] overflow-y-auto bg-white shadow-2xl">
         <div className="flex items-center justify-between bg-[#0646c4] px-5 py-4 text-white sm:px-7">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-200">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-200">
               {t.demoLabel}
             </p>
             <h3 className="mt-1 text-lg font-black">{t.modalLicenceTitle}</h3>
@@ -703,65 +703,101 @@ function LicenseModal({ data, t, onClose }) {
             <X size={20} />
           </button>
         </div>
-        <div className="p-5 sm:p-7">
-          <div className="overflow-hidden border border-blue-100 bg-[#f7fbff] shadow-lg">
-            <div className="flex items-center justify-between bg-[#0646c4] px-5 py-4 text-white">
+
+        <div className="bg-[#f2f4f7] p-4 sm:p-5">
+          <div className="overflow-hidden rounded-[26px] border-[3px] border-[#0b61e8] bg-[#f7fbff] shadow-[0_12px_30px_rgba(6,70,196,0.12)]">
+            <div className="flex items-center justify-between bg-[#0b61e8] px-4 py-4 text-white sm:px-5">
               <div>
-                <p className="text-xs font-bold tracking-[0.16em] text-blue-200">
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-blue-100">
                   FIFVE 2026
                 </p>
-                <p className="mt-1 text-lg font-black">{t.pdfTitle}</p>
-              </div>
-              <img
-                src="/images/logo_fifve.jpeg"
-                alt="FIFVE"
-                className="h-12 w-12 rounded-full bg-white p-1 object-contain"
-              />
-            </div>
-            <div className="grid gap-5 p-5 sm:grid-cols-[108px_1fr]">
-              <img
-                src={data.photoUrl}
-                alt=""
-                className="h-36 w-28 border border-slate-200 object-cover"
-              />
-              <div>
-                <p className="text-xl font-black text-slate-900">
-                  {data.fullName}
+                <p className="mt-1 text-[26px] font-black leading-none">
+                  {t.pdfTitle}
                 </p>
-                <p className="mt-1 text-sm text-slate-600">{data.team}</p>
-                <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
-                  <ModalDetail
-                    label={t.birthDateLabel}
-                    value={formatDate(data.birthDate)}
-                  />
-                  <ModalDetail label={t.licenceTypeLabel} value={data.type} />
-                  <ModalDetail
-                    label={t.licenceNumberLabel}
-                    value={data.reference}
-                  />
-                  <ModalDetail label={t.statusLabel} value={t.statusValue} />
-                </dl>
+              </div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white ring-4 ring-white/30">
+                <img
+                  src="/images/logo_fifve.jpeg"
+                  alt="FIFVE"
+                  className="h-10 w-10 rounded-full object-contain"
+                />
               </div>
             </div>
-            <div className="border-t border-blue-100 bg-white px-5 py-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
-                {t.licenceNumberLabel}
-              </p>
-              <p className="mt-1 font-mono text-sm font-bold text-slate-900">
-                {data.reference}
-              </p>
-              <div
-                className="mt-3 h-10"
-                style={{
-                  backgroundImage: `url(${createBarcode(data.reference)})`,
-                  backgroundSize: "auto 100%",
-                }}
-              />
+
+            <div className="p-4">
+              <div className="grid grid-cols-[110px_1fr] gap-4">
+                <div className="overflow-hidden rounded-xl bg-white ring-1 ring-slate-200">
+                  <img
+                    src={data.photoUrl || "/images/logo_fifve.jpeg"}
+                    alt="Photo du joueur"
+                    className="h-32 w-full object-cover"
+                  />
+                </div>
+
+                <div className="flex min-w-0 flex-col justify-center text-slate-900">
+                  <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
+                    <p className="text-[19px] font-black leading-tight">
+                      {data.fullName}
+                    </p>
+                    <p className="mt-2 text-[15px] font-medium text-slate-600">
+                      {data.team}
+                    </p>
+                  </div>
+
+                  <div className="mt-3 space-y-2 text-[12px]">
+                    <div className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg bg-white/70 px-2.5 py-2 ring-1 ring-slate-200">
+                      <span className="font-bold uppercase tracking-[0.12em] text-slate-500">
+                        {t.birthDateLabel}
+                      </span>
+                      <span className="font-extrabold text-slate-900">
+                        {formatDate(data.birthDate)}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg bg-white/70 px-2.5 py-2 ring-1 ring-slate-200">
+                      <span className="font-bold uppercase tracking-[0.12em] text-slate-500">
+                        {t.licenceTypeLabel}
+                      </span>
+                      <span className="text-right font-extrabold text-slate-900">
+                        {data.type}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-[1fr_auto] items-center gap-2 rounded-lg bg-white/70 px-2.5 py-2 ring-1 ring-slate-200">
+                      <span className="font-bold uppercase tracking-[0.12em] text-slate-500">
+                        {t.statusLabel}
+                      </span>
+                      <span className="font-extrabold text-emerald-700">
+                        {t.statusValue}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-sm">
+                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-500">
+                  {t.licenceNumberLabel}
+                </p>
+                <p className="mt-2 font-mono text-[18px] font-black tracking-tight text-slate-900">
+                  {data.reference}
+                </p>
+                <div
+                  className="mt-3 h-10 w-full overflow-hidden rounded-md bg-white"
+                  style={{
+                    backgroundImage: `url(${createBarcode(data.reference)})`,
+                    backgroundSize: "auto 100%",
+                    backgroundRepeat: "repeat-x",
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <p className="mt-5 text-sm leading-6 text-slate-600">
+
+          <p className="mt-5 text-center text-sm leading-6 text-slate-600">
             {t.modalLicenceDescription}
           </p>
+
           <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <button
               type="button"
@@ -872,9 +908,13 @@ function Field({ label, error, errorText, className = "", children }) {
 
 function SummaryRow({ label, value }) {
   return (
-    <div className="flex items-start justify-between gap-4">
-      <dt className="text-slate-500">{label}</dt>
-      <dd className="text-right font-bold text-slate-900">{value}</dd>
+    <div className="rounded-xl border border-blue-100 bg-white/80 px-3 py-2.5 sm:px-3.5">
+      <dt className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">
+        {label}
+      </dt>
+      <dd className="mt-1 break-words text-sm font-bold leading-6 text-slate-900 sm:text-right">
+        {value}
+      </dd>
     </div>
   );
 }
