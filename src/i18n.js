@@ -240,6 +240,13 @@ const translations = {
       rememberMe: "Rester connecté",
       forgotPassword: "Mot de passe oublié ?",
       loginAction: "Accéder à mon espace",
+      missingCredentialsError:
+        "Merci de renseigner votre e-mail et votre mot de passe.",
+      invalidCredentialsError:
+        "Identifiants incorrects. Utilisez les accès de démonstration indiqués ci-dessous.",
+      demoCredentialsLabel: "Accès de démonstration",
+      dashboardLockedMessage:
+        "Connectez-vous pour accéder au dashboard de configuration.",
       demoNotice:
         "Version UI uniquement pour le moment. Aucun identifiant n'est envoyé tant que le système de connexion n'est pas branché.",
     },
@@ -716,6 +723,12 @@ const translations = {
       rememberMe: "Keep me signed in",
       forgotPassword: "Forgot password?",
       loginAction: "Access my workspace",
+      missingCredentialsError: "Please enter both email and password.",
+      invalidCredentialsError:
+        "Incorrect credentials. Use the demo access shown below.",
+      demoCredentialsLabel: "Demo access",
+      dashboardLockedMessage:
+        "Please sign in to access the configuration dashboard.",
       demoNotice:
         "UI-only version for now. No credentials are submitted until the authentication system is connected.",
     },

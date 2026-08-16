@@ -2,6 +2,7 @@ import { Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
+import DashboardPage from "./components/pages/DashboardPage";
 import LoginPage from "./components/pages/LoginPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
@@ -24,9 +25,14 @@ import {
 import { getTranslations, normalizeLanguage } from "./i18n";
 
 const SCHEDULE_RELEASE_ISO = "2026-07-24T18:00:00Z";
+const ADMIN_AUTH_STORAGE_KEY = "fifve-admin-auth";
 const licenseTeams = selectedTeamsByCountry.flatMap(({ country, teams }) =>
   teams.map((team) => ({ ...team, country })),
 );
+
+function normalizePathname(pathname) {
+  return pathname.replace(/\/+$/, "") || "/";
+}
 
 function getRemainingParts(ms) {
   const totalSeconds = Math.floor(ms / 1000);
@@ -40,12 +46,18 @@ function getRemainingParts(ms) {
 
 export default function App() {
   const showExportSection = false;
-  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const [pathname, setPathname] = useState(() =>
+    normalizePathname(window.location.pathname),
+  );
   const isLoginPage = pathname === "/login";
+  const isDashboardPage = pathname === "/dashboard";
 
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
     return normalizeLanguage(stored);
+  });
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return window.localStorage.getItem(ADMIN_AUTH_STORAGE_KEY) === "1";
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(() => Date.now());
@@ -62,6 +74,15 @@ export default function App() {
     window.localStorage.setItem("fifve-language", language);
     document.documentElement.lang = language;
   }, [language]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPathname(normalizePathname(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -92,9 +113,58 @@ export default function App() {
     window.localStorage.setItem("fifve-welcome-modal-seen", "true");
   };
 
+  const navigateTo = (nextPathname) => {
+    const normalized = normalizePathname(nextPathname);
+    if (normalized === pathname) {
+      return;
+    }
+
+    window.history.pushState({}, "", normalized);
+    setPathname(normalized);
+  };
+
+  const handleLoginSuccess = () => {
+    window.localStorage.setItem(ADMIN_AUTH_STORAGE_KEY, "1");
+    setIsAdminAuthenticated(true);
+    navigateTo("/dashboard");
+  };
+
+  const handleLogout = () => {
+    window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
+    setIsAdminAuthenticated(false);
+    navigateTo("/login");
+  };
+
+  if (isDashboardPage && !isAdminAuthenticated) {
+    return (
+      <LoginPage
+        language={language}
+        setLanguage={setLanguage}
+        t={t.login}
+        onLoginSuccess={handleLoginSuccess}
+        forceAuthMessage={t.login.dashboardLockedMessage}
+      />
+    );
+  }
+
+  if (isDashboardPage) {
+    return (
+      <DashboardPage
+        language={language}
+        setLanguage={setLanguage}
+        onLogout={handleLogout}
+      />
+    );
+  }
+
   if (isLoginPage) {
     return (
-      <LoginPage language={language} setLanguage={setLanguage} t={t.login} />
+      <LoginPage
+        language={language}
+        setLanguage={setLanguage}
+        t={t.login}
+        onLoginSuccess={handleLoginSuccess}
+      />
     );
   }
 

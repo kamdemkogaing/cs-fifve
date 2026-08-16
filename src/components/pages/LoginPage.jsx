@@ -8,8 +8,43 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-export default function LoginPage({ language, setLanguage, t }) {
+const DEMO_ADMIN_EMAIL = "admin@patelot.de";
+const DEMO_ADMIN_PASSWORD = "12345";
+
+export default function LoginPage({
+  language,
+  setLanguage,
+  t,
+  onLoginSuccess,
+  forceAuthMessage,
+}) {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(forceAuthMessage || "");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!email.trim() || !password.trim()) {
+      setErrorMessage(t.missingCredentialsError);
+      return;
+    }
+
+    const isValidCredentials =
+      email.trim().toLowerCase() === DEMO_ADMIN_EMAIL &&
+      password === DEMO_ADMIN_PASSWORD;
+
+    if (!isValidCredentials) {
+      setErrorMessage(t.invalidCredentialsError);
+      return;
+    }
+
+    setErrorMessage("");
+    if (onLoginSuccess) {
+      onLoginSuccess();
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#f4f8ff] via-[#eef5ff] to-[#e8f5ee] text-slate-900">
@@ -116,7 +151,7 @@ export default function LoginPage({ language, setLanguage, t }) {
 
                 <form
                   className="login-content-enter relative mt-7 space-y-5"
-                  onSubmit={(event) => event.preventDefault()}
+                  onSubmit={handleSubmit}
                 >
                   <div className="rounded-[26px] border border-white/14 bg-white/8 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md sm:p-5">
                     <div className="space-y-4">
@@ -130,7 +165,15 @@ export default function LoginPage({ language, setLanguage, t }) {
                           </span>
                           <input
                             type="email"
+                            value={email}
+                            onChange={(event) => {
+                              setEmail(event.target.value);
+                              if (errorMessage) {
+                                setErrorMessage("");
+                              }
+                            }}
                             placeholder={t.emailPlaceholder}
+                            autoComplete="email"
                             className="login-input w-full rounded-2xl border border-white/12 bg-slate-950/18 px-4 py-3.5 pl-11 text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] outline-none transition placeholder:text-blue-100/60 focus:border-cyan-300 focus:bg-slate-950/26 focus:ring-4 focus:ring-cyan-300/12"
                           />
                         </div>
@@ -146,7 +189,15 @@ export default function LoginPage({ language, setLanguage, t }) {
                           </span>
                           <input
                             type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(event) => {
+                              setPassword(event.target.value);
+                              if (errorMessage) {
+                                setErrorMessage("");
+                              }
+                            }}
                             placeholder={t.passwordPlaceholder}
+                            autoComplete="current-password"
                             className="login-input w-full rounded-2xl border border-white/12 bg-slate-950/18 px-4 py-3.5 pl-11 pr-13 text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] outline-none transition placeholder:text-blue-100/60 focus:border-cyan-300 focus:bg-slate-950/26 focus:ring-4 focus:ring-cyan-300/12"
                           />
                           <button
@@ -195,11 +246,21 @@ export default function LoginPage({ language, setLanguage, t }) {
                   >
                     <span className="relative z-10">{t.loginAction}</span>
                   </button>
+
+                  {errorMessage && (
+                    <p className="rounded-xl border border-rose-200/70 bg-rose-500/15 px-3 py-2 text-sm text-rose-100">
+                      {errorMessage}
+                    </p>
+                  )}
                 </form>
 
                 <div className="login-content-enter relative mt-5 rounded-2xl border border-white/12 bg-white/8 px-4 py-3 text-center backdrop-blur-sm">
                   <p className="text-xs leading-6 text-blue-100/85">
                     {t.demoNotice}
+                  </p>
+                  <p className="mt-1 text-xs font-semibold text-cyan-100">
+                    {t.demoCredentialsLabel}: {DEMO_ADMIN_EMAIL} /{" "}
+                    {DEMO_ADMIN_PASSWORD}
                   </p>
                 </div>
               </div>
