@@ -2,6 +2,7 @@ import { Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
+import LoginPage from "./components/pages/LoginPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
 import ExportActionsSection from "./components/sections/ExportActionsSection";
@@ -39,6 +40,8 @@ function getRemainingParts(ms) {
 
 export default function App() {
   const showExportSection = false;
+  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const isLoginPage = pathname === "/login";
 
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
@@ -88,6 +91,12 @@ export default function App() {
     setShowWelcomeModal(false);
     window.localStorage.setItem("fifve-welcome-modal-seen", "true");
   };
+
+  if (isLoginPage) {
+    return (
+      <LoginPage language={language} setLanguage={setLanguage} t={t.login} />
+    );
+  }
 
   return (
     <div id="home">

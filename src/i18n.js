@@ -201,6 +201,48 @@ const translations = {
       note: "Votre engagement fait toute la richesse de cet événement.",
       cta: "Continuer",
     },
+    login: {
+      backToHome: "Retour à l'accueil",
+      brandTitle: "Espace sécurisé FIFVE",
+      brandSubtitle: "Connexion des membres et accès aux outils internes",
+      badge: "Accès membre",
+      title: "Une page de connexion élégante, claire et prête pour la suite.",
+      subtitle:
+        "Cette première version pose l'expérience utilisateur: hiérarchie visuelle nette, formulaire lisible, rassurance sécurité et adaptation mobile soignée.",
+      highlights: [
+        {
+          title: "Accès rapide",
+          text: "Le formulaire reste immédiatement accessible sans perdre les repères de navigation.",
+        },
+        {
+          title: "Confiance",
+          text: "Les éléments de sécurité et le ton visuel renforcent la crédibilité de l'espace membre.",
+        },
+        {
+          title: "Mobile propre",
+          text: "Les blocs se réorganisent naturellement en une seule colonne confortable sur smartphone.",
+        },
+      ],
+      comingSoonLabel: "Évolution prévue",
+      comingSoonText:
+        "Le backend d'authentification, la gestion des rôles et les parcours mot de passe pourront être branchés plus tard sans refaire la structure de page.",
+      secureBadge: "Design prêt pour un vrai login",
+      formBadge: "Connexion",
+      formTitle: "Se connecter",
+      formDescription:
+        "Préparez l'accès à votre espace d'organisation, de gestion ou d'administration FIFVE.",
+      emailLabel: "Adresse e-mail",
+      emailPlaceholder: "vous@fifve.com",
+      passwordLabel: "Mot de passe",
+      passwordPlaceholder: "Saisissez votre mot de passe",
+      showPasswordAction: "Afficher le mot de passe",
+      hidePasswordAction: "Masquer le mot de passe",
+      rememberMe: "Rester connecté",
+      forgotPassword: "Mot de passe oublié ?",
+      loginAction: "Accéder à mon espace",
+      demoNotice:
+        "Version UI uniquement pour le moment. Aucun identifiant n'est envoyé tant que le système de connexion n'est pas branché.",
+    },
     documents: {
       badge: "Documents officiels",
       title: "Téléchargez les documents de référence du tournoi",
@@ -634,6 +676,48 @@ const translations = {
         "Thank you to all participants of the FIFVE 2026 Weekend for your availability, your energy, and your patience during this wonderful sporting adventure.",
       note: "Your commitment is what makes this event so special.",
       cta: "Continue",
+    },
+    login: {
+      backToHome: "Back to home",
+      brandTitle: "FIFVE secure area",
+      brandSubtitle: "Member sign-in and internal tools access",
+      badge: "Member access",
+      title: "A polished login page, ready for the next authentication steps.",
+      subtitle:
+        "This first version focuses on UX foundations: strong visual hierarchy, readable form fields, trust signals and a carefully structured mobile layout.",
+      highlights: [
+        {
+          title: "Fast access",
+          text: "The form stays immediately visible while preserving strong navigation cues.",
+        },
+        {
+          title: "Trust",
+          text: "Security-oriented visual cues make the member area feel reliable and official.",
+        },
+        {
+          title: "Clean on mobile",
+          text: "The full page collapses into a comfortable single-column flow on smaller screens.",
+        },
+      ],
+      comingSoonLabel: "Planned next",
+      comingSoonText:
+        "Authentication backend, role management and password recovery flows can be connected later without redesigning the page structure.",
+      secureBadge: "Ready for real authentication",
+      formBadge: "Sign in",
+      formTitle: "Log in",
+      formDescription:
+        "Prepare access to your FIFVE organization, management or administration workspace.",
+      emailLabel: "Email address",
+      emailPlaceholder: "you@fifve.com",
+      passwordLabel: "Password",
+      passwordPlaceholder: "Enter your password",
+      showPasswordAction: "Show password",
+      hidePasswordAction: "Hide password",
+      rememberMe: "Keep me signed in",
+      forgotPassword: "Forgot password?",
+      loginAction: "Access my workspace",
+      demoNotice:
+        "UI-only version for now. No credentials are submitted until the authentication system is connected.",
     },
     documents: {
       badge: "Official documents",
