@@ -1,17 +1,9 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine On
+RewriteEngine On
 
-  # Serve real files and directories without rewriting.
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
+# Keep real files and directories untouched.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-  # Prevent infinite rewrite loops by excluding index.html itself.
-  RewriteCond %{REQUEST_URI} !^/index\.html$
-
-  # Route all other requests to index.html for React SPA routing.
-  RewriteRule ^ index.html [L]
-</IfModule>
-
-# Set the default document.
-DirectoryIndex index.html
+# Send only unknown client-side routes to the React entry point.
+RewriteRule ^ index.html [L]
