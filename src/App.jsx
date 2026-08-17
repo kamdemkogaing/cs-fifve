@@ -2,7 +2,9 @@ import { Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
-import DashboardPage from "./components/pages/DashboardPage";
+import DashboardPage, {
+  loadDashboardConfig,
+} from "./components/pages/DashboardPage";
 import LoginPage from "./components/pages/LoginPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
@@ -49,8 +51,8 @@ export default function App() {
   const [pathname, setPathname] = useState(() =>
     normalizePathname(window.location.pathname),
   );
-  const isLoginPage = pathname === "/login";
-  const isDashboardPage = pathname === "/dashboard";
+  const isLoginPage = pathname === "/admin/login";
+  const isDashboardPage = pathname === "/admin/dashboard";
 
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
@@ -69,6 +71,23 @@ export default function App() {
     return !window.localStorage.getItem("fifve-welcome-modal-seen");
   });
   const t = getTranslations(language);
+  const dashboardConfig = loadDashboardConfig();
+  const publicContent = dashboardConfig.publicContent;
+  const publicTranslations = {
+    ...t,
+    hero: { ...t.hero, ...publicContent.hero },
+    meeting: { ...t.meeting, ...publicContent.meeting },
+    documents: { ...t.documents, ...publicContent.documents },
+    license: { ...t.license, ...publicContent.license },
+    teamWorkspace: { ...t.teamWorkspace, ...publicContent.teamWorkspace },
+    team: { ...t.team, ...publicContent.team },
+    stats: { ...t.stats, ...publicContent.stats },
+    module: { ...t.module, ...publicContent.module },
+    ranking: { ...t.ranking, ...publicContent.ranking },
+    selected: { ...t.selected, ...publicContent.selected },
+    schedule: { ...t.schedule, ...publicContent.schedule },
+    location: { ...t.location, ...publicContent.location },
+  };
 
   useEffect(() => {
     window.localStorage.setItem("fifve-language", language);
@@ -126,13 +145,13 @@ export default function App() {
   const handleLoginSuccess = () => {
     window.localStorage.setItem(ADMIN_AUTH_STORAGE_KEY, "1");
     setIsAdminAuthenticated(true);
-    navigateTo("/dashboard");
+    navigateTo("/admin/dashboard");
   };
 
   const handleLogout = () => {
     window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
     setIsAdminAuthenticated(false);
-    navigateTo("/login");
+    navigateTo("/admin/login");
   };
 
   if (isDashboardPage && !isAdminAuthenticated) {
@@ -228,33 +247,61 @@ export default function App() {
       />
 
       <HeroSection
-        t={t.hero}
+        t={publicTranslations.hero}
         countdown={remaining}
         releaseDateLabel={releaseDateLabel}
         isScheduleVisible={isScheduleVisible}
         scheduleT={t.schedule}
       />
-      <MeetingSection t={t.meeting} />
-      <DocumentsSection t={t.documents} />
-      <LicenseApplicationSection t={t.license} teams={licenseTeams} />
-      <TeamWorkspaceSection t={t.teamWorkspace} />
+      {dashboardConfig.sections.meeting && (
+        <MeetingSection t={publicTranslations.meeting} />
+      )}
+      {dashboardConfig.sections.documents && (
+        <DocumentsSection t={publicTranslations.documents} />
+      )}
+      {dashboardConfig.sections.license && (
+        <LicenseApplicationSection
+          t={publicTranslations.license}
+          teams={licenseTeams}
+        />
+      )}
+      {dashboardConfig.sections.teamWorkspace && (
+        <TeamWorkspaceSection t={publicTranslations.teamWorkspace} />
+      )}
       {showExportSection && <ExportActionsSection t={t.export} />}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
-        <ClubTeamSection t={t.team} />
-        <StatsSection t={t.stats} />
-        <ModuleSection classementRules={classementRules} t={t.module} />
-        <RankingSection ranking={ranking} t={t.ranking} />
-        <SelectedTeamsSection
-          selectedTeamsByCountry={selectedTeamsByCountry}
-          t={t.selected}
-        />
-        <ScheduleSection
-          isScheduleVisible={isScheduleVisible}
-          releaseDateLabel={releaseDateLabel}
-          t={t.schedule}
-        />
-        <LocationSection t={t.location} />
+        {dashboardConfig.sections.team && (
+          <ClubTeamSection t={publicTranslations.team} />
+        )}
+        {dashboardConfig.sections.stats && (
+          <StatsSection t={publicTranslations.stats} />
+        )}
+        {dashboardConfig.sections.module && (
+          <ModuleSection
+            classementRules={classementRules}
+            t={publicTranslations.module}
+          />
+        )}
+        {dashboardConfig.sections.ranking && (
+          <RankingSection ranking={ranking} t={publicTranslations.ranking} />
+        )}
+        {dashboardConfig.sections.selected && (
+          <SelectedTeamsSection
+            selectedTeamsByCountry={selectedTeamsByCountry}
+            t={publicTranslations.selected}
+          />
+        )}
+        {dashboardConfig.sections.schedule && (
+          <ScheduleSection
+            isScheduleVisible={isScheduleVisible}
+            releaseDateLabel={releaseDateLabel}
+            t={publicTranslations.schedule}
+          />
+        )}
+        {dashboardConfig.sections.location && (
+          <LocationSection t={publicTranslations.location} />
+        )}
       </main>
 
       <Footer t={t.footer} />

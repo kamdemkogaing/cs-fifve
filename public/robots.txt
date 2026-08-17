@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+
+
+User-agent: GPTBot
+Disallow: /
+
+Sitemap: https://cs-fifve.patelot.de/sitemap.xml

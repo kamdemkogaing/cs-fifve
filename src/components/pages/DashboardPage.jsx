@@ -31,6 +31,22 @@ const sectionToggles = [
   { key: "welcomeModal", label: "Popup de bienvenue" },
 ];
 
+const editablePublicBlocks = [
+  ["hero", "Hero / accueil"],
+  ["meeting", "Reunion"],
+  ["documents", "Documents"],
+  ["license", "Licence"],
+  ["teamWorkspace", "Espace equipe"],
+  ["team", "Equipes"],
+  ["stats", "Statistiques"],
+  ["module", "Module"],
+  ["ranking", "Classement"],
+  ["selected", "Equipes retenues"],
+  ["schedule", "Programmation"],
+  ["location", "Lieu"],
+  ["footer", "Footer"],
+];
+
 const initialDashboardConfig = {
   site: {
     siteName: "FIFVE 2026",
@@ -99,9 +115,68 @@ const initialDashboardConfig = {
     whatsappNumber: "+49 171 1721204",
     contactPerson: "Teofile Tchakoumi",
   },
+  publicContent: {
+    hero: {
+      badge: "Week-End FIFVE 2026",
+      title: "Classement officiel, module de points et equipes retenues",
+      subtitle:
+        "Page officielle de presentation des informations sportives de l'edition 2026.",
+    },
+    meeting: {
+      badge: "Seance de travail",
+      title: "Reunion a venir",
+      subtitle: "Aucune reunion n'est prevue pour le moment.",
+    },
+    documents: {
+      badge: "Documents officiels",
+      title: "Telechargez les documents de reference du tournoi",
+      subtitle: "Retrouvez les documents officiels du Week-end FIFVE 2026.",
+    },
+    license: {
+      badge: "Inscription licence",
+      title: "Demandez votre licence FIFVE",
+      subtitle:
+        "Completez votre inscription pour participer aux activites FIFVE.",
+    },
+    teamWorkspace: {
+      badge: "Espace equipe",
+      title: "Votre espace equipe",
+      subtitle: "Retrouvez les ressources et informations de votre equipe.",
+    },
+    team: {
+      title: "Equipes participantes",
+      subtitle: "Decouvrez les clubs et equipes de la FIFVE.",
+    },
+    stats: {
+      title: "Les chiffres du tournoi",
+      subtitle: "Une vue rapide des indicateurs de la competition.",
+    },
+    module: {
+      title: "Module de classement FIFVE 2026",
+      subtitle: "Les regles et points qui structurent le classement.",
+    },
+    ranking: {
+      title: "Classement actuel des 54 equipes FIFVE",
+      subtitle: "Consultez le classement actualise des equipes.",
+    },
+    selected: {
+      title: "24 equipes retenues pour la FIFVE 2026",
+      subtitle: "Les equipes selectionnees pour le Week-end FIFVE.",
+    },
+    schedule: {
+      badge: "Programmation des matchs",
+      title: "Combinaisons des rencontres FIFVE Cologne 2026",
+      subtitle: "La programmation officielle des rencontres.",
+    },
+    location: {
+      title: "Lieu du Week-end FIFVE",
+      subtitle: "Toutes les informations pratiques pour rejoindre l'evenement.",
+    },
+    footer: { email: "bureau@fifve.com", website: "https://www.fifve.com" },
+  },
 };
 
-function loadDashboardConfig() {
+export function loadDashboardConfig() {
   try {
     const raw = window.localStorage.getItem(DASHBOARD_CONFIG_STORAGE_KEY);
     if (!raw) {
@@ -124,6 +199,16 @@ function loadDashboardConfig() {
       },
       schedule: { ...initialDashboardConfig.schedule, ...parsed.schedule },
       footer: { ...initialDashboardConfig.footer, ...parsed.footer },
+      publicContent: Object.keys(initialDashboardConfig.publicContent).reduce(
+        (content, key) => ({
+          ...content,
+          [key]: {
+            ...initialDashboardConfig.publicContent[key],
+            ...parsed.publicContent?.[key],
+          },
+        }),
+        {},
+      ),
     };
   } catch {
     return initialDashboardConfig;
@@ -215,6 +300,12 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
           blockHero: "Hero content",
           blockPlanning: "Planning & documents",
           blockCommercial: "License & contact",
+          publicBlocks: "Public page blocks",
+          publicHint:
+            "Edit the visible content of each section on the main page.",
+          publicBadge: "Badge / label",
+          publicTitle: "Section title",
+          publicSubtitle: "Section description",
           ready: "Ready",
           saveSuccess: "Configuration saved locally.",
           publishSuccess:
@@ -282,6 +373,12 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
           blockHero: "Contenu Hero",
           blockPlanning: "Programmation & documents",
           blockCommercial: "Licence & contact",
+          publicBlocks: "Blocs de la page publique",
+          publicHint:
+            "Modifiez le contenu visible de chaque section de la page principale.",
+          publicBadge: "Badge / libelle",
+          publicTitle: "Titre de section",
+          publicSubtitle: "Description de section",
           ready: "Prêt",
           saveSuccess: "Configuration enregistrée localement.",
           publishSuccess:
@@ -381,12 +478,12 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
   };
 
   return (
-    <div className="dashboard-page min-h-screen px-4 py-5 text-slate-900 sm:px-6 lg:px-8">
+    <div className="dashboard-page dashboard-shell min-h-screen px-4 py-5 text-slate-900 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-5">
-        <header className="dashboard-hero rounded-4xl p-5 sm:p-6">
+        <header className="dashboard-hero dashboard-command-center rounded-4xl p-5 sm:p-6">
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div className="max-w-3xl">
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="dashboard-eyebrow flex flex-wrap items-center gap-2">
                 <span className="status-pill status-pill--primary">
                   {ui.adminBadge}
                 </span>
@@ -394,7 +491,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                   {ui.mode}
                 </span>
               </div>
-              <h1 className="mt-4 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl xl:text-[2.1rem]">
+              <h1 className="dashboard-command-title mt-4 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl xl:text-[2.1rem]">
                 {ui.title}
               </h1>
               <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[0.95rem]">
@@ -402,8 +499,8 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 xl:justify-end">
-              <div className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/90 p-1 shadow-sm ring-1 ring-slate-200/80">
+            <div className="dashboard-command-actions flex flex-wrap items-center gap-3 xl:justify-end">
+              <div className="dashboard-language-switch inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/90 p-1 shadow-sm ring-1 ring-slate-200/80">
                 <button
                   type="button"
                   onClick={() => handleLanguageSelect("fr")}
@@ -441,7 +538,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
             </div>
           </div>
 
-          <div className="mt-5 grid gap-3 md:grid-cols-3">
+          <div className="dashboard-metrics mt-5 grid gap-3 md:grid-cols-3">
             {dashboardStats.map((item) => (
               <div
                 key={item.label}
@@ -464,7 +561,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
             </div>
             <a
               href="#dashboard-general"
-              className="dashboard-block-nav__item dashboard-block-nav__item--active"
+              className="dashboard-block-nav__item dashboard-block-nav__item--general dashboard-block-nav__item--active"
             >
               <Settings2 size={16} />
               <span>
@@ -474,7 +571,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
             </a>
             <a
               href="#dashboard-visibility"
-              className="dashboard-block-nav__item"
+              className="dashboard-block-nav__item dashboard-block-nav__item--visibility"
             >
               <Eye size={16} />
               <span>
@@ -482,14 +579,20 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                 {ui.blockVisibility}
               </span>
             </a>
-            <a href="#dashboard-hero" className="dashboard-block-nav__item">
+            <a
+              href="#dashboard-hero"
+              className="dashboard-block-nav__item dashboard-block-nav__item--hero"
+            >
               <LayoutTemplate size={16} />
               <span>
                 <b>03</b>
                 {ui.blockHero}
               </span>
             </a>
-            <a href="#dashboard-planning" className="dashboard-block-nav__item">
+            <a
+              href="#dashboard-planning"
+              className="dashboard-block-nav__item dashboard-block-nav__item--planning"
+            >
               <CalendarDays size={16} />
               <span>
                 <b>04</b>
@@ -498,7 +601,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
             </a>
             <a
               href="#dashboard-commercial"
-              className="dashboard-block-nav__item"
+              className="dashboard-block-nav__item dashboard-block-nav__item--commercial"
             >
               <CreditCard size={16} />
               <span>
@@ -513,12 +616,121 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                 {ui.payload}
               </span>
             </a>
+            <a
+              href="#dashboard-public-content"
+              className="dashboard-block-nav__item dashboard-block-nav__item--public"
+            >
+              <LayoutTemplate size={16} />
+              <span>
+                <b>PUBLIC</b>
+                {ui.publicBlocks}
+              </span>
+            </a>
           </nav>
 
           <div className="dashboard-content grid gap-5 xl:grid-cols-[1.25fr_0.75fr]">
             <div className="space-y-5">
               <section
+                className="dashboard-card dashboard-public-content"
+                id="dashboard-public-content"
+              >
+                <div className="dashboard-card__header">
+                  <div className="dashboard-card__title-wrap">
+                    <span className="dashboard-card__icon">
+                      <LayoutTemplate size={18} />
+                    </span>
+                    <div>
+                      <h2>{ui.publicBlocks}</h2>
+                      <p className="dashboard-section-hint">{ui.publicHint}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="dashboard-public-grid mt-5">
+                  {editablePublicBlocks.map(([key, label]) => (
+                    <fieldset className="dashboard-public-block" key={key}>
+                      <legend>{label}</legend>
+                      {key !== "footer" && (
+                        <>
+                          <label className="dashboard-field">
+                            <span>{ui.publicBadge}</span>
+                            <input
+                              value={config.publicContent[key]?.badge || ""}
+                              onChange={(event) =>
+                                updateSectionField("publicContent", key, {
+                                  ...config.publicContent[key],
+                                  badge: event.target.value,
+                                })
+                              }
+                              className="dashboard-input"
+                            />
+                          </label>
+                          <label className="dashboard-field">
+                            <span>{ui.publicTitle}</span>
+                            <input
+                              value={config.publicContent[key]?.title || ""}
+                              onChange={(event) =>
+                                updateSectionField("publicContent", key, {
+                                  ...config.publicContent[key],
+                                  title: event.target.value,
+                                })
+                              }
+                              className="dashboard-input"
+                            />
+                          </label>
+                          <label className="dashboard-field">
+                            <span>{ui.publicSubtitle}</span>
+                            <textarea
+                              rows={2}
+                              value={config.publicContent[key]?.subtitle || ""}
+                              onChange={(event) =>
+                                updateSectionField("publicContent", key, {
+                                  ...config.publicContent[key],
+                                  subtitle: event.target.value,
+                                })
+                              }
+                              className="dashboard-input dashboard-input--textarea"
+                            />
+                          </label>
+                        </>
+                      )}
+                      {key === "footer" && (
+                        <>
+                          <label className="dashboard-field">
+                            <span>{ui.footerEmail}</span>
+                            <input
+                              value={config.publicContent.footer?.email || ""}
+                              onChange={(event) =>
+                                updateSectionField("publicContent", "footer", {
+                                  ...config.publicContent.footer,
+                                  email: event.target.value,
+                                })
+                              }
+                              className="dashboard-input"
+                            />
+                          </label>
+                          <label className="dashboard-field">
+                            <span>{ui.footerWebsite}</span>
+                            <input
+                              value={config.publicContent.footer?.website || ""}
+                              onChange={(event) =>
+                                updateSectionField("publicContent", "footer", {
+                                  ...config.publicContent.footer,
+                                  website: event.target.value,
+                                })
+                              }
+                              className="dashboard-input"
+                            />
+                          </label>
+                        </>
+                      )}
+                    </fieldset>
+                  ))}
+                </div>
+              </section>
+
+              <section
                 className="dashboard-card"
+                data-variant="general"
                 data-block="01"
                 id="dashboard-general"
               >
@@ -600,6 +812,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
 
               <section
                 className="dashboard-card"
+                data-variant="visibility"
                 data-block="02"
                 id="dashboard-visibility"
               >
@@ -635,6 +848,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
 
               <section
                 className="dashboard-card"
+                data-variant="hero"
                 data-block="03"
                 id="dashboard-hero"
               >
@@ -703,6 +917,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
 
               <section
                 className="dashboard-card"
+                data-variant="planning"
                 data-block="04"
                 id="dashboard-planning"
               >
@@ -841,6 +1056,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
 
               <section
                 className="dashboard-card"
+                data-variant="commercial"
                 data-block="05"
                 id="dashboard-commercial"
               >

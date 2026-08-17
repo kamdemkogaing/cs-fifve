@@ -1,0 +1,2 @@
+- sitemap xml file definieren
+- robots.txt erweitern
