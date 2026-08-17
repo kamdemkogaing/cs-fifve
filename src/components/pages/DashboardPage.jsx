@@ -478,29 +478,29 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
   };
 
   return (
-    <div className="dashboard-page dashboard-shell min-h-screen px-4 py-5 text-slate-900 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl space-y-5">
-        <header className="dashboard-hero dashboard-command-center rounded-4xl p-5 sm:p-6">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-            <div className="max-w-3xl">
-              <div className="dashboard-eyebrow flex flex-wrap items-center gap-2">
-                <span className="status-pill status-pill--primary">
+    <div className="min-h-screen bg-[#f6f8fb] text-slate-900 selection:bg-blue-100 selection:text-blue-900">
+      <div className="mx-auto max-w-[1600px] space-y-6 px-4 py-4 sm:px-6 sm:py-6 lg:px-8">
+        <header className="overflow-hidden rounded-[28px] border border-slate-200/80 bg-white shadow-[0_20px_60px_-35px_rgba(15,23,42,0.35)]">
+          <div className="flex flex-col gap-6 px-5 py-6 sm:px-7 sm:py-7 xl:flex-row xl:items-start xl:justify-between">
+            <div className="max-w-4xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-blue-700 ring-1 ring-inset ring-blue-100">
                   {ui.adminBadge}
                 </span>
-                <span className="status-pill status-pill--neutral">
+                <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-slate-600 ring-1 ring-inset ring-slate-200">
                   {ui.mode}
                 </span>
               </div>
-              <h1 className="dashboard-command-title mt-4 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl xl:text-[2.1rem]">
+              <h1 className="mt-4 max-w-4xl text-2xl font-bold tracking-[-0.03em] text-slate-950 sm:text-3xl xl:text-[2.15rem]">
                 {ui.title}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 sm:text-[0.95rem]">
+              <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500 sm:text-[0.95rem]">
                 {ui.subtitle}
               </p>
             </div>
 
-            <div className="dashboard-command-actions flex flex-wrap items-center gap-3 xl:justify-end">
-              <div className="dashboard-language-switch inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/90 p-1 shadow-sm ring-1 ring-slate-200/80">
+            <div className="flex shrink-0 flex-wrap items-center gap-3 xl:justify-end">
+              <div className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50 p-1">
                 <button
                   type="button"
                   onClick={() => handleLanguageSelect("fr")}
@@ -530,7 +530,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
               <button
                 type="button"
                 onClick={onLogout}
-                className="dashboard-button dashboard-button--ghost inline-flex items-center gap-2"
+                className="inline-flex h-10 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950"
               >
                 <LogOut size={16} />
                 {ui.logout}
@@ -538,22 +538,26 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
             </div>
           </div>
 
-          <div className="dashboard-metrics mt-5 grid gap-3 md:grid-cols-3">
+          <div className="grid gap-px border-t border-slate-200 bg-slate-200 md:grid-cols-3">
             {dashboardStats.map((item) => (
-              <div
-                key={item.label}
-                className={`dashboard-stat-card dashboard-stat-card--${item.tone}`}
-              >
-                <p className="dashboard-stat-card__label">{item.label}</p>
-                <p className="dashboard-stat-card__value">{item.value}</p>
+              <div key={item.label} className="bg-white px-5 py-4 sm:px-7">
+                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">
+                  {item.label}
+                </p>
+                <p className="mt-1.5 text-sm font-semibold text-slate-800">
+                  {item.value}
+                </p>
               </div>
             ))}
           </div>
         </header>
 
-        <div className="dashboard-workspace">
-          <nav className="dashboard-block-nav" aria-label={ui.blocks}>
-            <div className="dashboard-block-nav__heading">
+        <div className="grid items-start gap-6 lg:grid-cols-[250px_minmax(0,1fr)]">
+          <nav
+            className="sticky top-5 hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm lg:block"
+            aria-label={ui.blocks}
+          >
+            <div className="mb-3 flex items-center justify-between border-b border-slate-100 px-2 pb-3 text-[11px] font-bold uppercase tracking-[0.12em] text-slate-400">
               <span>{ui.blocks}</span>
               <strong>
                 {enabledSectionsCount} / {sectionToggles.length}
@@ -561,97 +565,107 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
             </div>
             <a
               href="#dashboard-general"
-              className="dashboard-block-nav__item dashboard-block-nav__item--general dashboard-block-nav__item--active"
+              className="group flex items-center gap-3 rounded-xl bg-slate-950 px-3 py-3 text-sm font-semibold text-white transition"
             >
               <Settings2 size={16} />
-              <span>
-                <b>01</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[10px] opacity-60">01</b>
                 {ui.blockGeneral}
               </span>
             </a>
             <a
               href="#dashboard-visibility"
-              className="dashboard-block-nav__item dashboard-block-nav__item--visibility"
+              className="group mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
             >
               <Eye size={16} />
-              <span>
-                <b>02</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[10px] opacity-60">02</b>
                 {ui.blockVisibility}
               </span>
             </a>
             <a
               href="#dashboard-hero"
-              className="dashboard-block-nav__item dashboard-block-nav__item--hero"
+              className="group mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
             >
               <LayoutTemplate size={16} />
-              <span>
-                <b>03</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[10px] opacity-60">03</b>
                 {ui.blockHero}
               </span>
             </a>
             <a
               href="#dashboard-planning"
-              className="dashboard-block-nav__item dashboard-block-nav__item--planning"
+              className="group mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
             >
               <CalendarDays size={16} />
-              <span>
-                <b>04</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[10px] opacity-60">04</b>
                 {ui.blockPlanning}
               </span>
             </a>
             <a
               href="#dashboard-commercial"
-              className="dashboard-block-nav__item dashboard-block-nav__item--commercial"
+              className="group mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
             >
               <CreditCard size={16} />
-              <span>
-                <b>05</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[10px] opacity-60">05</b>
                 {ui.blockCommercial}
               </span>
             </a>
-            <a href="#dashboard-payload" className="dashboard-block-nav__item">
+            <a
+              href="#dashboard-payload"
+              className="group mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
+            >
               <FileText size={16} />
-              <span>
-                <b>JSON</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[9px] opacity-60">JSON</b>
                 {ui.payload}
               </span>
             </a>
             <a
               href="#dashboard-public-content"
-              className="dashboard-block-nav__item dashboard-block-nav__item--public"
+              className="group mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-slate-950"
             >
               <LayoutTemplate size={16} />
-              <span>
-                <b>PUBLIC</b>
+              <span className="flex min-w-0 items-center gap-2">
+                <b className="text-[9px] opacity-60">PUBLIC</b>
                 {ui.publicBlocks}
               </span>
             </a>
           </nav>
 
-          <div className="dashboard-content grid gap-5 xl:grid-cols-[1.25fr_0.75fr]">
-            <div className="space-y-5">
+          <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+            <div className="space-y-6">
               <section
-                className="dashboard-card dashboard-public-content"
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
                 id="dashboard-public-content"
               >
-                <div className="dashboard-card__header">
-                  <div className="dashboard-card__title-wrap">
-                    <span className="dashboard-card__icon">
+                <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                  <div className="flex items-start gap-3">
+                    <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-slate-950 text-white shadow-sm">
                       <LayoutTemplate size={18} />
                     </span>
                     <div>
-                      <h2>{ui.publicBlocks}</h2>
-                      <p className="dashboard-section-hint">{ui.publicHint}</p>
+                      <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                        {ui.publicBlocks}
+                      </h2>
+                      <p className="mt-1 text-sm leading-5 text-slate-500">
+                        {ui.publicHint}
+                      </p>
                     </div>
                   </div>
                 </div>
-                <div className="dashboard-public-grid mt-5">
+                <div className="mt-5 grid gap-4 lg:grid-cols-2">
                   {editablePublicBlocks.map(([key, label]) => (
-                    <fieldset className="dashboard-public-block" key={key}>
+                    <fieldset
+                      className="min-w-0 rounded-2xl border border-slate-200 bg-slate-50/60 p-4 [&>legend]:px-2 [&>legend]:text-sm [&>legend]:font-bold [&>legend]:text-slate-800"
+                      key={key}
+                    >
                       <legend>{label}</legend>
                       {key !== "footer" && (
                         <>
-                          <label className="dashboard-field">
+                          <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                             <span>{ui.publicBadge}</span>
                             <input
                               value={config.publicContent[key]?.badge || ""}
@@ -661,10 +675,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                                   badge: event.target.value,
                                 })
                               }
-                              className="dashboard-input"
+                              className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                             />
                           </label>
-                          <label className="dashboard-field">
+                          <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                             <span>{ui.publicTitle}</span>
                             <input
                               value={config.publicContent[key]?.title || ""}
@@ -674,10 +688,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                                   title: event.target.value,
                                 })
                               }
-                              className="dashboard-input"
+                              className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                             />
                           </label>
-                          <label className="dashboard-field">
+                          <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                             <span>{ui.publicSubtitle}</span>
                             <textarea
                               rows={2}
@@ -688,14 +702,14 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                                   subtitle: event.target.value,
                                 })
                               }
-                              className="dashboard-input dashboard-input--textarea"
+                              className="w-full resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal leading-6 text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                             />
                           </label>
                         </>
                       )}
                       {key === "footer" && (
                         <>
-                          <label className="dashboard-field">
+                          <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                             <span>{ui.footerEmail}</span>
                             <input
                               value={config.publicContent.footer?.email || ""}
@@ -705,10 +719,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                                   email: event.target.value,
                                 })
                               }
-                              className="dashboard-input"
+                              className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                             />
                           </label>
-                          <label className="dashboard-field">
+                          <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                             <span>{ui.footerWebsite}</span>
                             <input
                               value={config.publicContent.footer?.website || ""}
@@ -718,7 +732,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                                   website: event.target.value,
                                 })
                               }
-                              className="dashboard-input"
+                              className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                             />
                           </label>
                         </>
@@ -729,21 +743,23 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
               </section>
 
               <section
-                className="dashboard-card"
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
                 data-variant="general"
                 data-block="01"
                 id="dashboard-general"
               >
-                <div className="dashboard-card__header">
-                  <div className="dashboard-card__title-wrap">
-                    <span className="dashboard-card__icon">
+                <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                  <div className="flex items-start gap-3">
+                    <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-slate-950 text-white shadow-sm">
                       <Settings2 size={18} />
                     </span>
-                    <h2>{ui.generalTitle}</h2>
+                    <h2 className="pt-2 text-base font-bold tracking-[-0.01em] text-slate-950">
+                      {ui.generalTitle}
+                    </h2>
                   </div>
                 </div>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.siteName}</span>
                     <input
                       value={config.site.siteName}
@@ -754,11 +770,11 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
 
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.defaultLanguage}</span>
                     <select
                       value={config.site.defaultLanguage}
@@ -771,14 +787,14 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                         );
                         handleLanguageSelect(nextLanguage);
                       }}
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     >
                       <option value="fr">fr</option>
                       <option value="en">en</option>
                     </select>
                   </label>
 
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.sloganFr}</span>
                     <input
                       value={config.site.sloganFr}
@@ -789,11 +805,11 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
 
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.sloganEn}</span>
                     <input
                       value={config.site.sloganEn}
@@ -804,22 +820,27 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
                 </div>
               </section>
 
               <section
-                className="dashboard-card"
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
                 data-variant="visibility"
                 data-block="02"
                 id="dashboard-visibility"
               >
-                <h2 className="dashboard-card__title">{ui.visibility}</h2>
+                <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                  {ui.visibility}
+                </h2>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {sectionToggles.map((item) => (
-                    <label key={item.key} className="dashboard-toggle-item">
+                    <label
+                      key={item.key}
+                      className="group flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-white px-3.5 py-3 transition hover:border-slate-300 hover:bg-slate-50"
+                    >
                       <input
                         type="checkbox"
                         checked={config.sections[item.key]}
@@ -830,15 +851,15 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                             event.target.checked,
                           )
                         }
-                        className="dashboard-toggle"
+                        className="peer sr-only"
                       />
                       <span
-                        className="dashboard-toggle-track"
+                        className="relative h-6 w-11 shrink-0 rounded-full bg-slate-200 transition peer-checked:bg-blue-600 peer-checked:[&>span]:translate-x-5 peer-focus-visible:ring-4 peer-focus-visible:ring-blue-500/20"
                         aria-hidden="true"
                       >
-                        <span className="dashboard-toggle-thumb" />
+                        <span className="absolute left-1 top-1 size-4 rounded-full bg-white shadow-sm transition" />
                       </span>
-                      <span className="dashboard-toggle-label">
+                      <span className="text-sm font-semibold text-slate-700">
                         {item.label}
                       </span>
                     </label>
@@ -847,12 +868,14 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
               </section>
 
               <section
-                className="dashboard-card"
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
                 data-variant="hero"
                 data-block="03"
                 id="dashboard-hero"
               >
-                <h2 className="dashboard-card__title">{ui.hero}</h2>
+                <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                  {ui.hero}
+                </h2>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <label className="dashboard-field sm:col-span-2">
                     <span>{ui.badgeFr}</span>
@@ -865,7 +888,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
                   <label className="dashboard-field sm:col-span-2">
@@ -879,10 +902,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.titleFr}</span>
                     <textarea
                       rows={3}
@@ -894,10 +917,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input dashboard-input--textarea"
+                      className="w-full resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal leading-6 text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.titleEn}</span>
                     <textarea
                       rows={3}
@@ -909,21 +932,23 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input dashboard-input--textarea"
+                      className="w-full resize-y rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal leading-6 text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
                 </div>
               </section>
 
               <section
-                className="dashboard-card"
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
                 data-variant="planning"
                 data-block="04"
                 id="dashboard-planning"
               >
-                <h2 className="dashboard-card__title">{ui.meeting}</h2>
+                <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                  {ui.meeting}
+                </h2>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <label className="space-y-1 sm:col-span-2">
+                  <label className="flex flex-col gap-2 sm:col-span-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.meetLink}
                     </span>
@@ -936,10 +961,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1">
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.dateFr}
                     </span>
@@ -952,10 +977,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1">
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.dateEn}
                     </span>
@@ -968,10 +993,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1 sm:col-span-2">
+                  <label className="flex flex-col gap-2 sm:col-span-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.releaseIso}
                     </span>
@@ -984,10 +1009,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1">
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.linkOne}
                     </span>
@@ -1000,10 +1025,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1">
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.linkTwo}
                     </span>
@@ -1016,10 +1041,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1">
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.reglement}
                     </span>
@@ -1032,10 +1057,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="space-y-1">
+                  <label className="flex flex-col gap-2">
                     <span className="text-sm font-semibold text-slate-700">
                       {ui.charte}
                     </span>
@@ -1048,21 +1073,23 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#0646c4]"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
                 </div>
               </section>
 
               <section
-                className="dashboard-card"
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
                 data-variant="commercial"
                 data-block="05"
                 id="dashboard-commercial"
               >
-                <h2 className="dashboard-card__title">{ui.licence}</h2>
+                <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                  {ui.licence}
+                </h2>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.newLicensePrice}</span>
                     <input
                       value={config.license.newLicensePrice}
@@ -1073,10 +1100,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.transferPrice}</span>
                     <input
                       value={config.license.transferPrice}
@@ -1087,7 +1114,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
                   <label className="dashboard-field sm:col-span-2">
@@ -1101,10 +1128,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.footerEmail}</span>
                     <input
                       value={config.footer.email}
@@ -1115,10 +1142,10 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
-                  <label className="dashboard-field">
+                  <label className="flex min-w-0 flex-col gap-2 text-sm font-semibold text-slate-700">
                     <span>{ui.footerWebsite}</span>
                     <input
                       value={config.footer.website}
@@ -1129,24 +1156,26 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                           event.target.value,
                         )
                       }
-                      className="dashboard-input"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-normal text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
                     />
                   </label>
                 </div>
               </section>
             </div>
 
-            <aside className="space-y-5">
-              <section className="dashboard-card dashboard-card--sticky dashboard-actions-card">
-                <h2 className="dashboard-card__title">{ui.actions}</h2>
+            <aside className="space-y-6">
+              <section className="sticky top-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                  {ui.actions}
+                </h2>
                 <div
-                  className={`dashboard-change-state ${
+                  className={`mt-4 flex items-start gap-3 rounded-xl border px-3.5 py-3 text-sm ${
                     hasUnsavedChanges
-                      ? "dashboard-change-state--warning"
-                      : "dashboard-change-state--ok"
+                      ? "border-amber-200 bg-amber-50 text-amber-700"
+                      : "border-emerald-200 bg-emerald-50 text-emerald-700"
                   }`}
                 >
-                  <span className="dashboard-change-state__dot" />
+                  <span className="mt-1 size-2.5 shrink-0 rounded-full bg-current" />
                   <span>
                     <strong>
                       {hasUnsavedChanges ? ui.changes : ui.noChanges}
@@ -1160,7 +1189,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                   <button
                     type="button"
                     onClick={handleRefresh}
-                    className="dashboard-button dashboard-button--refresh inline-flex items-center justify-center gap-2"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
                   >
                     <RefreshCw size={16} />
                     {ui.refresh}
@@ -1168,7 +1197,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                   <button
                     type="button"
                     onClick={handleSaveDraft}
-                    className="dashboard-button dashboard-button--secondary inline-flex items-center justify-center gap-2"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-slate-100 px-4 text-sm font-semibold text-slate-900 transition hover:bg-slate-200"
                   >
                     <Save size={16} />
                     {ui.saveLocal}
@@ -1176,7 +1205,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                   <button
                     type="button"
                     onClick={handlePublish}
-                    className="dashboard-button dashboard-button--primary inline-flex items-center justify-center gap-2"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 text-sm font-semibold text-white shadow-sm shadow-blue-600/20 transition hover:bg-blue-700"
                   >
                     <Send size={16} />
                     {ui.publish}
@@ -1184,7 +1213,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="dashboard-button dashboard-button--danger inline-flex items-center justify-center gap-2"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 text-sm font-semibold text-red-700 transition hover:bg-red-100"
                   >
                     {ui.reset}
                   </button>
@@ -1204,9 +1233,14 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                 </p>
               </section>
 
-              <section className="dashboard-card" id="dashboard-payload">
-                <h2 className="dashboard-card__title">{ui.payload}</h2>
-                <pre className="dashboard-preview mt-3 max-h-112 overflow-auto rounded-2xl bg-slate-950 p-4 text-xs leading-5 text-cyan-100">
+              <section
+                className="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+                id="dashboard-payload"
+              >
+                <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
+                  {ui.payload}
+                </h2>
+                <pre className="mt-3 max-h-[32rem] overflow-auto rounded-xl border border-slate-800 bg-slate-950 p-4 font-mono text-[11px] leading-5 text-slate-300">
                   {payloadPreview}
                 </pre>
               </section>
