@@ -16,6 +16,7 @@ const DASHBOARD_CONFIG_STORAGE_KEY = "fifve-dashboard-config";
 const DASHBOARD_PUBLISHED_AT_STORAGE_KEY = "fifve-dashboard-published-at";
 
 const sectionToggles = [
+  { key: "hero", label: "Section accueil / Hero" },
   { key: "meeting", label: "Section reunion" },
   { key: "documents", label: "Section documents" },
   { key: "license", label: "Section licence" },
@@ -29,6 +30,7 @@ const sectionToggles = [
   { key: "location", label: "Section lieu" },
   { key: "export", label: "Section export" },
   { key: "welcomeModal", label: "Popup de bienvenue" },
+  { key: "footer", label: "Section footer" },
 ];
 
 const editablePublicBlocks = [
@@ -56,6 +58,7 @@ const initialDashboardConfig = {
     timezone: "Europe/Berlin",
   },
   sections: {
+    hero: true,
     meeting: true,
     documents: true,
     license: true,
@@ -69,6 +72,7 @@ const initialDashboardConfig = {
     location: true,
     export: false,
     welcomeModal: true,
+    footer: true,
   },
   hero: {
     badgeFr: "Week-End FIFVE 2026",
@@ -1240,7 +1244,7 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                 <h2 className="text-base font-bold tracking-[-0.01em] text-slate-950">
                   {ui.payload}
                 </h2>
-                <pre className="mt-3 max-h-[32rem] overflow-auto rounded-xl border border-slate-800 bg-slate-950 p-4 font-mono text-[11px] leading-5 text-slate-300">
+                <pre className="mt-3 max-h-128 overflow-auto rounded-xl border border-slate-800 bg-slate-950 p-4 font-mono text-[11px] leading-5 text-slate-300">
                   {payloadPreview}
                 </pre>
               </section>

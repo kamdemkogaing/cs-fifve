@@ -26,7 +26,6 @@ import {
 } from "./data/fifveData";
 import { getTranslations, normalizeLanguage } from "./i18n";
 
-const SCHEDULE_RELEASE_ISO = "2026-07-24T18:00:00Z";
 const ADMIN_AUTH_STORAGE_KEY = "fifve-admin-auth";
 const licenseTeams = selectedTeamsByCountry.flatMap(({ country, teams }) =>
   teams.map((team) => ({ ...team, country })),
@@ -63,30 +62,72 @@ export default function App() {
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(() => Date.now());
+  const dashboardConfig = loadDashboardConfig();
+  const publicContent = dashboardConfig.publicContent;
+  const scheduleReleaseIso = dashboardConfig.schedule.releaseDateIso;
   const [showWelcomeModal, setShowWelcomeModal] = useState(() => {
     if (typeof window === "undefined") {
       return true;
     }
 
-    return !window.localStorage.getItem("fifve-welcome-modal-seen");
+    return (
+      dashboardConfig.sections.welcomeModal &&
+      !window.localStorage.getItem("fifve-welcome-modal-seen")
+    );
   });
   const t = getTranslations(language);
-  const dashboardConfig = loadDashboardConfig();
-  const publicContent = dashboardConfig.publicContent;
   const publicTranslations = {
     ...t,
     hero: { ...t.hero, ...publicContent.hero },
-    meeting: { ...t.meeting, ...publicContent.meeting },
-    documents: { ...t.documents, ...publicContent.documents },
-    license: { ...t.license, ...publicContent.license },
+    meeting: {
+      ...t.meeting,
+      ...publicContent.meeting,
+      description: publicContent.meeting.subtitle || t.meeting.description,
+      meetUrl: dashboardConfig.meeting.meetingUrl || t.meeting.meetUrl,
+      dateValue:
+        language === "en"
+          ? dashboardConfig.meeting.dateEn
+          : dashboardConfig.meeting.dateFr,
+      timeValue:
+        language === "en"
+          ? dashboardConfig.meeting.timeEn
+          : dashboardConfig.meeting.timeFr,
+      blockedNote:
+        language === "en"
+          ? dashboardConfig.meeting.noteEn
+          : dashboardConfig.meeting.noteFr,
+    },
+    documents: {
+      ...t.documents,
+      ...publicContent.documents,
+      reglementHref: dashboardConfig.documents.reglementUrl,
+      charteHref: dashboardConfig.documents.charteUrl,
+    },
+    license: {
+      ...t.license,
+      ...publicContent.license,
+      amountValue: `${dashboardConfig.license.newLicensePrice} EUR`,
+      transferAmountValue: `${dashboardConfig.license.transferPrice} EUR`,
+    },
     teamWorkspace: { ...t.teamWorkspace, ...publicContent.teamWorkspace },
     team: { ...t.team, ...publicContent.team },
     stats: { ...t.stats, ...publicContent.stats },
     module: { ...t.module, ...publicContent.module },
     ranking: { ...t.ranking, ...publicContent.ranking },
     selected: { ...t.selected, ...publicContent.selected },
-    schedule: { ...t.schedule, ...publicContent.schedule },
+    schedule: {
+      ...t.schedule,
+      ...publicContent.schedule,
+      linkOne: dashboardConfig.schedule.linkOne || t.schedule.linkOne,
+      linkTwo: dashboardConfig.schedule.linkTwo || t.schedule.linkTwo,
+    },
     location: { ...t.location, ...publicContent.location },
+    footer: {
+      ...t.footer,
+      email: dashboardConfig.footer.email,
+      website: dashboardConfig.footer.website,
+      contactPerson: dashboardConfig.footer.contactPerson,
+    },
   };
 
   useEffect(() => {
@@ -111,7 +152,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const scheduleReleaseTimestamp = Date.parse(SCHEDULE_RELEASE_ISO);
+  const scheduleReleaseTimestamp = Date.parse(scheduleReleaseIso);
   const isScheduleVisible = currentTime >= scheduleReleaseTimestamp;
   const releaseDateLabel = new Date(scheduleReleaseTimestamp).toLocaleString(
     language === "en" ? "en-GB" : "fr-FR",
@@ -246,13 +287,15 @@ export default function App() {
         onCloseMenu={() => setMobileMenuOpen(false)}
       />
 
-      <HeroSection
-        t={publicTranslations.hero}
-        countdown={remaining}
-        releaseDateLabel={releaseDateLabel}
-        isScheduleVisible={isScheduleVisible}
-        scheduleT={t.schedule}
-      />
+      {dashboardConfig.sections.hero && (
+        <HeroSection
+          t={publicTranslations.hero}
+          countdown={remaining}
+          releaseDateLabel={releaseDateLabel}
+          isScheduleVisible={isScheduleVisible}
+          scheduleT={publicTranslations.schedule}
+        />
+      )}
       {dashboardConfig.sections.meeting && (
         <MeetingSection t={publicTranslations.meeting} />
       )}
@@ -268,7 +311,9 @@ export default function App() {
       {dashboardConfig.sections.teamWorkspace && (
         <TeamWorkspaceSection t={publicTranslations.teamWorkspace} />
       )}
-      {showExportSection && <ExportActionsSection t={t.export} />}
+      {(showExportSection || dashboardConfig.sections.export) && (
+        <ExportActionsSection t={t.export} />
+      )}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
         {dashboardConfig.sections.team && (
@@ -304,7 +349,9 @@ export default function App() {
         )}
       </main>
 
-      <Footer t={t.footer} />
+      {dashboardConfig.sections.footer && (
+        <Footer t={publicTranslations.footer} />
+      )}
     </div>
   );
 }

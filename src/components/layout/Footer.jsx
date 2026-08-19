@@ -64,22 +64,22 @@ export default function Footer({ t }) {
             </p>
             <p>
               <a
-                href="mailto:bureau@fifve.com"
+                href={`mailto:${t.email || "bureau@fifve.com"}`}
                 className="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 text-blue-100 transition hover:text-white"
               >
                 <Mail size={16} className="shrink-0" />
-                bureau@fifve.com
+                {t.email || "bureau@fifve.com"}
               </a>
             </p>
             <p>
               <a
-                href="https://www.fifve.com"
+                href={t.website || "https://www.fifve.com"}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 text-blue-100 transition hover:text-white"
               >
                 <Globe size={16} className="shrink-0" />
-                www.fifve.com
+                {t.website || "https://www.fifve.com"}
               </a>
             </p>
           </div>
@@ -102,7 +102,7 @@ export default function Footer({ t }) {
             <p className="mt-1 text-xs text-blue-100">
               {t.contactPersonLabel}:{" "}
               <span className="font-semibold text-white">
-                Téofile Tchakoumi
+                {t.contactPerson || "Téofile Tchakoumi"}
               </span>
             </p>
           </div>
