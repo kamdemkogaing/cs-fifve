@@ -1,5 +1,5 @@
 export const ranking = [
-  ["1", "Koeve (Cologne Vétérans)", 116, "10+5", 131],
+  ["1", "KOEVE e.V.", 116, "10+5", 131],
   ["2", "2 zero ASBL Bruxelles", 65, "30+5", 100],
   ["3", "2 zero Liège", 71, "20+5", 96],
   ["4", "ASASB 93", 86, "5", 91],
