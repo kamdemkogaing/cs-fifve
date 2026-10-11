@@ -211,7 +211,7 @@ function buildReglementPdf() {
   writer.writeParagraph("Se referer a l'organigramme officiel de la FIFVE.");
 
   writer.finish();
-  pdf.save(path.join(outputDir, "reglement-interieur-fifve-2026.pdf"));
+  pdf.save(path.join(outputDir, "reglement-interieur-fifve-2027.pdf"));
 }
 
 function buildChartePdf() {
@@ -280,7 +280,7 @@ function buildChartePdf() {
   writer.writeParagraph("Pour plus de detail, se referer au reglement du tournoi FIFVE.");
 
   writer.finish();
-  pdf.save(path.join(outputDir, "charte-sportive-fifve-2026.pdf"));
+  pdf.save(path.join(outputDir, "charte-sportive-fifve-2027.pdf"));
 }
 
 ensureOutputDir();

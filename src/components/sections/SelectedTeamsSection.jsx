@@ -4,6 +4,25 @@ export default function SelectedTeamsSection({ selectedTeamsByCountry, t }) {
   const [selectedCountry, setSelectedCountry] = useState("all");
   const [sortMode, setSortMode] = useState("alpha-asc");
 
+  if (selectedTeamsByCountry.length === 0) {
+    return (
+      <section
+        id="retenues"
+        className="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg"
+      >
+        <h2 className="text-2xl font-bold text-[#0646c4] md:text-3xl">
+          {t.title}
+        </h2>
+        <div className="mt-6 rounded-2xl border border-dashed border-blue-300 bg-blue-50/60 p-8 text-center">
+          <p className="text-lg font-bold text-[#0646c4]">{t.pendingTitle}</p>
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            {t.pendingDescription}
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   const sortedGroups = useMemo(() => {
     const groups = [...selectedTeamsByCountry];
 

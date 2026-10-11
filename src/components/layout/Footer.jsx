@@ -1,8 +1,6 @@
 import {
-  ExternalLink,
   Globe,
   Mail,
-  MapPin,
   MessageCircle,
   Trophy,
 } from "lucide-react";
@@ -10,30 +8,6 @@ import {
 export default function Footer({ t }) {
   const whatsappNumber = "491711721204";
   const whatsappUrl = `https://wa.me/${whatsappNumber}`;
-  const venueAddresses = [
-    {
-      key: "stadium",
-      label: t.stadiumLabel,
-      lines: ["Salzburger Weg 20", "50933 Koln"],
-      mapsUrl:
-        "https://www.google.com/maps/search/?api=1&query=Salzburger+Weg+20,+50933+Koln",
-    },
-    {
-      key: "conference",
-      label: t.conferenceLabel,
-      lines: ["Friedrich-Ebert-Strasse 40", "50354 Hurth"],
-      mapsUrl:
-        "https://www.google.com/maps/search/?api=1&query=Friedrich-Ebert-Strasse+40,+50354+Hurth",
-    },
-    {
-      key: "partyHall",
-      label: t.partyHallLabel,
-      lines: ["Biesterfeldstrasse 7", "50829 Koln"],
-      mapsUrl:
-        "https://www.google.com/maps/search/?api=1&query=Biesterfeldstrasse+7,+50829+Koln",
-    },
-  ];
-
   return (
     <footer className="relative overflow-hidden border-t border-white/15 bg-linear-to-br from-[#04379a] via-[#0646c4] to-[#0a5bcf] px-6 py-10 text-white">
       <div className="pointer-events-none absolute -top-28 -right-20 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl"></div>
@@ -54,14 +28,6 @@ export default function Footer({ t }) {
           <h4 className="mb-3 text-lg font-bold">{t.contact}</h4>
 
           <div className="space-y-2.5 text-sm text-blue-100">
-            <p className="flex items-start gap-2">
-              <MapPin size={16} className="mt-0.5 shrink-0 text-white" />
-              <span>
-                Johanniterstraße 30
-                <br />
-                44787 Bochum, {t.country}
-              </span>
-            </p>
             <p>
               <a
                 href={`mailto:${t.email || "bureau@fifve.com"}`}
@@ -119,30 +85,9 @@ export default function Footer({ t }) {
             {t.venuesTitle}
           </p>
 
-          <div className="mt-3 space-y-3">
-            {venueAddresses.map((venue) => (
-              <article
-                key={venue.key}
-                className="rounded-xl border border-white/20 bg-white/10 p-3"
-              >
-                <p className="text-sm font-semibold text-white">
-                  {venue.label}
-                </p>
-                <p className="mt-1 text-sm text-blue-100">{venue.lines[0]}</p>
-                <p className="text-sm text-blue-100">{venue.lines[1]}</p>
-                <a
-                  href={venue.mapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/25"
-                >
-                  <MapPin size={13} />
-                  {t.openMap}
-                  <ExternalLink size={12} />
-                </a>
-              </article>
-            ))}
-          </div>
+          <p className="mt-3 rounded-xl border border-dashed border-white/35 bg-white/10 p-4 text-sm leading-6 text-blue-100">
+            {t.venuesPending}
+          </p>
         </div>
       </div>
 

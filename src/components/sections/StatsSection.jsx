@@ -13,10 +13,14 @@ function Card({ icon, title, text }) {
 export default function StatsSection({ t }) {
   return (
     <section className="grid gap-6 md:grid-cols-4">
-      <Card icon={<Trophy />} title="53" text={t.teamsRanked} />
-      <Card icon={<Users />} title="24" text={t.teamsSelected} />
+      <Card icon={<Trophy />} title="54" text={t.teamsRanked} />
+      <Card icon={<Users />} title="—" text={t.teamsSelected} />
       <Card icon={<Medal />} title="116" text={t.leaderPoints} />
-      <Card icon={<MapPin />} title="25 juillet 2026" text={t.tournament} />
+      <Card
+        icon={<MapPin />}
+        title="23-25 juillet 2027"
+        text={t.tournament}
+      />
     </section>
   );
 }

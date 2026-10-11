@@ -94,6 +94,29 @@ export default function HeroSection({
             {t.title}
           </h2>
           <p className="mt-6 max-w-3xl text-lg">{t.subtitle}</p>
+
+          <div className="mt-8 flex max-w-xl items-center gap-4 rounded-3xl border border-white/30 bg-slate-950/20 p-3 shadow-2xl backdrop-blur-md">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/60 bg-white p-1 shadow-lg">
+              <img
+                src="/images/veterans-3e-mi-temps-karlsruhe.jpg"
+                alt={t.hostLogoAlt}
+                className="h-full w-full object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-200">
+                {t.hostBadge}
+              </p>
+              <p className="mt-1 text-lg font-black leading-tight text-white md:text-xl">
+                {t.hostName}
+              </p>
+              <p className="mt-1 text-sm font-medium text-blue-100">
+                {t.hostDescription}
+              </p>
+            </div>
+          </div>
         </div>
 
         <figure className="order-1 mx-auto w-full max-w-xl rounded-2xl border border-white/30 bg-white/8 p-3 shadow-2xl backdrop-blur-xs lg:order-2">

@@ -50,8 +50,9 @@ const editablePublicBlocks = [
 ];
 
 const initialDashboardConfig = {
+  edition: "2027",
   site: {
-    siteName: "FIFVE 2026",
+    siteName: "FIFVE 2027",
     sloganFr: "Football our Passion",
     sloganEn: "Football our Passion",
     defaultLanguage: "fr",
@@ -75,14 +76,14 @@ const initialDashboardConfig = {
     footer: true,
   },
   hero: {
-    badgeFr: "Week-End FIFVE 2026",
-    badgeEn: "FIFVE Weekend 2026",
+    badgeFr: "Week-End FIFVE 2027",
+    badgeEn: "FIFVE Weekend 2027",
     titleFr: "Classement officiel, module de points et equipes retenues",
     titleEn: "Official rankings, scoring module and selected teams",
     subtitleFr:
-      "Page officielle de presentation des informations sportives de l'edition 2026.",
+      "Page officielle de presentation des informations sportives de l'edition 2027.",
     subtitleEn:
-      "Official page presenting sports information for the 2026 edition.",
+      "Official page presenting sports information for the 2027 edition.",
   },
   meeting: {
     meetingUrl: "https://meet.google.com/huk-ijth-nnx",
@@ -94,10 +95,10 @@ const initialDashboardConfig = {
     noteEn: "Please check back regularly.",
   },
   documents: {
-    reglementUrl: "/documents/Reglement_interieur_FIFVE_2026.pdf",
-    charteUrl: "/documents/Charte_sportive_FIFVE_2026.pdf",
-    updatedFr: "Juillet 2026",
-    updatedEn: "July 2026",
+    reglementUrl: "/documents/reglement-interieur-fifve-2027.pdf",
+    charteUrl: "/documents/charte-sportive-fifve-2027.pdf",
+    updatedFr: "Juillet 2027",
+    updatedEn: "July 2027",
   },
   license: {
     newLicensePrice: "10",
@@ -105,13 +106,12 @@ const initialDashboardConfig = {
     paymentProvider: "PayPal / Carte bancaire",
   },
   teamWorkspace: {
-    workspacePassword: "FIFVE-TEAM-2026",
+    workspacePassword: "FIFVE-TEAM-2027",
     reportsDocxUrl: "/documents/Rapport_sportif_FIFVE_2026.docx",
   },
   schedule: {
-    releaseDateIso: "2026-07-24T18:00:00Z",
+    releaseDateIso: "2027-07-23T18:00:00Z",
     linkOne: "",
-    linkTwo: "",
   },
   footer: {
     email: "bureau@fifve.com",
@@ -121,10 +121,10 @@ const initialDashboardConfig = {
   },
   publicContent: {
     hero: {
-      badge: "Week-End FIFVE 2026",
+      badge: "Week-End FIFVE 2027",
       title: "Classement officiel, module de points et equipes retenues",
       subtitle:
-        "Page officielle de presentation des informations sportives de l'edition 2026.",
+        "Page officielle de presentation des informations sportives de l'edition 2027.",
     },
     meeting: {
       badge: "Seance de travail",
@@ -134,7 +134,7 @@ const initialDashboardConfig = {
     documents: {
       badge: "Documents officiels",
       title: "Telechargez les documents de reference du tournoi",
-      subtitle: "Retrouvez les documents officiels du Week-end FIFVE 2026.",
+      subtitle: "Retrouvez les documents officiels du Week-end FIFVE 2027.",
     },
     license: {
       badge: "Inscription licence",
@@ -156,7 +156,7 @@ const initialDashboardConfig = {
       subtitle: "Une vue rapide des indicateurs de la competition.",
     },
     module: {
-      title: "Module de classement FIFVE 2026",
+      title: "Module de classement FIFVE 2027",
       subtitle: "Les regles et points qui structurent le classement.",
     },
     ranking: {
@@ -164,12 +164,12 @@ const initialDashboardConfig = {
       subtitle: "Consultez le classement actualise des equipes.",
     },
     selected: {
-      title: "24 equipes retenues pour la FIFVE 2026",
-      subtitle: "Les equipes selectionnees pour le Week-end FIFVE.",
+      title: "Equipes retenues pour la FIFVE 2027",
+      subtitle: "Les equipes retenues seront annoncees prochainement.",
     },
     schedule: {
       badge: "Programmation des matchs",
-      title: "Combinaisons des rencontres FIFVE Cologne 2026",
+      title: "Combinaisons des rencontres FIFVE Karlsruhe 2027",
       subtitle: "La programmation officielle des rencontres.",
     },
     location: {
@@ -188,6 +188,10 @@ export function loadDashboardConfig() {
     }
 
     const parsed = JSON.parse(raw);
+    if (parsed.edition !== initialDashboardConfig.edition) {
+      return initialDashboardConfig;
+    }
+
     return {
       ...initialDashboardConfig,
       ...parsed,
@@ -274,7 +278,6 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
           dateEn: "Date EN",
           releaseIso: "Schedule publication (ISO)",
           linkOne: "Schedule link 1",
-          linkTwo: "Schedule link 2",
           reglement: "Rules PDF URL",
           charte: "Charter PDF URL",
           licence: "License, team workspace and footer",
@@ -347,7 +350,6 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
           dateEn: "Date EN",
           releaseIso: "Publication programmation (ISO)",
           linkOne: "Lien programmation 1",
-          linkTwo: "Lien programmation 2",
           reglement: "URL Règlement PDF",
           charte: "URL Charte PDF",
           licence: "Licence, espace équipe et footer",
@@ -1026,22 +1028,6 @@ export default function DashboardPage({ language, setLanguage, onLogout }) {
                         updateSectionField(
                           "schedule",
                           "linkOne",
-                          event.target.value,
-                        )
-                      }
-                      className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
-                    />
-                  </label>
-                  <label className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold text-slate-700">
-                      {ui.linkTwo}
-                    </span>
-                    <input
-                      value={config.schedule.linkTwo}
-                      onChange={(event) =>
-                        updateSectionField(
-                          "schedule",
-                          "linkTwo",
                           event.target.value,
                         )
                       }

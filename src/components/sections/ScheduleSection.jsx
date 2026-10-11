@@ -179,17 +179,11 @@ export default function ScheduleSection({
           </div>
         )}
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <div className="mt-6">
           <ScheduleLinkCard
             title={t.linkOne}
-            url="https://www.meinturnierplan.de/c/tmfs3ecd/fifve-cologne-2026-part-1-6-felds/"
-            isVisible={isScheduleVisible}
-            t={t}
-          />
-          <ScheduleLinkCard
-            title={t.linkTwo}
-            url="https://www.meinturnierplan.de/showit.php?id=2jw4wox3ow"
-            isVisible={isScheduleVisible}
+            url={t.linkOneUrl}
+            isVisible={isScheduleVisible && Boolean(t.linkOneUrl)}
             t={t}
           />
         </div>
@@ -202,22 +196,13 @@ export default function ScheduleSection({
 
           <p className="mt-2 text-sm text-slate-600">{t.qrDescription}</p>
 
-          <div className="mt-4 grid gap-3 lg:grid-cols-2">
+          <div className="mt-4">
             <QrAccessCard
               title={t.linkOne}
               imagePath="/images/qr-combinaisons-fifve-part-1.png"
-              linkUrl="https://www.meinturnierplan.de/c/tmfs3ecd/fifve-cologne-2026-part-1-6-felds/"
+              linkUrl={t.linkOneUrl}
               hint={t.qrPartOneHint}
-              isVisible={isScheduleVisible}
-              releaseDateLabel={releaseDateLabel}
-              t={t}
-            />
-            <QrAccessCard
-              title={t.linkTwo}
-              imagePath="/images/qr-combinaisons-fifve-part-2.png"
-              linkUrl="https://www.meinturnierplan.de/showit.php?id=2jw4wox3ow"
-              hint={t.qrPartTwoHint}
-              isVisible={isScheduleVisible}
+              isVisible={isScheduleVisible && Boolean(t.linkOneUrl)}
               releaseDateLabel={releaseDateLabel}
               t={t}
             />
