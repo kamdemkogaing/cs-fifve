@@ -2,6 +2,10 @@ import { Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
+import DashboardPage, {
+  loadDashboardConfig,
+} from "./components/pages/DashboardPage";
+import LoginPage from "./components/pages/LoginPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
 import ExportActionsSection from "./components/sections/ExportActionsSection";
@@ -22,10 +26,14 @@ import {
 } from "./data/fifveData";
 import { getTranslations, normalizeLanguage } from "./i18n";
 
-const SCHEDULE_RELEASE_ISO = "2026-07-24T18:00:00Z";
+const ADMIN_AUTH_STORAGE_KEY = "fifve-admin-auth";
 const licenseTeams = selectedTeamsByCountry.flatMap(({ country, teams }) =>
   teams.map((team) => ({ ...team, country })),
 );
+
+function normalizePathname(pathname) {
+  return pathname.replace(/\/+$/, "") || "/";
+}
 
 function getRemainingParts(ms) {
   const totalSeconds = Math.floor(ms / 1000);
@@ -39,26 +47,102 @@ function getRemainingParts(ms) {
 
 export default function App() {
   const showExportSection = false;
+  const [pathname, setPathname] = useState(() =>
+    normalizePathname(window.location.pathname),
+  );
+  const isLoginPage = pathname === "/admin/login";
+  const isDashboardPage = pathname === "/admin/dashboard";
 
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
     return normalizeLanguage(stored);
   });
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return window.localStorage.getItem(ADMIN_AUTH_STORAGE_KEY) === "1";
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(() => Date.now());
+  const dashboardConfig = loadDashboardConfig();
+  const publicContent = dashboardConfig.publicContent;
+  const scheduleReleaseIso = dashboardConfig.schedule.releaseDateIso;
   const [showWelcomeModal, setShowWelcomeModal] = useState(() => {
     if (typeof window === "undefined") {
       return true;
     }
 
-    return !window.localStorage.getItem("fifve-welcome-modal-seen");
+    return (
+      dashboardConfig.sections.welcomeModal &&
+      !window.localStorage.getItem("fifve-welcome-modal-seen")
+    );
   });
   const t = getTranslations(language);
+  const publicTranslations = {
+    ...t,
+    hero: { ...t.hero, ...publicContent.hero },
+    meeting: {
+      ...t.meeting,
+      ...publicContent.meeting,
+      description: publicContent.meeting.subtitle || t.meeting.description,
+      meetUrl: dashboardConfig.meeting.meetingUrl || t.meeting.meetUrl,
+      dateValue:
+        language === "en"
+          ? dashboardConfig.meeting.dateEn
+          : dashboardConfig.meeting.dateFr,
+      timeValue:
+        language === "en"
+          ? dashboardConfig.meeting.timeEn
+          : dashboardConfig.meeting.timeFr,
+      blockedNote:
+        language === "en"
+          ? dashboardConfig.meeting.noteEn
+          : dashboardConfig.meeting.noteFr,
+    },
+    documents: {
+      ...t.documents,
+      ...publicContent.documents,
+      reglementHref: dashboardConfig.documents.reglementUrl,
+      charteHref: dashboardConfig.documents.charteUrl,
+    },
+    license: {
+      ...t.license,
+      ...publicContent.license,
+      amountValue: `${dashboardConfig.license.newLicensePrice} EUR`,
+      transferAmountValue: `${dashboardConfig.license.transferPrice} EUR`,
+    },
+    teamWorkspace: { ...t.teamWorkspace, ...publicContent.teamWorkspace },
+    team: { ...t.team, ...publicContent.team },
+    stats: { ...t.stats, ...publicContent.stats },
+    module: { ...t.module, ...publicContent.module },
+    ranking: { ...t.ranking, ...publicContent.ranking },
+    selected: { ...t.selected, ...publicContent.selected },
+    schedule: {
+      ...t.schedule,
+      ...publicContent.schedule,
+      linkOne: dashboardConfig.schedule.linkOne || t.schedule.linkOne,
+      linkTwo: dashboardConfig.schedule.linkTwo || t.schedule.linkTwo,
+    },
+    location: { ...t.location, ...publicContent.location },
+    footer: {
+      ...t.footer,
+      email: dashboardConfig.footer.email,
+      website: dashboardConfig.footer.website,
+      contactPerson: dashboardConfig.footer.contactPerson,
+    },
+  };
 
   useEffect(() => {
     window.localStorage.setItem("fifve-language", language);
     document.documentElement.lang = language;
   }, [language]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setPathname(normalizePathname(window.location.pathname));
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -68,7 +152,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const scheduleReleaseTimestamp = Date.parse(SCHEDULE_RELEASE_ISO);
+  const scheduleReleaseTimestamp = Date.parse(scheduleReleaseIso);
   const isScheduleVisible = currentTime >= scheduleReleaseTimestamp;
   const releaseDateLabel = new Date(scheduleReleaseTimestamp).toLocaleString(
     language === "en" ? "en-GB" : "fr-FR",
@@ -88,6 +172,61 @@ export default function App() {
     setShowWelcomeModal(false);
     window.localStorage.setItem("fifve-welcome-modal-seen", "true");
   };
+
+  const navigateTo = (nextPathname) => {
+    const normalized = normalizePathname(nextPathname);
+    if (normalized === pathname) {
+      return;
+    }
+
+    window.history.pushState({}, "", normalized);
+    setPathname(normalized);
+  };
+
+  const handleLoginSuccess = () => {
+    window.localStorage.setItem(ADMIN_AUTH_STORAGE_KEY, "1");
+    setIsAdminAuthenticated(true);
+    navigateTo("/admin/dashboard");
+  };
+
+  const handleLogout = () => {
+    window.localStorage.removeItem(ADMIN_AUTH_STORAGE_KEY);
+    setIsAdminAuthenticated(false);
+    navigateTo("/admin/login");
+  };
+
+  if (isDashboardPage && !isAdminAuthenticated) {
+    return (
+      <LoginPage
+        language={language}
+        setLanguage={setLanguage}
+        t={t.login}
+        onLoginSuccess={handleLoginSuccess}
+        forceAuthMessage={t.login.dashboardLockedMessage}
+      />
+    );
+  }
+
+  if (isDashboardPage) {
+    return (
+      <DashboardPage
+        language={language}
+        setLanguage={setLanguage}
+        onLogout={handleLogout}
+      />
+    );
+  }
+
+  if (isLoginPage) {
+    return (
+      <LoginPage
+        language={language}
+        setLanguage={setLanguage}
+        t={t.login}
+        onLoginSuccess={handleLoginSuccess}
+      />
+    );
+  }
 
   return (
     <div id="home">
@@ -148,37 +287,71 @@ export default function App() {
         onCloseMenu={() => setMobileMenuOpen(false)}
       />
 
-      <HeroSection
-        t={t.hero}
-        countdown={remaining}
-        releaseDateLabel={releaseDateLabel}
-        isScheduleVisible={isScheduleVisible}
-        scheduleT={t.schedule}
-      />
-      <MeetingSection t={t.meeting} />
-      <DocumentsSection t={t.documents} />
-      <LicenseApplicationSection t={t.license} teams={licenseTeams} />
-      <TeamWorkspaceSection t={t.teamWorkspace} />
-      {showExportSection && <ExportActionsSection t={t.export} />}
+      {dashboardConfig.sections.hero && (
+        <HeroSection
+          t={publicTranslations.hero}
+          countdown={remaining}
+          releaseDateLabel={releaseDateLabel}
+          isScheduleVisible={isScheduleVisible}
+          scheduleT={publicTranslations.schedule}
+        />
+      )}
+      {dashboardConfig.sections.meeting && (
+        <MeetingSection t={publicTranslations.meeting} />
+      )}
+      {dashboardConfig.sections.documents && (
+        <DocumentsSection t={publicTranslations.documents} />
+      )}
+      {dashboardConfig.sections.license && (
+        <LicenseApplicationSection
+          t={publicTranslations.license}
+          teams={licenseTeams}
+        />
+      )}
+      {dashboardConfig.sections.teamWorkspace && (
+        <TeamWorkspaceSection t={publicTranslations.teamWorkspace} />
+      )}
+      {(showExportSection || dashboardConfig.sections.export) && (
+        <ExportActionsSection t={t.export} />
+      )}
 
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
-        <ClubTeamSection t={t.team} />
-        <StatsSection t={t.stats} />
-        <ModuleSection classementRules={classementRules} t={t.module} />
-        <RankingSection ranking={ranking} t={t.ranking} />
-        <SelectedTeamsSection
-          selectedTeamsByCountry={selectedTeamsByCountry}
-          t={t.selected}
-        />
-        <ScheduleSection
-          isScheduleVisible={isScheduleVisible}
-          releaseDateLabel={releaseDateLabel}
-          t={t.schedule}
-        />
-        <LocationSection t={t.location} />
+        {dashboardConfig.sections.team && (
+          <ClubTeamSection t={publicTranslations.team} />
+        )}
+        {dashboardConfig.sections.stats && (
+          <StatsSection t={publicTranslations.stats} />
+        )}
+        {dashboardConfig.sections.module && (
+          <ModuleSection
+            classementRules={classementRules}
+            t={publicTranslations.module}
+          />
+        )}
+        {dashboardConfig.sections.ranking && (
+          <RankingSection ranking={ranking} t={publicTranslations.ranking} />
+        )}
+        {dashboardConfig.sections.selected && (
+          <SelectedTeamsSection
+            selectedTeamsByCountry={selectedTeamsByCountry}
+            t={publicTranslations.selected}
+          />
+        )}
+        {dashboardConfig.sections.schedule && (
+          <ScheduleSection
+            isScheduleVisible={isScheduleVisible}
+            releaseDateLabel={releaseDateLabel}
+            t={publicTranslations.schedule}
+          />
+        )}
+        {dashboardConfig.sections.location && (
+          <LocationSection t={publicTranslations.location} />
+        )}
       </main>
 
-      <Footer t={t.footer} />
+      {dashboardConfig.sections.footer && (
+        <Footer t={publicTranslations.footer} />
+      )}
     </div>
   );
 }

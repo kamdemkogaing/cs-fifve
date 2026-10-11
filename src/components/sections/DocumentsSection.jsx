@@ -105,7 +105,7 @@ export default function DocumentsSection({ t }) {
       language: t.languageValue,
       updatedAt: t.updatedValue,
       filename: "reglement-interieur-fifve-2026.pdf",
-      href: "/documents/reglement-interieur-fifve-2026.pdf",
+      href: t.reglementHref || "/documents/reglement-interieur-fifve-2026.pdf",
     },
     {
       title: t.charteTitle,
@@ -115,7 +115,7 @@ export default function DocumentsSection({ t }) {
       language: t.languageValue,
       updatedAt: t.updatedValue,
       filename: "charte-sportive-fifve-2026.pdf",
-      href: "/documents/charte-sportive-fifve-2026.pdf",
+      href: t.charteHref || "/documents/charte-sportive-fifve-2026.pdf",
     },
   ];
 
