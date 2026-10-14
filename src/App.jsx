@@ -118,8 +118,7 @@ export default function App() {
     schedule: {
       ...t.schedule,
       ...publicContent.schedule,
-      linkOne: dashboardConfig.schedule.linkOne || t.schedule.linkOne,
-      linkTwo: dashboardConfig.schedule.linkTwo || t.schedule.linkTwo,
+      linkOneUrl: dashboardConfig.schedule.linkOne,
     },
     location: { ...t.location, ...publicContent.location },
     footer: {
@@ -306,6 +305,7 @@ export default function App() {
         <LicenseApplicationSection
           t={publicTranslations.license}
           teams={licenseTeams}
+          isAvailable={false}
         />
       )}
       {dashboardConfig.sections.teamWorkspace && (

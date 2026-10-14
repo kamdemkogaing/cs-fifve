@@ -11,7 +11,7 @@ export default function LocationSection({ t }) {
           {t.title}
         </h2>
         <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#0646c4]">
-          FIFVE 2026
+          FIFVE 2027
         </span>
       </div>
 
@@ -51,7 +51,7 @@ export default function LocationSection({ t }) {
 
           <div className="mt-5 flex flex-wrap gap-2">
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Salzburger+Weg+20+50858+Lindenthal"
+              href="https://www.google.com/maps/search/?api=1&query=Am+Sportpark+7,+76131+Karlsruhe"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-[#0646c4] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
@@ -60,7 +60,7 @@ export default function LocationSection({ t }) {
               {t.mapsButton}
             </a>
             <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Salzburger+Weg+20+50858+Lindenthal"
+              href="https://www.google.com/maps/dir/?api=1&destination=Am+Sportpark+7,+76131+Karlsruhe"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0646c4] transition hover:bg-blue-50"
@@ -81,7 +81,7 @@ export default function LocationSection({ t }) {
             className="h-105 w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Salzburger%20Weg%2020%2050858%20Lindenthal&output=embed"
+            src="https://www.google.com/maps?q=Am%20Sportpark%207%2076131%20Karlsruhe&output=embed"
           ></iframe>
         </div>
       </div>

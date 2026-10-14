@@ -18,12 +18,16 @@ const translations = {
       languageLabel: "Langue",
     },
     hero: {
-      badge: "Week-End FIFVE 2026",
+      badge: "Week-End FIFVE 2027",
       title: "Classement officiel, module de points et équipes retenues",
       subtitle:
-        "Page officielle de présentation des informations sportives de l’édition 2026.",
-      ballAlt: "Ballon officiel de la Coupe du monde 2026",
+        "Page officielle de présentation des informations sportives de l’édition 2027.",
+      ballAlt: "Ballon officiel du Week-End FIFVE 2027",
       ballLabel: "",
+      hostBadge: "Édition hébergée par",
+      hostName: "Vétérans 3e Mi-temps Karlsruhe",
+      hostDescription: "Club hôte officiel de la FIFVE 2027",
+      hostLogoAlt: "Logo des Vétérans 3e Mi-temps Karlsruhe",
     },
     export: {
       title: "Télécharger le pack officiel",
@@ -32,9 +36,9 @@ const translations = {
       downloadPdf: "Télécharger PDF",
       downloadPng: "Télécharger PNG",
       includes: "Inclus",
-      sectionModule: "Module de classement FIFVE 2026",
+      sectionModule: "Module de classement FIFVE 2027",
       sectionRanking: "Classement actuel des 54 équipes FIFVE",
-      sectionSelected: "24 équipes retenues pour la FIFVE 2026",
+      sectionSelected: "Équipes retenues pour la FIFVE 2027",
       withLogo: "Logo FIFVE automatique",
       exportDocumentTitle: "Pack classement et équipes retenues",
       generatedOn: "Généré le",
@@ -59,13 +63,22 @@ const translations = {
         "Mode debug actif (dev/admin). Activez aussi avec ?debugExport=1 ou localStorage fifve-export-debug=1.",
     },
     stats: {
+      eyebrow: "FIFVE 2027 en chiffres",
+      title: "Une édition qui se prépare à Karlsruhe",
       teamsRanked: "équipes classées",
       teamsSelected: "équipes retenues",
       leaderPoints: "points du leader",
-      tournament: "tournoi FIFVE Cologne",
+      leaderTeam: "KOEVE e.V.",
+      tournamentDate: "23–25 juillet 2027",
+      tournament: "tournoi FIFVE Karlsruhe",
+      rankingStatus: "Classement conservé",
+      selectionStatus: "Sélection à venir",
+      totalStatus: "Total actuel",
+      address: "Am Sportpark 7 · Karlsruhe",
+      locationBadge: "Karlsruhe · 2027",
     },
     module: {
-      title: "Module de classement FIFVE 2026",
+      title: "Module de classement FIFVE 2027",
       effectiveDate: "Applicable à compter du 01 janvier 2025",
       performance: "Performance",
       points: "Points",
@@ -120,7 +133,7 @@ const translations = {
       total: "Total",
     },
     selected: {
-      title: "24 équipes retenues pour la FIFVE 2026",
+      title: "Équipes retenues pour la FIFVE 2027",
       teamSingular: "équipe",
       teamPlural: "équipes",
       filterPanelTitle: "Filtrer et classer",
@@ -131,6 +144,9 @@ const translations = {
       sortAlphaDesc: "Pays (Z-A)",
       sortByTeamCount: "Plus d'équipes d'abord",
       noResults: "Aucune équipe ne correspond à ce filtre.",
+      pendingTitle: "Équipes retenues à venir",
+      pendingDescription:
+        "La sélection des équipes pour la FIFVE 2027 n’est pas encore connue. Cette liste sera publiée dès sa validation.",
       countryNames: {
         fr: "France",
         gb: "Angleterre",
@@ -143,9 +159,9 @@ const translations = {
     },
     schedule: {
       badge: "Programmation des matchs",
-      title: "Combinaisons des rencontres FIFVE Cologne 2026",
+      title: "Combinaisons des rencontres FIFVE Karlsruhe 2027",
       subtitle:
-        "La programmation officielle sera publiée le vendredi 24/07/2026 à 20h00 (Europe/Berlin).",
+        "La programmation officielle sera publiée le vendredi 23/07/2027 à 20h00 (Europe/Berlin).",
       releaseLabel: "Publication",
       timezoneLabel: "Fuseau horaire",
       timezoneValue: "Europe/Berlin",
@@ -159,14 +175,12 @@ const translations = {
       seconds: "Secondes",
       linksLabel: "Lien officiel",
       linkOne: "Tableau principal - Part 1",
-      linkTwo: "Tableau principal - Part 2",
       openLink: "Ouvrir le lien",
       linkUnavailable: "Lien indisponible pour le moment",
       qrTitle: "Accès rapide QR Code",
       qrDescription:
         "Espace réservé pour le QR Code donnant accès aux combinaisons des rencontres.",
       qrPartOneHint: "Scanner pour ouvrir directement la Part 1.",
-      qrPartTwoHint: "Scanner pour ouvrir directement la Part 2.",
       qrSuggestion: "",
     },
     meeting: {
@@ -191,13 +205,13 @@ const translations = {
       agendaTitle: "Ordre de séance",
       agenda: [],
       footerNote:
-        "Bonne préparation au Week-end FIFVE 2026. Club sportif de la FIFVE.",
+        "Bonne préparation au Week-end FIFVE 2027. Club sportif de la FIFVE.",
     },
     modal: {
       badge: "Merci",
       title: "Merci à tous les participants",
       message:
-        "Merci à tous les participants du Week-end FIFVE 2026 pour votre disponibilité, votre énergie et votre patience pendant cette belle aventure sportive.",
+        "Merci à tous les participants du Week-end FIFVE 2027 pour votre disponibilité, votre énergie et votre patience pendant cette belle aventure sportive.",
       note: "Votre engagement fait toute la richesse de cet événement.",
       cta: "Continuer",
     },
@@ -254,13 +268,13 @@ const translations = {
       badge: "Documents officiels",
       title: "Téléchargez les documents de référence du tournoi",
       subtitle:
-        "Retrouvez en un seul endroit le règlement intérieur complet et la charte sportive du Week-end FIFVE 2026. Chaque document est proposé en PDF, prêt à être consulté ou partagé.",
+        "Retrouvez en un seul endroit le règlement intérieur complet et la charte sportive du Week-end FIFVE 2027. Chaque document est proposé en PDF, prêt à être consulté ou partagé.",
       fileLabel: "Document PDF",
       languageLabel: "Langue",
       typeLabel: "Format",
       updatedLabel: "Mise à jour",
       languageValue: "Français",
-      updatedValue: "Juillet 2026",
+      updatedValue: "Juillet 2027",
       downloadCta: "Télécharger le PDF",
       reglementTitle: "Règlement intérieur",
       reglementBadge: "Règles du tournoi",
@@ -286,6 +300,8 @@ const translations = {
       title: "Établir ma licence",
       subtitle:
         "Préparez votre demande en quelques minutes. Votre équipe, votre photo et vos coordonnées seront vérifiées avant émission.",
+      unavailableMessage:
+        "Les demandes de licence FIFVE sont temporairement suspendues. Merci de revenir prochainement pour effectuer votre demande.",
       steps: {
         identity: "Vos informations",
         team: "Votre équipe",
@@ -454,11 +470,11 @@ const translations = {
     location: {
       title: "Lieu du tournoi",
       venueLabel: "Site officiel",
-      venueName: "FIFVE Cologne - Lindenthal",
+      venueName: "FIFVE Karlsruhe",
       dateLabel: "Date",
-      date: "Samedi 25 juillet 2026",
+      date: "Du 23 au 25 juillet 2027",
       addressLabel: "Adresse",
-      address: "Salzburger Weg 20, 50858 Lindenthal",
+      address: "Am Sportpark 7, 76131 Karlsruhe",
       mapsButton: "Ouvrir dans Google Maps",
       routeButton: "Itinéraire",
       locationNote:
@@ -470,16 +486,14 @@ const translations = {
       whatsappLabel: "Assistance rapide",
       whatsappAction: "Contacter sur WhatsApp",
       contactPersonLabel: "Personne de contact",
-      tournament: "Tournoi 2026",
-      date: "Samedi 25 juillet 2026",
+      tournament: "Tournoi 2027",
+      date: "Du 23 au 25 juillet 2027",
       country: "Allemagne",
       venuesTitle: "Adresses officielles FIFVE",
-      stadiumLabel: "Adresse du stade FIFVE",
-      conferenceLabel: "Adresse Conference FIFVE",
-      partyHallLabel: "Adresse sale de fete FIFVE",
-      openMap: "Ouvrir dans Google Maps",
+      venuesPending:
+        "Les adresses officielles complémentaires seront publiées au fur et à mesure de leur confirmation.",
       rights:
-        "© 2026 Fédération Internationale de Football Vétérans — Tous droits réservés.",
+        "© 2027 Fédération Internationale de Football Vétérans — Tous droits réservés.",
     },
   },
   en: {
@@ -501,12 +515,16 @@ const translations = {
       languageLabel: "Language",
     },
     hero: {
-      badge: "FIFVE Weekend 2026",
+      badge: "FIFVE Weekend 2027",
       title: "Official rankings, scoring module and selected teams",
       subtitle:
-        "Official page presenting sports information for the 2026 edition.",
-      ballAlt: "Official FIFA World Cup 2026 match ball",
+        "Official page presenting sports information for the 2027 edition.",
+      ballAlt: "Official FIFVE Weekend 2027 match ball",
       ballLabel: "",
+      hostBadge: "Edition hosted by",
+      hostName: "Vétérans 3e Mi-temps Karlsruhe",
+      hostDescription: "Official host club of FIFVE 2027",
+      hostLogoAlt: "Vétérans 3e Mi-temps Karlsruhe logo",
     },
     export: {
       title: "Download the official pack",
@@ -515,9 +533,9 @@ const translations = {
       downloadPdf: "Download PDF",
       downloadPng: "Download PNG",
       includes: "Includes",
-      sectionModule: "FIFVE 2026 Scoring Module",
+      sectionModule: "FIFVE 2027 Scoring Module",
       sectionRanking: "Current ranking of the 54 FIFVE teams",
-      sectionSelected: "24 teams selected for FIFVE 2026",
+      sectionSelected: "Teams selected for FIFVE 2027",
       withLogo: "Automatic FIFVE logo",
       exportDocumentTitle: "Ranking and selected teams pack",
       generatedOn: "Generated on",
@@ -541,13 +559,22 @@ const translations = {
         "Debug mode active (dev/admin). You can also enable it with ?debugExport=1 or localStorage fifve-export-debug=1.",
     },
     stats: {
+      eyebrow: "FIFVE 2027 at a glance",
+      title: "An edition taking shape in Karlsruhe",
       teamsRanked: "ranked teams",
       teamsSelected: "selected teams",
       leaderPoints: "leader points",
-      tournament: "FIFVE tournament Cologne",
+      leaderTeam: "KOEVE e.V.",
+      tournamentDate: "July 23–25, 2027",
+      tournament: "FIFVE tournament Karlsruhe",
+      rankingStatus: "Ranking preserved",
+      selectionStatus: "Selection to come",
+      totalStatus: "Current total",
+      address: "Am Sportpark 7 · Karlsruhe",
+      locationBadge: "Karlsruhe · 2027",
     },
     module: {
-      title: "FIFVE 2026 Scoring Module",
+      title: "FIFVE 2027 Scoring Module",
       effectiveDate: "Applicable from January 1, 2025",
       performance: "Performance",
       points: "Points",
@@ -602,7 +629,7 @@ const translations = {
       total: "Total",
     },
     selected: {
-      title: "24 teams selected for FIFVE 2026",
+      title: "Teams selected for FIFVE 2027",
       teamSingular: "team",
       teamPlural: "teams",
       filterPanelTitle: "Filter and sort",
@@ -613,6 +640,9 @@ const translations = {
       sortAlphaDesc: "Country (Z-A)",
       sortByTeamCount: "Most teams first",
       noResults: "No teams match this filter.",
+      pendingTitle: "Selected teams to be announced",
+      pendingDescription:
+        "The teams selected for FIFVE 2027 have not yet been confirmed. This list will be published once it is finalized.",
       countryNames: {
         fr: "France",
         gb: "England",
@@ -625,9 +655,9 @@ const translations = {
     },
     schedule: {
       badge: "Match schedule",
-      title: "FIFVE Cologne 2026 match combinations",
+      title: "FIFVE Karlsruhe 2027 match combinations",
       subtitle:
-        "The official schedule will be published on Friday 24/07/2026 at 20:00 (Europe/Berlin).",
+        "The official schedule will be published on Friday 23/07/2027 at 20:00 (Europe/Berlin).",
       releaseLabel: "Release",
       timezoneLabel: "Time zone",
       timezoneValue: "Europe/Berlin",
@@ -641,16 +671,13 @@ const translations = {
       seconds: "Seconds",
       linksLabel: "Official link",
       linkOne: "Main bracket - Part 1",
-      linkTwo: "Main bracket - Part 2",
       openLink: "Open link",
       linkUnavailable: "Link not available yet",
       qrTitle: "Quick access QR code",
       qrDescription:
         "Reserved space for a QR code giving access to match combinations.",
       qrPartOneHint: "Scan to open Part 1 directly.",
-      qrPartTwoHint: "Scan to open Part 2 directly.",
-      qrSuggestion:
-        "Suggestions: public/images/qr-combinaisons-fifve-part-1.png and public/images/qr-combinaisons-fifve-part-2.png",
+      qrSuggestion: "",
     },
     meeting: {
       badge: "Working session",
@@ -674,13 +701,13 @@ const translations = {
       agendaTitle: "Agenda",
       agenda: [],
       footerNote:
-        "Good preparation for the FIFVE 2026 Weekend. FIFVE Sports Club.",
+        "Good preparation for the FIFVE 2027 Weekend. FIFVE Sports Club.",
     },
     modal: {
       badge: "Thank you",
       title: "Thank you to all participants",
       message:
-        "Thank you to all participants of the FIFVE 2026 Weekend for your availability, your energy, and your patience during this wonderful sporting adventure.",
+        "Thank you to all participants of the FIFVE 2027 Weekend for your availability, your energy, and your patience during this wonderful sporting adventure.",
       note: "Your commitment is what makes this event so special.",
       cta: "Continue",
     },
@@ -736,13 +763,13 @@ const translations = {
       badge: "Official documents",
       title: "Download the tournament reference documents",
       subtitle:
-        "Find the full internal regulations and the sports charter for FIFVE Weekend 2026 in one clear place. Each document is available as a PDF, ready to read or share.",
+        "Find the full internal regulations and the sports charter for FIFVE Weekend 2027 in one clear place. Each document is available as a PDF, ready to read or share.",
       fileLabel: "PDF document",
       languageLabel: "Language",
       typeLabel: "Format",
       updatedLabel: "Updated",
       languageValue: "French",
-      updatedValue: "July 2026",
+      updatedValue: "July 2027",
       downloadCta: "Download PDF",
       reglementTitle: "Internal regulations",
       reglementBadge: "Tournament rules",
@@ -768,6 +795,8 @@ const translations = {
       title: "Apply for my licence",
       subtitle:
         "Prepare your application in a few minutes. Your team, photo and contact details will be checked before issue.",
+      unavailableMessage:
+        "FIFVE licence applications are temporarily suspended. Please check back soon to submit your request.",
       steps: {
         identity: "Your details",
         team: "Your team",
@@ -932,11 +961,11 @@ const translations = {
     location: {
       title: "Tournament venue",
       venueLabel: "Official venue",
-      venueName: "FIFVE Cologne - Lindenthal",
+      venueName: "FIFVE Karlsruhe",
       dateLabel: "Date",
-      date: "Saturday, July 25, 2026",
+      date: "July 23 to 25, 2027",
       addressLabel: "Address",
-      address: "Salzburger Weg 20, 50858 Lindenthal",
+      address: "Am Sportpark 7, 76131 Karlsruhe",
       mapsButton: "Open in Google Maps",
       routeButton: "Get directions",
       locationNote:
@@ -948,16 +977,14 @@ const translations = {
       whatsappLabel: "Quick support",
       whatsappAction: "Contact on WhatsApp",
       contactPersonLabel: "Contact person",
-      tournament: "Tournament 2026",
-      date: "Saturday, July 25, 2026",
+      tournament: "Tournament 2027",
+      date: "July 23 to 25, 2027",
       country: "Germany",
       venuesTitle: "Official FIFVE venues",
-      stadiumLabel: "FIFVE stadium address",
-      conferenceLabel: "FIFVE conference address",
-      partyHallLabel: "FIFVE party hall address",
-      openMap: "Open in Google Maps",
+      venuesPending:
+        "Additional official addresses will be published as they are confirmed.",
       rights:
-        "© 2026 International Veterans Football Federation — All rights reserved.",
+        "© 2027 International Veterans Football Federation — All rights reserved.",
     },
   },
 };

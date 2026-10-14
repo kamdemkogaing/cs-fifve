@@ -1,5 +1,5 @@
 export const ranking = [
-  ["1", "Koeve (Cologne Vétérans)", 116, "10+5", 131],
+  ["1", "KOEVE e.V.", 116, "10+5", 131],
   ["2", "2 zero ASBL Bruxelles", 65, "30+5", 100],
   ["3", "2 zero Liège", 71, "20+5", 96],
   ["4", "ASASB 93", 86, "5", 91],
@@ -55,68 +55,7 @@ export const ranking = [
   ["54", "Aigles Tunisiens", 0, "0", 0],
 ];
 
-export const selectedTeamsByCountry = [
-  {
-    country: "France",
-    flagCode: "fr",
-    teams: [
-      { number: 1, name: "ASASB 93" },
-      { number: 2, name: "Foot pour tous Longwy" },
-    ],
-  },
-  {
-    country: "Angleterre",
-    flagCode: "gb",
-    teams: [
-      { number: 3, name: "Vétèrans 2 zero Londres" },
-      { number: 4, name: "Vétèrans 3 zero Londres" },
-    ],
-  },
-  {
-    country: "Luxembourg",
-    flagCode: "lu",
-    teams: [{ number: 5, name: "Vétèrans Luxembourg" }],
-  },
-  {
-    country: "Suisse",
-    flagCode: "ch",
-    teams: [{ number: 6, name: "Vétèrans 2 zero Zürich" }],
-  },
-  {
-    country: "Belgique",
-    flagCode: "be",
-    teams: [
-      { number: 7, name: "2 zero FL Bruxelles" },
-      { number: 8, name: "2 zero ASBL Bruxelles" },
-      { number: 9, name: "3 zero Bruxelles" },
-      { number: 10, name: "Vétèrans BXL Old School" },
-      { number: 11, name: "AS Variété Gembloux" },
-      { number: 12, name: "2 zero Liége" },
-      { number: 13, name: "Vétèrans de Mons" },
-    ],
-  },
-  {
-    country: "Allemagne",
-    flagCode: "de",
-    teams: [
-      { number: 14, name: "Koeve e.V." },
-      { number: 15, name: "Vétèrans Frankfurt" },
-      { number: 16, name: "CAMAS Stuttgart" },
-      { number: 17, name: "AH Heilbronn" },
-      { number: 18, name: "Vétèrans Karlsruhe et Environs" },
-      { number: 19, name: "Vétèrans Dortmund" },
-      { number: 20, name: "Vétèrans 3.iéme mi-temps Karlsruhe" },
-      { number: 21, name: "Vétérans Ulm" },
-      { number: 22, name: "Vétèrans Wuppertal" },
-      { number: 23, name: "Vet- ôbosso Düsseldorf" },
-    ],
-  },
-  {
-    country: "Tunisie",
-    flagCode: "tn",
-    teams: [{ number: 24, name: "Aigles tunisiens" }],
-  },
-];
+export const selectedTeamsByCountry = [];
 
 export const classementRules = [
   ["Vainqueur du tournoi FIFVE", "30 pts"],

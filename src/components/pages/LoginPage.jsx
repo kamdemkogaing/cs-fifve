@@ -74,7 +74,7 @@ export default function LoginPage({
                 />
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#0646c4] sm:text-xs">
-                    FIFVE 2026
+                    FIFVE 2027
                   </p>
                   <h1 className="text-base font-extrabold sm:text-lg">
                     {t.brandTitle}

@@ -1,16 +1,16 @@
-import { CalendarClock, Clock3, Lock, Sparkles } from "lucide-react";
+import { CalendarClock, Lock, Sparkles } from "lucide-react";
 
 function CountdownUnit({ value, label, isSeconds = false }) {
   return (
-    <div className="rounded-2xl border border-white/35 bg-white/85 px-3 py-2 text-center shadow-sm backdrop-blur-sm">
+    <div className="group rounded-2xl border border-white/60 bg-white px-3 py-3 text-center shadow-[0_12px_28px_rgba(3,37,99,0.18)] transition duration-300 hover:-translate-y-1 hover:bg-white md:px-4">
       <p
-        className={`text-2xl font-black tabular-nums text-[#0646c4] md:text-3xl ${
+        className={`text-3xl font-black tabular-nums tracking-tight text-[#0646c4] md:text-4xl ${
           isSeconds ? "animate-pulse" : ""
         }`}
       >
         {String(value).padStart(2, "0")}
       </p>
-      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-600">
+      <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
         {label}
       </p>
     </div>
@@ -34,37 +34,51 @@ export default function HeroSection({
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div className="order-2 lg:order-1">
-          <article className="mb-8 rounded-3xl border border-white/30 bg-white/15 p-4 shadow-xl backdrop-blur-md md:p-5">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="inline-flex items-center gap-2 text-sm font-semibold text-white/95">
-                <CalendarClock size={16} />
-                {scheduleT.badge}
-              </p>
+          <article className="relative mb-8 overflow-hidden rounded-[30px] border border-white/35 bg-slate-950/15 p-4 shadow-[0_24px_70px_rgba(2,24,72,0.25)] backdrop-blur-xl md:p-6">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-cyan-300/20 blur-3xl" />
+            <div className="relative flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="inline-flex items-center gap-2 text-sm font-black text-white">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/15 text-cyan-100">
+                    <CalendarClock size={17} />
+                  </span>
+                  {scheduleT.badge}
+                </p>
+                <p className="mt-2 text-xs font-medium text-blue-100">
+                  {scheduleT.releaseLabel}: {releaseDateLabel}
+                </p>
+              </div>
               <span
-                className={`rounded-full px-3 py-1 text-xs font-bold ${
+                className={`inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-black shadow-sm ${
                   isScheduleVisible
                     ? "bg-emerald-200 text-emerald-900"
-                    : "bg-amber-200 text-amber-900"
+                    : "bg-amber-200 text-amber-950"
                 }`}
               >
+                <span
+                  className={`h-2 w-2 rounded-full ${
+                    isScheduleVisible
+                      ? "bg-emerald-600"
+                      : "animate-pulse bg-amber-600"
+                  }`}
+                />
                 {isScheduleVisible
                   ? scheduleT.statusOpen
                   : scheduleT.statusLocked}
               </span>
             </div>
 
-            <p className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-white/90">
-              <Clock3 size={15} />
-              {scheduleT.releaseLabel}: {releaseDateLabel}
-            </p>
-
             {!isScheduleVisible && (
               <>
-                <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-amber-100">
-                  <Lock size={15} />
+                <p className="relative mt-5 inline-flex items-center gap-2 rounded-xl border border-amber-200/25 bg-amber-100/10 px-3 py-2 text-xs font-bold text-amber-100 md:text-sm">
+                  <Lock size={14} />
                   {scheduleT.lockedUntil} {releaseDateLabel}
                 </p>
-                <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div
+                  className="relative mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4"
+                  aria-live="polite"
+                  aria-label={scheduleT.lockedUntil}
+                >
                   <CountdownUnit
                     value={countdown.days}
                     label={scheduleT.days}
@@ -94,6 +108,35 @@ export default function HeroSection({
             {t.title}
           </h2>
           <p className="mt-6 max-w-3xl text-lg">{t.subtitle}</p>
+
+          <a
+            href="https://www.facebook.com/profile.php?id=61576463140935"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${t.hostName} auf Facebook öffnen`}
+            className="mt-8 flex max-w-xl items-center gap-4 rounded-3xl border border-white/30 bg-slate-950/20 p-3 shadow-2xl backdrop-blur-md transition hover:-translate-y-1 hover:border-white/60 hover:bg-slate-950/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/90"
+          >
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/60 bg-white p-1 shadow-lg">
+              <img
+                src="/images/veterans-3e-mi-temps-karlsruhe.jpg"
+                alt={t.hostLogoAlt}
+                className="h-full w-full object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-200">
+                {t.hostBadge}
+              </p>
+              <p className="mt-1 text-lg font-black leading-tight text-white md:text-xl">
+                {t.hostName}
+              </p>
+              <p className="mt-1 text-sm font-medium text-blue-100">
+                {t.hostDescription}
+              </p>
+            </div>
+          </a>
         </div>
 
         <figure className="order-1 mx-auto w-full max-w-xl rounded-2xl border border-white/30 bg-white/8 p-3 shadow-2xl backdrop-blur-xs lg:order-2">

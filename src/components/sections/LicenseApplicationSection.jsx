@@ -26,7 +26,7 @@ const INITIAL_FORM = {
   acceptsTerms: false,
 };
 
-export default function LicenseApplicationSection({ t, teams }) {
+export default function LicenseApplicationSection({ t, teams, isAvailable }) {
   const photoInputId = useId();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState(INITIAL_FORM);
@@ -100,7 +100,7 @@ export default function LicenseApplicationSection({ t, teams }) {
 
   const submitPreview = () => {
     setLicenceReference(
-      `FIFVE-2026-${Math.random().toString(36).slice(2, 8).toUpperCase()}`,
+      `FIFVE-2027-${Math.random().toString(36).slice(2, 8).toUpperCase()}`,
     );
     setIsComplete(true);
     setIsLicenseModalOpen(true);
@@ -131,6 +131,29 @@ export default function LicenseApplicationSection({ t, teams }) {
     amount: licenceAmount,
     photoUrl: photoPreview,
   };
+
+  if (!isAvailable) {
+    return (
+      <section id="licence" className="px-6 pt-10">
+        <div className="mx-auto max-w-7xl">
+          <article className="overflow-hidden rounded-2xl border border-amber-200 bg-amber-50 shadow-[0_30px_90px_rgba(6,70,196,0.12)]">
+            <div className="flex flex-col gap-4 px-6 py-9 md:px-9 md:py-11">
+              <p className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-300 bg-white/80 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-amber-900">
+                <ShieldCheck size={15} />
+                {t.badge}
+              </p>
+              <h2 className="text-3xl font-black text-slate-900 md:text-4xl">
+                {t.title}
+              </h2>
+              <p className="max-w-3xl text-sm leading-7 text-slate-700 md:text-base">
+                {t.unavailableMessage}
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="licence" className="px-6 pt-10">
@@ -708,8 +731,8 @@ function LicenseModal({ data, t, onClose }) {
           <div className="overflow-hidden rounded-[26px] border-[3px] border-[#0b61e8] bg-[#f7fbff] shadow-[0_12px_30px_rgba(6,70,196,0.12)]">
             <div className="flex items-center justify-between bg-[#0b61e8] px-4 py-4 text-white sm:px-5">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-blue-100">
-                  FIFVE 2026
+                <p className="text-xs font-bold tracking-[0.16em] text-blue-200">
+                  FIFVE 2027
                 </p>
                 <p className="mt-1 text-[26px] font-black leading-none">
                   {t.pdfTitle}
