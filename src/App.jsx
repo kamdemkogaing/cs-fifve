@@ -309,7 +309,10 @@ export default function App() {
         />
       )}
       {dashboardConfig.sections.teamWorkspace && (
-        <TeamWorkspaceSection t={publicTranslations.teamWorkspace} />
+        <TeamWorkspaceSection
+          t={publicTranslations.teamWorkspace}
+          language={language}
+        />
       )}
       {(showExportSection || dashboardConfig.sections.export) && (
         <ExportActionsSection t={t.export} />
