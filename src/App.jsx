@@ -2,9 +2,8 @@ import { Sparkles, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
-import DashboardPage, {
-  loadDashboardConfig,
-} from "./components/pages/DashboardPage";
+import DashboardPage from "./components/pages/AdminDashboardPage";
+import { loadDashboardConfig } from "./components/pages/DashboardPage";
 import LoginPage from "./components/pages/LoginPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
