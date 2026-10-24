@@ -1,16 +1,21 @@
-import { CalendarClock, Lock, Sparkles } from "lucide-react";
+import { CalendarClock, Sparkles, Timer, Trophy } from "lucide-react";
 
 function CountdownUnit({ value, label, isSeconds = false }) {
   return (
-    <div className="group rounded-2xl border border-white/60 bg-white px-3 py-3 text-center shadow-[0_12px_28px_rgba(3,37,99,0.18)] transition duration-300 hover:-translate-y-1 hover:bg-white md:px-4">
+    <div
+      className={`group relative overflow-hidden rounded-2xl border px-2 py-4 text-center shadow-[0_14px_32px_rgba(2,24,72,0.2)] transition duration-300 hover:-translate-y-1 hover:border-cyan-100/70 hover:bg-white/20 sm:px-3 md:rounded-3xl md:py-5 ${
+        isSeconds
+          ? "border-cyan-100/50 bg-cyan-100/15"
+          : "border-white/30 bg-white/10"
+      }`}
+    >
+      <span className="pointer-events-none absolute inset-x-4 top-0 h-px bg-linear-to-r from-transparent via-white/80 to-transparent" />
       <p
-        className={`text-3xl font-black tabular-nums tracking-tight text-[#0646c4] md:text-4xl ${
-          isSeconds ? "animate-pulse" : ""
-        }`}
+        className="text-4xl font-black tabular-nums tracking-[-0.06em] text-white drop-shadow-[0_4px_14px_rgba(2,24,72,0.3)] sm:text-5xl md:text-6xl"
       >
         {String(value).padStart(2, "0")}
       </p>
-      <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+      <p className="mt-1 text-[9px] font-black uppercase tracking-[0.14em] text-cyan-50/80 sm:text-[10px] sm:tracking-[0.2em]">
         {label}
       </p>
     </div>
@@ -34,17 +39,18 @@ export default function HeroSection({
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div className="order-2 lg:order-1">
-          <article className="relative mb-8 overflow-hidden rounded-[30px] border border-white/35 bg-slate-950/15 p-4 shadow-[0_24px_70px_rgba(2,24,72,0.25)] backdrop-blur-xl md:p-6">
-            <div className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-cyan-300/20 blur-3xl" />
+          <article className="relative mb-8 overflow-hidden rounded-[30px] border border-white/40 bg-linear-to-br from-[#03276d]/65 via-[#0646a8]/45 to-cyan-500/20 p-4 shadow-[0_28px_80px_rgba(2,24,72,0.32)] backdrop-blur-xl md:p-6">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-cyan-300/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-12 h-40 w-40 rounded-full bg-blue-300/15 blur-3xl" />
             <div className="relative flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="inline-flex items-center gap-2 text-sm font-black text-white">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/15 text-cyan-100">
-                    <CalendarClock size={17} />
+                <p className="inline-flex items-center gap-2.5 text-sm font-black text-white">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/15 bg-white/15 text-cyan-100 shadow-inner">
+                    <CalendarClock size={18} />
                   </span>
                   {scheduleT.badge}
                 </p>
-                <p className="mt-2 text-xs font-medium text-blue-100">
+                <p className="mt-2 text-xs font-medium text-blue-100/90">
                   {scheduleT.releaseLabel}: {releaseDateLabel}
                 </p>
               </div>
@@ -70,14 +76,17 @@ export default function HeroSection({
 
             {!isScheduleVisible && (
               <>
-                <p className="relative mt-5 inline-flex items-center gap-2 rounded-xl border border-amber-200/25 bg-amber-100/10 px-3 py-2 text-xs font-bold text-amber-100 md:text-sm">
-                  <Lock size={14} />
-                  {scheduleT.lockedUntil} {releaseDateLabel}
-                </p>
+                <div className="relative mt-6 flex items-center gap-2.5 text-sm font-bold text-white md:mt-7 md:text-base">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-300 text-amber-950 shadow-[0_0_24px_rgba(252,211,77,0.35)]">
+                    <Timer size={17} />
+                  </span>
+                  <span>{scheduleT.countdownTitle}</span>
+                </div>
                 <div
-                  className="relative mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4"
-                  aria-live="polite"
-                  aria-label={scheduleT.lockedUntil}
+                  className="relative mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 md:mt-5 md:gap-4"
+                  role="timer"
+                  aria-live="off"
+                  aria-label={scheduleT.countdownTitle}
                 >
                   <CountdownUnit
                     value={countdown.days}
@@ -139,23 +148,41 @@ export default function HeroSection({
           </a>
         </div>
 
-        <figure className="order-1 mx-auto w-full max-w-xl rounded-2xl border border-white/30 bg-white/8 p-3 shadow-2xl backdrop-blur-xs lg:order-2">
-          <div className="overflow-hidden rounded-xl bg-white/10">
-            <img
-              src={worldCupBallImage}
-              alt={t.ballAlt}
-              className="h-[220px] w-full object-cover object-center md:h-[280px]"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <figcaption className="mt-3 text-center text-sm font-medium text-white/90">
-            <span className="inline-flex items-center gap-1">
-              <Sparkles size={14} />
-              {t.ballLabel}
+        <div className="order-1 mx-auto w-full max-w-xl lg:order-2">
+          <div className="mb-4 ml-auto flex w-fit max-w-full items-center gap-3 rounded-2xl border border-amber-200/45 bg-linear-to-r from-amber-300/20 via-white/15 to-white/10 p-3 pr-5 shadow-[0_16px_45px_rgba(2,24,72,0.25)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-amber-100/70 hover:shadow-[0_20px_55px_rgba(2,24,72,0.35)]">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-amber-100/50 bg-linear-to-br from-amber-200 to-yellow-400 text-amber-950 shadow-[0_6px_22px_rgba(251,191,36,0.3)]">
+              <Trophy size={23} strokeWidth={2.2} />
             </span>
-          </figcaption>
-        </figure>
+            <span className="min-w-0">
+              <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-amber-200">
+                {t.winnerBadge}
+              </span>
+              <span className="mt-0.5 block truncate text-base font-black leading-tight text-white sm:text-lg">
+                {t.winnerTeam}
+              </span>
+              <span className="mt-0.5 block text-xs font-medium text-blue-100">
+                {t.winnerClub}
+              </span>
+            </span>
+          </div>
+          <figure className="rounded-2xl border border-white/30 bg-white/8 p-3 shadow-2xl backdrop-blur-xs">
+            <div className="overflow-hidden rounded-xl bg-white/10">
+              <img
+                src={worldCupBallImage}
+                alt={t.ballAlt}
+                className="h-[220px] w-full object-cover object-center md:h-[280px]"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <figcaption className="mt-3 text-center text-sm font-medium text-white/90">
+              <span className="inline-flex items-center gap-1">
+                <Sparkles size={14} />
+                {t.ballLabel}
+              </span>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   );
