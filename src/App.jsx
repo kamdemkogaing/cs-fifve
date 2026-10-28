@@ -51,6 +51,8 @@ export default function App() {
   );
   const isLoginPage = pathname === "/admin/login";
   const isDashboardPage = pathname === "/admin/dashboard";
+  const isTeamSpacePage = pathname === "/espace-cs";
+  const isLicensePage = pathname === "/licences";
 
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
@@ -226,6 +228,40 @@ export default function App() {
     );
   }
 
+  if (isTeamSpacePage || isLicensePage) {
+    return (
+      <div id="home" className="min-h-screen bg-slate-100">
+        <Header
+          language={language}
+          setLanguage={setLanguage}
+          t={t.header}
+          mobileMenuOpen={mobileMenuOpen}
+          onToggleMenu={() => setMobileMenuOpen((prev) => !prev)}
+          onCloseMenu={() => setMobileMenuOpen(false)}
+          onNavigate={navigateTo}
+          isHome={false}
+        />
+        <div className="pb-14 pt-32 sm:pt-36">
+          {isTeamSpacePage ? (
+            <TeamWorkspaceSection
+              t={publicTranslations.teamWorkspace}
+              language={language}
+            />
+          ) : (
+            <LicenseApplicationSection
+              t={publicTranslations.license}
+              teams={licenseTeams}
+              isAvailable={false}
+            />
+          )}
+        </div>
+        {dashboardConfig.sections.footer && (
+          <Footer t={publicTranslations.footer} />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div id="home">
       {showWelcomeModal && (
@@ -283,6 +319,7 @@ export default function App() {
         mobileMenuOpen={mobileMenuOpen}
         onToggleMenu={() => setMobileMenuOpen((prev) => !prev)}
         onCloseMenu={() => setMobileMenuOpen(false)}
+        onNavigate={navigateTo}
       />
 
       {dashboardConfig.sections.hero && (
@@ -299,19 +336,6 @@ export default function App() {
       )}
       {dashboardConfig.sections.documents && (
         <DocumentsSection t={publicTranslations.documents} />
-      )}
-      {dashboardConfig.sections.license && (
-        <LicenseApplicationSection
-          t={publicTranslations.license}
-          teams={licenseTeams}
-          isAvailable={false}
-        />
-      )}
-      {dashboardConfig.sections.teamWorkspace && (
-        <TeamWorkspaceSection
-          t={publicTranslations.teamWorkspace}
-          language={language}
-        />
       )}
       {(showExportSection || dashboardConfig.sections.export) && (
         <ExportActionsSection t={t.export} />
