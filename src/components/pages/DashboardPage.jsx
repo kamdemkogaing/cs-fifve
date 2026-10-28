@@ -148,8 +148,9 @@ const initialDashboardConfig = {
       subtitle: "Retrouvez les ressources et informations de votre equipe.",
     },
     team: {
-      title: "Equipes participantes",
-      subtitle: "Decouvrez les clubs et equipes de la FIFVE.",
+      title: "Notre equipe",
+      subtitle:
+        "Cliquez sur un membre pour ouvrir WhatsApp et envoyer rapidement un message.",
     },
     stats: {
       title: "Les chiffres du tournoi",
@@ -179,6 +180,27 @@ const initialDashboardConfig = {
     footer: { email: "bureau@fifve.com", website: "https://www.fifve.com" },
   },
 };
+
+// Les textes par défaut sont en français : en anglais, seuls les textes modifiés par l'admin sont conservés.
+const legacyPublicContent = {
+  team: ["Equipes participantes", "Decouvrez les clubs et equipes de la FIFVE."],
+};
+
+export function getLocalizedPublicContent(publicContent, language) {
+  return Object.fromEntries(
+    Object.entries(publicContent).map(([section, values]) => [
+      section,
+      Object.fromEntries(
+        Object.entries(values).filter(
+          ([field, value]) =>
+            !legacyPublicContent[section]?.includes(value) &&
+            (language !== "en" ||
+              value !== initialDashboardConfig.publicContent[section]?.[field]),
+        ),
+      ),
+    ]),
+  );
+}
 
 export function loadDashboardConfig() {
   try {
