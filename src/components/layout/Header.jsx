@@ -1,6 +1,16 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+const navSectionIds = [
+  "reunion",
+  "team",
+  "module",
+  "classement",
+  "retenues",
+  "programmation",
+  "lieu",
+];
+
 export default function Header({
   language,
   setLanguage,
@@ -10,16 +20,7 @@ export default function Header({
   onCloseMenu,
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 24);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [activeSection, setActiveSection] = useState("home");
 
   const navItems = [
     { href: "#reunion", label: t.nav.reunion },
@@ -30,6 +31,28 @@ export default function Header({
     { href: "#programmation", label: t.nav.programmation },
     { href: "#lieu", label: t.nav.lieu },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+
+      let currentSection = "home";
+      navSectionIds.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (
+          section?.getClientRects().length &&
+          section.getBoundingClientRect().top <= 130
+        ) {
+          currentSection = sectionId;
+        }
+      });
+      setActiveSection(currentSection);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header
@@ -88,7 +111,12 @@ export default function Header({
           <a
             href="#home"
             onClick={onCloseMenu}
-            className="hidden rounded-full border border-white/20 bg-white/6 px-4 py-2 text-sm font-medium text-blue-50 shadow-sm backdrop-blur-sm transition hover:border-white/35 hover:bg-white/14 hover:text-white xl:inline-flex"
+            aria-current={activeSection === "home" ? "page" : undefined}
+            className={`hidden rounded-full border px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm transition xl:inline-flex ${
+              isScrolled && activeSection === "home"
+                ? "border-white/30 bg-white text-[#0646c4]"
+                : "border-white/20 bg-white/6 text-blue-50 hover:border-white/35 hover:bg-white/14 hover:text-white"
+            }`}
           >
             {t.homeLabel}
           </a>
@@ -130,7 +158,14 @@ export default function Header({
               <a
                 key={item.href}
                 href={item.href}
-                className="relative whitespace-nowrap rounded-full px-3 py-2 text-sm text-blue-100 transition-colors duration-300 hover:bg-white/15 hover:text-white lg:px-4 after:absolute after:bottom-1 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 hover:after:w-6"
+                aria-current={
+                  activeSection === item.href.slice(1) ? "location" : undefined
+                }
+                className={`relative whitespace-nowrap rounded-full px-3 py-2 text-sm transition-colors duration-300 lg:px-4 after:absolute after:bottom-1 after:left-1/2 after:h-0.5 after:-translate-x-1/2 after:rounded-full after:bg-white/90 after:transition-all after:duration-300 ${
+                  isScrolled && activeSection === item.href.slice(1)
+                    ? "bg-white text-[#0646c4] shadow-sm after:w-6"
+                    : "text-blue-100 hover:bg-white/15 hover:text-white hover:after:w-6"
+                }`}
               >
                 {item.label}
               </a>
@@ -153,7 +188,12 @@ export default function Header({
         <nav className="border-t border-white/20 bg-[#04379a]/95 px-6 py-4 backdrop-blur-xl md:hidden">
           <a
             href="#home"
-            className="mb-4 block rounded-xl border border-white/15 bg-white/8 px-3 py-2 font-medium text-blue-50 transition hover:bg-white/14"
+            aria-current={activeSection === "home" ? "page" : undefined}
+            className={`mb-4 block rounded-xl border px-3 py-2 font-medium transition ${
+              isScrolled && activeSection === "home"
+                ? "border-white/30 bg-white text-[#0646c4]"
+                : "border-white/15 bg-white/8 text-blue-50 hover:bg-white/14"
+            }`}
             onClick={onCloseMenu}
           >
             {t.homeLabel}
@@ -194,7 +234,14 @@ export default function Header({
               <li key={`mobile-${item.href}`}>
                 <a
                   href={item.href}
-                  className="block rounded-xl border border-transparent px-3 py-2 font-medium text-blue-100 transition-all duration-300 hover:border-white/20 hover:bg-white/15 hover:text-white"
+                  aria-current={
+                    activeSection === item.href.slice(1) ? "location" : undefined
+                  }
+                  className={`block rounded-xl border px-3 py-2 font-medium transition-all duration-300 ${
+                    isScrolled && activeSection === item.href.slice(1)
+                      ? "border-white/30 bg-white text-[#0646c4]"
+                      : "border-transparent text-blue-100 hover:border-white/20 hover:bg-white/15 hover:text-white"
+                  }`}
                   onClick={onCloseMenu}
                 >
                   {item.label}
