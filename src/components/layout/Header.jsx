@@ -18,18 +18,25 @@ export default function Header({
   mobileMenuOpen,
   onToggleMenu,
   onCloseMenu,
+  isHome = true,
+  onNavigate,
+  teamSpacePath = "/espace-cs",
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  const anchorPrefix = isHome ? "" : "/";
+  const homeHref = `${anchorPrefix}#home`;
   const navItems = [
-    { href: "#reunion", label: t.nav.reunion },
-    { href: "#team", label: t.nav.team },
-    { href: "#module", label: t.nav.module },
-    { href: "#classement", label: t.nav.classement },
-    { href: "#retenues", label: t.nav.retenues },
-    { href: "#programmation", label: t.nav.programmation },
-    { href: "#lieu", label: t.nav.lieu },
+    { href: `${anchorPrefix}#reunion`, label: t.nav.reunion },
+    { href: `${anchorPrefix}#team`, label: t.nav.team },
+    { href: `${anchorPrefix}#module`, label: t.nav.module },
+    { href: `${anchorPrefix}#classement`, label: t.nav.classement },
+    { href: `${anchorPrefix}#retenues`, label: t.nav.retenues },
+    { href: `${anchorPrefix}#programmation`, label: t.nav.programmation },
+    { href: `${anchorPrefix}#lieu`, label: t.nav.lieu },
+    { href: "/licences", label: t.nav.licences, route: true },
+    { href: teamSpacePath, label: t.nav.espaceEquipe, route: true },
   ];
 
   useEffect(() => {
@@ -68,7 +75,7 @@ export default function Header({
         }`}
       >
         <a
-          href="#home"
+          href={homeHref}
           onClick={onCloseMenu}
           className="flex min-w-0 items-center gap-2 pr-1 sm:gap-3 md:mr-4 md:pr-0 lg:mr-6"
           aria-label="Home"
@@ -107,9 +114,9 @@ export default function Header({
           </div>
         </a>
 
-        <div className="ml-2 hidden flex-1 items-center justify-end gap-3 md:flex lg:gap-4">
+        <div className="ml-2 hidden flex-1 items-center justify-end gap-3 xl:flex">
           <a
-            href="#home"
+            href={homeHref}
             onClick={onCloseMenu}
             aria-current={activeSection === "home" ? "page" : undefined}
             className={`hidden rounded-full border px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm transition xl:inline-flex ${
@@ -121,7 +128,7 @@ export default function Header({
             {t.homeLabel}
           </a>
 
-          <div className="hidden items-center gap-2 rounded-full border border-white/20 bg-white/8 p-1.5 pl-3 shadow-sm backdrop-blur-sm lg:inline-flex">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 p-1.5 pl-3 shadow-sm backdrop-blur-sm">
             <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-100/80">
               {t.languageLabel}
             </span>
@@ -175,7 +182,7 @@ export default function Header({
 
         <button
           type="button"
-          className="ml-2 shrink-0 inline-flex items-center justify-center rounded-xl border border-white/30 p-2 text-white transition hover:bg-white/10 md:hidden"
+          className="ml-2 shrink-0 inline-flex items-center justify-center rounded-xl border border-white/30 p-2 text-white transition hover:bg-white/10 xl:hidden"
           onClick={onToggleMenu}
           aria-label={mobileMenuOpen ? t.closeMenu : t.openMenu}
           aria-expanded={mobileMenuOpen}
@@ -185,7 +192,7 @@ export default function Header({
       </div>
 
       {mobileMenuOpen && (
-        <nav className="border-t border-white/20 bg-[#04379a]/95 px-6 py-4 backdrop-blur-xl md:hidden">
+        <nav className="border-t border-white/20 bg-[#04379a]/95 px-6 py-4 backdrop-blur-xl xl:hidden">
           <a
             href="#home"
             aria-current={activeSection === "home" ? "page" : undefined}
@@ -235,7 +242,9 @@ export default function Header({
                 <a
                   href={item.href}
                   aria-current={
-                    activeSection === item.href.slice(1) ? "location" : undefined
+                    activeSection === item.href.slice(1)
+                      ? "location"
+                      : undefined
                   }
                   className={`block rounded-xl border px-3 py-2 font-medium transition-all duration-300 ${
                     isScrolled && activeSection === item.href.slice(1)

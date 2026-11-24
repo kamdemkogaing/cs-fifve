@@ -196,8 +196,12 @@ export function loadDashboardConfig() {
     if (savedTeamContent.title === "Equipes participantes") {
       savedTeamContent.title = initialDashboardConfig.publicContent.team.title;
     }
-    if (savedTeamContent.subtitle === "Decouvrez les clubs et equipes de la FIFVE.") {
-      savedTeamContent.subtitle = initialDashboardConfig.publicContent.team.subtitle;
+    if (
+      savedTeamContent.subtitle ===
+      "Decouvrez les clubs et equipes de la FIFVE."
+    ) {
+      savedTeamContent.subtitle =
+        initialDashboardConfig.publicContent.team.subtitle;
     }
 
     return {
@@ -220,7 +224,9 @@ export function loadDashboardConfig() {
           ...content,
           [key]: {
             ...initialDashboardConfig.publicContent[key],
-            ...(key === "team" ? savedTeamContent : parsed.publicContent?.[key]),
+            ...(key === "team"
+              ? savedTeamContent
+              : parsed.publicContent?.[key]),
           },
         }),
         {},

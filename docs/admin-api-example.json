@@ -1,0 +1,143 @@
+{
+  "_info": "FIFVE Admin API - Beispiel-Payloads. Basis-URL: VITE_API_BASE_URL. Alle Endpoints: Header 'Authorization: Bearer <JWT>', Content-Type: application/json. Fehler: 401/403/4xx/5xx mit { \"message\": \"...\" }.",
+
+  "GET /api/admin/dashboard": {
+    "response_200": {
+      "siteUrl": "cs-fifve.patelot.de",
+      "online": true,
+      "activeSections": 14,
+      "totalSections": 15,
+      "teams": 54,
+      "matches": 24,
+      "matchDays": 3
+    }
+  },
+
+  "GET /api/admin/changes": {
+    "query": "?limit=10 (optional, neueste zuerst)",
+    "response_200": [
+      { "id": 1, "type": "hero", "title": "Hero mis à jour", "author": "Patrick", "at": "2026-10-23T13:00:00Z" },
+      { "id": 2, "type": "team", "title": "Équipes mises à jour", "author": "Patrick", "at": "2026-10-22T13:00:00Z" },
+      { "id": 3, "type": "document", "title": "Document ajouté", "author": "Patrick", "at": "2026-10-21T13:00:00Z" },
+      { "id": 4, "type": "schedule", "title": "Programmation modifiée", "author": "Patrick", "at": "2026-10-20T13:00:00Z" }
+    ]
+  },
+
+  "GET /api/admin/sections/status": {
+    "response_200": [
+      { "key": "hero", "label": "Hero / Accueil", "active": true },
+      { "key": "meeting", "label": "Programmation", "active": true },
+      { "key": "documents", "label": "Documents", "active": true },
+      { "key": "license", "label": "Licences", "active": true },
+      { "key": "teamWorkspace", "label": "Espace équipe", "active": true },
+      { "key": "team", "label": "Équipes", "active": true },
+      { "key": "stats", "label": "Statistiques", "active": true },
+      { "key": "module", "label": "Module de points", "active": true },
+      { "key": "ranking", "label": "Classement", "active": true },
+      { "key": "selected", "label": "Équipes sélectionnées", "active": true },
+      { "key": "schedule", "label": "Planning", "active": true },
+      { "key": "location", "label": "Lieu / Événement", "active": true },
+      { "key": "export", "label": "Export", "active": false },
+      { "key": "welcomeModal", "label": "Fenêtre de bienvenue", "active": true },
+      { "key": "footer", "label": "Footer / Contact", "active": true }
+    ]
+  },
+
+  "PUT /api/admin/config": {
+    "request_body": {
+      "edition": "2027",
+      "site": {
+        "siteName": "FIFVE 2027",
+        "sloganFr": "Football our Passion",
+        "sloganEn": "Football our Passion",
+        "defaultLanguage": "fr",
+        "timezone": "Europe/Berlin"
+      },
+      "sections": {
+        "hero": true,
+        "meeting": true,
+        "documents": true,
+        "license": true,
+        "teamWorkspace": true,
+        "team": true,
+        "stats": true,
+        "module": true,
+        "ranking": true,
+        "selected": true,
+        "schedule": true,
+        "location": true,
+        "export": false,
+        "welcomeModal": true,
+        "footer": true
+      },
+      "hero": {
+        "badgeFr": "Week-End FIFVE 2027",
+        "badgeEn": "FIFVE Weekend 2027",
+        "titleFr": "Classement officiel, module de points et equipes retenues",
+        "titleEn": "Official rankings, scoring module and selected teams",
+        "subtitleFr": "Page officielle de presentation des informations sportives de l'edition 2027.",
+        "subtitleEn": "Official page presenting sports information for the 2027 edition."
+      },
+      "meeting": {
+        "meetingUrl": "https://meet.google.com/huk-ijth-nnx",
+        "dateFr": "A definir",
+        "dateEn": "To be defined",
+        "timeFr": "A definir",
+        "timeEn": "To be defined",
+        "noteFr": "Merci de revenir regulierement sur cette page.",
+        "noteEn": "Please check back regularly."
+      },
+      "documents": {
+        "reglementUrl": "/documents/reglement-interieur-fifve-2027.pdf",
+        "charteUrl": "/documents/charte-sportive-fifve-2027.pdf",
+        "updatedFr": "Juillet 2027",
+        "updatedEn": "July 2027"
+      },
+      "license": {
+        "newLicensePrice": "10",
+        "transferPrice": "25",
+        "paymentProvider": "PayPal / Carte bancaire"
+      },
+      "teamWorkspace": {
+        "workspacePassword": "FIFVE-TEAM-2027",
+        "reportsDocxUrl": "/documents/Rapport_sportif_FIFVE_2026.docx"
+      },
+      "schedule": {
+        "releaseDateIso": "2027-07-23T18:00:00Z",
+        "linkOne": ""
+      },
+      "footer": {
+        "email": "bureau@fifve.com",
+        "website": "https://www.fifve.com",
+        "whatsappNumber": "+49 171 1721204",
+        "contactPerson": "Teofile Tchakoumi"
+      },
+      "publicContent": {
+        "hero": { "badge": "Week-End FIFVE 2027", "title": "Classement officiel, module de points et equipes retenues", "subtitle": "Page officielle de presentation des informations sportives de l'edition 2027." },
+        "meeting": { "badge": "Seance de travail", "title": "Reunion a venir", "subtitle": "Aucune reunion n'est prevue pour le moment." },
+        "documents": { "badge": "Documents officiels", "title": "Telechargez les documents de reference du tournoi", "subtitle": "Retrouvez les documents officiels du Week-end FIFVE 2027." },
+        "license": { "badge": "Inscription licence", "title": "Demandez votre licence FIFVE", "subtitle": "Completez votre inscription pour participer aux activites FIFVE." },
+        "teamWorkspace": { "badge": "Espace equipe", "title": "Votre espace equipe", "subtitle": "Retrouvez les ressources et informations de votre equipe." },
+        "team": { "title": "Equipes participantes", "subtitle": "Decouvrez les clubs et equipes de la FIFVE." },
+        "stats": { "title": "Les chiffres du tournoi", "subtitle": "Une vue rapide des indicateurs de la competition." },
+        "module": { "title": "Module de classement FIFVE 2027", "subtitle": "Les regles et points qui structurent le classement." },
+        "ranking": { "title": "Classement actuel des 54 equipes FIFVE", "subtitle": "Consultez le classement actualise des equipes." },
+        "selected": { "title": "Equipes retenues pour la FIFVE 2027", "subtitle": "Les equipes retenues seront annoncees prochainement." },
+        "schedule": { "badge": "Programmation des matchs", "title": "Combinaisons des rencontres FIFVE Karlsruhe 2027", "subtitle": "La programmation officielle des rencontres." },
+        "location": { "title": "Lieu du Week-end FIFVE", "subtitle": "Toutes les informations pratiques pour rejoindre l'evenement." },
+        "footer": { "email": "bureau@fifve.com", "website": "https://www.fifve.com" }
+      }
+    },
+    "response_200": "Gespeicherte Config im selben Format wie request_body (oder 204 ohne Body)"
+  },
+
+  "POST /api/admin/publish": {
+    "request_body": "Aktuell sendet das Frontend die komplette Config (gleiches Format wie PUT). Backend darf sie ignorieren und den gespeicherten Entwurf veröffentlichen.",
+    "response_200": { "publishedAt": "2026-10-23T13:22:00Z" }
+  },
+
+  "GET /api/public/config": {
+    "_note": "Geplant, noch nicht im Frontend eingebaut. Ohne Auth. Liefert die zuletzt veröffentlichte Config.",
+    "response_200": "Gleiches Format wie PUT /api/admin/config request_body"
+  }
+}

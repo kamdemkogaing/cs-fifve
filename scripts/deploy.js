@@ -105,7 +105,7 @@ async function deploy() {
   try {
     console.log("");
     console.log("==============================================");
-    console.log("🚀 FIFVE-Deployment zu IONOS");
+    console.log("🚀 FIFVE-Deployment");
     console.log("==============================================");
     console.log(`📁 Lokaler Ordner: ${localBuildDirectory}`);
     console.log(`🌐 Server:         ${process.env.SFTP_HOST}`);
