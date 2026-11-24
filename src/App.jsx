@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
 import DashboardPage from "./components/pages/AdminDashboardPage";
-import {
-  getLocalizedPublicContent,
-  loadDashboardConfig,
-} from "./components/pages/DashboardPage";
+import { loadDashboardConfig } from "./components/pages/DashboardPage";
 import LoginPage from "./components/pages/LoginPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
@@ -67,10 +64,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(() => Date.now());
   const dashboardConfig = loadDashboardConfig();
-  const publicContent = getLocalizedPublicContent(
-    dashboardConfig.publicContent,
-    language,
-  );
+  const publicContent = dashboardConfig.publicContent;
   const scheduleReleaseIso = dashboardConfig.schedule.releaseDateIso;
   const [showWelcomeModal, setShowWelcomeModal] = useState(() => {
     if (typeof window === "undefined") {
