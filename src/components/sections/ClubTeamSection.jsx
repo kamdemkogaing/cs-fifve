@@ -19,46 +19,18 @@ const teamMembers = [
     whatsappNumber: "447435091081",
   },
   {
-    id: "gaston",
-    firstName: "Gaston",
-    fullName: "Gaston Evotche",
-    photo: "Gaston Evotche.jpeg",
-    whatsappNumber: "491715743077",
-  },
-  {
-    id: "eutrope",
-    firstName: "Eutrope",
-    fullName: "Eutrope FOTSO NEAM",
-    photo: "Eutrope FOTSO NEAM.jpeg",
-    whatsappNumber: "32472690852",
-  },
-  {
     id: "stephane",
     firstName: "Stephane",
     fullName: "Stephane Besong",
     photo: "Stephane Besong.jpeg",
     whatsappNumber: "447432599332",
   },
-  /*   {
-    id: "samson",
-    firstName: "Franck",
-    fullName: "Samson",
-    photo: "Samson.jpeg",
-    whatsappNumber: "4915771365401",
-  }, */
   {
     id: "patrick",
     firstName: "Patrick",
     fullName: "Patrick Kamdem",
     photo: "Patrick Kamdem.jpeg",
     whatsappNumber: "491714170604",
-  },
-  {
-    id: "olivier",
-    firstName: "Olivier",
-    fullName: "Olivier KENGNE",
-    photo: "Olivier KENGNE.jpeg",
-    whatsappNumber: "32484902176",
   },
   {
     id: "jean-paul",
@@ -75,20 +47,6 @@ const teamMembers = [
     whatsappNumber: "491711721204",
   }, */
   {
-    id: "francis",
-    firstName: "Francis",
-    fullName: "FRANCIS NJAWE",
-    photo: "FRANCIS NJAWE.jpeg",
-    whatsappNumber: "393343031132",
-  },
-  {
-    id: "filomain",
-    firstName: "Filomain",
-    fullName: "Filomain Nguemo",
-    photo: "Filomain Nguemo.jpeg",
-    whatsappNumber: "491736956407",
-  },
-  {
     id: "dimitri",
     firstName: "Dimitri",
     fullName: "Dimitri Diffo",
@@ -103,6 +61,13 @@ const teamMembers = [
     photoObjectPosition: "center 24%",
     whatsappNumber: "491729028332",
   },
+  {
+    id: "yane",
+    firstName: "Yane",
+    fullName: "Yane Yamkwe",
+    photo: "yane_yamkwe.jpeg",
+    photoObjectPosition: "center 24%",
+  },
 ];
 
 function TeamMemberCard({ member, t }) {
@@ -114,7 +79,7 @@ function TeamMemberCard({ member, t }) {
       <div className="pointer-events-none absolute -bottom-16 -left-14 h-32 w-32 rounded-full bg-emerald-100/50 blur-2xl" />
 
       <div className="relative flex h-48 items-center justify-center rounded-2xl border border-blue-100 bg-linear-to-br from-slate-100 via-white to-blue-50 p-2">
-        {imageMissing ? (
+        {!member.photo || imageMissing ? (
           <div className="flex h-36 w-36 items-center justify-center rounded-full border-4 border-white bg-[#0646c4] text-3xl font-black text-white shadow-md">
             {member.firstName.charAt(0).toUpperCase()}
           </div>

@@ -76,6 +76,7 @@ export default function App() {
     );
   });
   const t = getTranslations(language);
+  const defaultTeamContent = getTranslations("fr").team;
   const publicTranslations = {
     ...t,
     hero: { ...t.hero, ...publicContent.hero },
@@ -110,7 +111,18 @@ export default function App() {
       transferAmountValue: `${dashboardConfig.license.transferPrice} EUR`,
     },
     teamWorkspace: { ...t.teamWorkspace, ...publicContent.teamWorkspace },
-    team: { ...t.team, ...publicContent.team },
+    team: {
+      ...t.team,
+      ...publicContent.team,
+      title:
+        publicContent.team.title === defaultTeamContent.title
+          ? t.team.title
+          : publicContent.team.title,
+      subtitle:
+        publicContent.team.subtitle === defaultTeamContent.subtitle
+          ? t.team.subtitle
+          : publicContent.team.subtitle,
+    },
     stats: { ...t.stats, ...publicContent.stats },
     module: { ...t.module, ...publicContent.module },
     ranking: { ...t.ranking, ...publicContent.ranking },

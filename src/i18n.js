@@ -458,9 +458,8 @@ const translations = {
     },
     team: {
       badge: "Club Sportif FIFVE",
-      title: "Notre equipe",
-      subtitle:
-        "Cliquez sur un membre pour ouvrir WhatsApp et envoyer rapidement un message.",
+      title: "Membres du Club Sportif FIFVE",
+      subtitle: "Découvrez les membres de l'équipe du Club Sportif FIFVE.",
       memberLabel: "Membre de l'equipe",
       clubManagerLabel: "Responsable du Club Sportif",
       whatsappAction: "WhatsApp",
@@ -949,9 +948,8 @@ const translations = {
     },
     team: {
       badge: "FIFVE Sports Club",
-      title: "Our team",
-      subtitle:
-        "Click a member card to open WhatsApp and send a quick message.",
+      title: "FIFVE Sports Club members",
+      subtitle: "Meet the members of the FIFVE Sports Club team.",
       memberLabel: "Team member",
       clubManagerLabel: "Sports Club Manager",
       whatsappAction: "WhatsApp",

@@ -148,8 +148,8 @@ const initialDashboardConfig = {
       subtitle: "Retrouvez les ressources et informations de votre equipe.",
     },
     team: {
-      title: "Equipes participantes",
-      subtitle: "Decouvrez les clubs et equipes de la FIFVE.",
+      title: "Membres du Club Sportif FIFVE",
+      subtitle: "Découvrez les membres de l'équipe du Club Sportif FIFVE.",
     },
     stats: {
       title: "Les chiffres du tournoi",
@@ -192,6 +192,14 @@ export function loadDashboardConfig() {
       return initialDashboardConfig;
     }
 
+    const savedTeamContent = { ...parsed.publicContent?.team };
+    if (savedTeamContent.title === "Equipes participantes") {
+      savedTeamContent.title = initialDashboardConfig.publicContent.team.title;
+    }
+    if (savedTeamContent.subtitle === "Decouvrez les clubs et equipes de la FIFVE.") {
+      savedTeamContent.subtitle = initialDashboardConfig.publicContent.team.subtitle;
+    }
+
     return {
       ...initialDashboardConfig,
       ...parsed,
@@ -212,7 +220,7 @@ export function loadDashboardConfig() {
           ...content,
           [key]: {
             ...initialDashboardConfig.publicContent[key],
-            ...parsed.publicContent?.[key],
+            ...(key === "team" ? savedTeamContent : parsed.publicContent?.[key]),
           },
         }),
         {},
