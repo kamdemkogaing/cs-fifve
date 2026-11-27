@@ -47,7 +47,7 @@ const NAV_GROUPS = [
       { id: "home", label: "Page d'accueil", icon: House },
       { id: "hero", label: "Hero", icon: ImageIcon },
       { id: "sections", label: "Sections du site", icon: Layers },
-      { id: "visibility", label: "Sichtbarkeit", icon: Eye },
+      { id: "visibility", label: "Visibilité", icon: Eye },
       { id: "planning", label: "Programmation", icon: CalendarDays },
       { id: "documents", label: "Documents", icon: FileText },
     ],
@@ -55,40 +55,61 @@ const NAV_GROUPS = [
   {
     label: "Tournoi",
     items: [
-      { id: "teams", label: "Mannschaften", icon: Users },
-      { id: "matches", label: "Programmation (Matchs)", icon: CalendarDays },
-      { id: "ranking", label: "Rangliste", icon: Trophy },
+      { id: "editions", label: "Éditions FIFVE", icon: CalendarDays },
+      { id: "teams", label: "Délégations", icon: Users },
+      { id: "matches", label: "Programmation des matchs", icon: CalendarDays },
+      { id: "ranking", label: "Classement", icon: Trophy },
       { id: "stats", label: "Statistiques", icon: ChartColumn },
       { id: "points", label: "Module de points", icon: ListChecks },
       { id: "selected", label: "Équipes sélectionnées", icon: Handshake },
     ],
   },
   {
-    label: "Verwaltung",
+    label: "Administration",
     items: [
-      { id: "licenses", label: "Lizenzen", icon: CreditCard },
+      { id: "licenses", label: "Licences", icon: CreditCard },
       { id: "workspace", label: "Espace équipe", icon: Users },
       { id: "location", label: "Lieu / Événement", icon: MapPin },
       { id: "contact", label: "Contact", icon: Mail },
+      { id: "organization", label: "Organisation", icon: Handshake },
+      { id: "users", label: "Utilisateurs", icon: Users },
     ],
   },
   {
     label: "Système",
     items: [
       { id: "payload", label: "API / Payload", icon: Code },
-      { id: "preferences", label: "Einstellungen", icon: Settings },
+      { id: "preferences", label: "Paramètres", icon: Settings },
     ],
   },
 ];
 
 const QUICK_ACCESS = [
   { id: "hero", title: "Page d'accueil / Hero", desc: "Titre, slogan, images", icon: ImageIcon, tone: "bg-blue-100 text-blue-600" },
-  { id: "teams", title: "Mannschaften", desc: "Équipes inscrites", icon: Users, tone: "bg-emerald-100 text-emerald-600" },
+  { id: "teams", title: "Délégations", desc: "Équipes inscrites", icon: Users, tone: "bg-emerald-100 text-emerald-600" },
   { id: "documents", title: "Documents", desc: "Règlements et fichiers", icon: FileText, tone: "bg-orange-100 text-orange-600" },
   { id: "planning", title: "Programmation", desc: "Matchs et horaires", icon: CalendarDays, tone: "bg-violet-100 text-violet-600" },
   { id: "ranking", title: "Rangliste", desc: "Classement du tournoi", icon: Trophy, tone: "bg-amber-100 text-amber-600" },
-  { id: "licenses", title: "Lizenzen", desc: "Licences et tarifs", icon: CreditCard, tone: "bg-rose-100 text-rose-600" },
+  { id: "licenses", title: "Licences", desc: "Licences et tarifs", icon: CreditCard, tone: "bg-rose-100 text-rose-600" },
 ];
+
+const PREPARED_MODULES = {
+  editions: {
+    title: "Éditions FIFVE",
+    description: "Gérer les éditions et leurs informations officielles.",
+    icon: CalendarDays,
+  },
+  organization: {
+    title: "Organisation",
+    description: "Gérer les informations et responsabilités de l’organisation.",
+    icon: Handshake,
+  },
+  users: {
+    title: "Utilisateurs",
+    description: "Gérer les comptes et les accès de l’administration.",
+    icon: Users,
+  },
+};
 
 const CHANGE_ICONS = {
   hero: ImageIcon,
@@ -196,6 +217,31 @@ function Sidebar({ active, onSelect, open, onClose }) {
         </a>
       </aside>
     </>
+  );
+}
+
+function PreparedModulePage({ module }) {
+  const Icon = module.icon;
+
+  return (
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      <section className="rounded-3xl border border-blue-100 bg-white p-6 shadow-sm sm:p-8">
+        <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-50 text-[#0646c4]">
+          <Icon size={23} />
+        </div>
+        <p className="mt-6 text-xs font-bold uppercase tracking-[0.18em] text-[#0646c4]">
+          FIFVE 2027 · API REST
+        </p>
+        <h1 className="mt-2 text-2xl font-extrabold text-slate-950 sm:text-3xl">
+          {module.title}
+        </h1>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+          {module.description} Ce module est préparé pour la future API Java
+          Spring Boot ; aucune donnée n’est modifiée depuis cet écran pour le
+          moment.
+        </p>
+      </section>
+    </main>
   );
 }
 
@@ -604,6 +650,8 @@ export default function AdminDashboardPage({ language, setLanguage, onLogout }) 
             onPublish={publish}
             notice={notice}
           />
+        ) : PREPARED_MODULES[view] ? (
+          <PreparedModulePage module={PREPARED_MODULES[view]} />
         ) : (
           <DashboardEditor
             language={language}

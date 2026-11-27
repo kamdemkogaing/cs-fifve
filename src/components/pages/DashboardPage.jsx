@@ -15,6 +15,8 @@ import { useMemo, useState } from "react";
 const DASHBOARD_CONFIG_STORAGE_KEY = "fifve-dashboard-config";
 const DASHBOARD_PUBLISHED_AT_STORAGE_KEY = "fifve-dashboard-published-at";
 
+export const WELCOME_MODAL_AVAILABLE = false;
+
 const sectionToggles = [
   { key: "hero", label: "Section accueil / Hero" },
   { key: "meeting", label: "Section reunion" },
@@ -29,7 +31,9 @@ const sectionToggles = [
   { key: "schedule", label: "Section programmation" },
   { key: "location", label: "Section lieu" },
   { key: "export", label: "Section export" },
-  { key: "welcomeModal", label: "Popup de bienvenue" },
+  ...(WELCOME_MODAL_AVAILABLE
+    ? [{ key: "welcomeModal", label: "Popup de bienvenue" }]
+    : []),
   { key: "footer", label: "Section footer" },
 ];
 
@@ -72,18 +76,18 @@ const initialDashboardConfig = {
     schedule: true,
     location: true,
     export: false,
-    welcomeModal: true,
+    welcomeModal: false,
     footer: true,
   },
   hero: {
     badgeFr: "Week-End FIFVE 2027",
     badgeEn: "FIFVE Weekend 2027",
-    titleFr: "Classement officiel, module de points et equipes retenues",
-    titleEn: "Official rankings, scoring module and selected teams",
+    titleFr: "Le grand rendez-vous des vétérans",
+    titleEn: "The big gathering for veterans",
     subtitleFr:
-      "Page officielle de presentation des informations sportives de l'edition 2027.",
+      "Classement, programmation, équipes retenues et toutes les informations officielles de l’édition 2027 à Karlsruhe.",
     subtitleEn:
-      "Official page presenting sports information for the 2027 edition.",
+      "Rankings, schedule, selected teams and all official information for the 2027 edition in Karlsruhe.",
   },
   meeting: {
     meetingUrl: "https://meet.google.com/huk-ijth-nnx",
@@ -121,10 +125,10 @@ const initialDashboardConfig = {
   },
   publicContent: {
     hero: {
-      badge: "Week-End FIFVE 2027",
-      title: "Classement officiel, module de points et equipes retenues",
+      badge: "WEEK-END FIFVE 2027",
+      title: "Le grand rendez-vous des vétérans",
       subtitle:
-        "Page officielle de presentation des informations sportives de l'edition 2027.",
+        "Classement, programmation, équipes retenues et toutes les informations officielles de l’édition 2027 à Karlsruhe.",
     },
     meeting: {
       badge: "Seance de travail",

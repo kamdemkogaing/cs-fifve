@@ -1,31 +1,42 @@
 import { Sparkles, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
-import DashboardPage from "./components/pages/AdminDashboardPage";
-import { loadDashboardConfig } from "./components/pages/DashboardPage";
-import LoginPage from "./components/pages/LoginPage";
+import {
+  loadDashboardConfig,
+  WELCOME_MODAL_AVAILABLE,
+} from "./components/pages/DashboardPage";
 import ClubTeamSection from "./components/sections/ClubTeamSection";
 import DocumentsSection from "./components/sections/DocumentsSection";
-import ExportActionsSection from "./components/sections/ExportActionsSection";
 import HeroSection from "./components/sections/HeroSection";
-import LicenseApplicationSection from "./components/sections/LicenseApplicationSection";
+import HostClubBanner from "./components/sections/HostClubBanner";
 import LocationSection from "./components/sections/LocationSection";
-import MeetingSection from "./components/sections/MeetingSection";
 import ModuleSection from "./components/sections/ModuleSection";
+import QuickNavigationSection from "./components/sections/QuickNavigationSection";
+import RankingPreview from "./components/sections/RankingPreview";
 import RankingSection from "./components/sections/RankingSection";
 import ScheduleSection from "./components/sections/ScheduleSection";
-import SelectedTeamsSection from "./components/sections/SelectedTeamsSection";
 import StatsSection from "./components/sections/StatsSection";
-import TeamWorkspaceSection from "./components/sections/TeamWorkspaceSection";
-import {
-  classementRules,
-  ranking,
-  selectedTeamsByCountry,
-} from "./data/fifveData";
+import { fifveDataService } from "./services/publicDataService";
 import { getTranslations, normalizeLanguage } from "./i18n";
 
 const ADMIN_AUTH_STORAGE_KEY = "fifve-admin-auth";
+const ExportActionsSection = lazy(
+  () => import("./components/sections/ExportActionsSection"),
+);
+const DashboardPage = lazy(
+  () => import("./components/pages/AdminDashboardPage"),
+);
+const LoginPage = lazy(() => import("./components/pages/LoginPage"));
+const LicenseApplicationSection = lazy(
+  () => import("./components/sections/LicenseApplicationSection"),
+);
+const TeamWorkspaceSection = lazy(
+  () => import("./components/sections/TeamWorkspaceSection"),
+);
+const ranking = fifveDataService.getRanking();
+const selectedTeamsByCountry = fifveDataService.getSelectedTeams();
+const classementRules = fifveDataService.getClassificationRules();
 const licenseTeams = selectedTeamsByCountry.flatMap(({ country, teams }) =>
   teams.map((team) => ({ ...team, country })),
 );
@@ -51,8 +62,15 @@ export default function App() {
   );
   const isLoginPage = pathname === "/admin/login";
   const isDashboardPage = pathname === "/admin/dashboard";
+  const isRankingPage = pathname === "/classement";
   const isTeamSpacePage = pathname === "/espace-cs";
   const isLicensePage = pathname === "/licences";
+  const isTeamsPage = pathname === "/equipes";
+  const isSchedulePage = pathname === "/programmation";
+  const isLocationPage = pathname === "/lieu";
+  const isModulePage = pathname === "/module";
+  const isContentRoutePage =
+    isTeamsPage || isSchedulePage || isLocationPage || isModulePage;
 
   const [language, setLanguage] = useState(() => {
     const stored = window.localStorage.getItem("fifve-language");
@@ -67,6 +85,10 @@ export default function App() {
   const publicContent = dashboardConfig.publicContent;
   const scheduleReleaseIso = dashboardConfig.schedule.releaseDateIso;
   const [showWelcomeModal, setShowWelcomeModal] = useState(() => {
+    if (!WELCOME_MODAL_AVAILABLE) {
+      return false;
+    }
+
     if (typeof window === "undefined") {
       return true;
     }
@@ -78,40 +100,54 @@ export default function App() {
   });
   const t = getTranslations(language);
   const defaultTeamContent = getTranslations("fr").team;
+  const getPublicSection = (sectionName) => {
+    const translated = t[sectionName] || {};
+    const configured = publicContent[sectionName] || {};
+    const section = { ...translated, ...configured };
+
+    if (language === "en") {
+      ["badge", "title", "subtitle"].forEach((field) => {
+        if (translated[field] !== undefined) {
+          section[field] = translated[field];
+        }
+      });
+    }
+
+    return section;
+  };
+  const translatedHero = getPublicSection("hero");
   const publicTranslations = {
     ...t,
-    hero: { ...t.hero, ...publicContent.hero },
-    meeting: {
-      ...t.meeting,
-      ...publicContent.meeting,
-      description: publicContent.meeting.subtitle || t.meeting.description,
-      meetUrl: dashboardConfig.meeting.meetingUrl || t.meeting.meetUrl,
-      dateValue:
+    hero: {
+      ...translatedHero,
+      badge:
         language === "en"
-          ? dashboardConfig.meeting.dateEn
-          : dashboardConfig.meeting.dateFr,
-      timeValue:
+          ? dashboardConfig.hero.badgeEn
+          : translatedHero.badge || dashboardConfig.hero.badgeFr,
+      title:
         language === "en"
-          ? dashboardConfig.meeting.timeEn
-          : dashboardConfig.meeting.timeFr,
-      blockedNote:
+          ? dashboardConfig.hero.titleEn
+          : translatedHero.title || dashboardConfig.hero.titleFr,
+      subtitle:
         language === "en"
-          ? dashboardConfig.meeting.noteEn
-          : dashboardConfig.meeting.noteFr,
+          ? dashboardConfig.hero.subtitleEn
+          : translatedHero.subtitle || dashboardConfig.hero.subtitleFr,
     },
     documents: {
-      ...t.documents,
-      ...publicContent.documents,
+      ...getPublicSection("documents"),
       reglementHref: dashboardConfig.documents.reglementUrl,
       charteHref: dashboardConfig.documents.charteUrl,
+      updatedValue:
+        language === "en"
+          ? dashboardConfig.documents.updatedEn
+          : dashboardConfig.documents.updatedFr,
     },
     license: {
-      ...t.license,
-      ...publicContent.license,
+      ...getPublicSection("license"),
       amountValue: `${dashboardConfig.license.newLicensePrice} EUR`,
       transferAmountValue: `${dashboardConfig.license.transferPrice} EUR`,
     },
-    teamWorkspace: { ...t.teamWorkspace, ...publicContent.teamWorkspace },
+    teamWorkspace: getPublicSection("teamWorkspace"),
     team: {
       ...t.team,
       ...publicContent.team,
@@ -124,16 +160,14 @@ export default function App() {
           ? t.team.subtitle
           : publicContent.team.subtitle,
     },
-    stats: { ...t.stats, ...publicContent.stats },
-    module: { ...t.module, ...publicContent.module },
-    ranking: { ...t.ranking, ...publicContent.ranking },
-    selected: { ...t.selected, ...publicContent.selected },
+    stats: getPublicSection("stats"),
+    module: getPublicSection("module"),
+    ranking: getPublicSection("ranking"),
     schedule: {
-      ...t.schedule,
-      ...publicContent.schedule,
+      ...getPublicSection("schedule"),
       linkOneUrl: dashboardConfig.schedule.linkOne,
     },
-    location: { ...t.location, ...publicContent.location },
+    location: getPublicSection("location"),
     footer: {
       ...t.footer,
       email: dashboardConfig.footer.email,
@@ -141,6 +175,10 @@ export default function App() {
       contactPerson: dashboardConfig.footer.contactPerson,
     },
   };
+  publicTranslations.ranking.title = publicTranslations.ranking.title.replace(
+    /\d+/,
+    String(ranking.length),
+  );
 
   useEffect(() => {
     window.localStorage.setItem("fifve-language", language);
@@ -193,6 +231,12 @@ export default function App() {
 
     window.history.pushState({}, "", normalized);
     setPathname(normalized);
+    window.scrollTo(0, 0);
+  };
+
+  const navigateFromLink = (event, nextPathname) => {
+    event.preventDefault();
+    navigateTo(nextPathname);
   };
 
   const handleLoginSuccess = () => {
@@ -209,40 +253,46 @@ export default function App() {
 
   if (isDashboardPage && !isAdminAuthenticated) {
     return (
-      <LoginPage
-        language={language}
-        setLanguage={setLanguage}
-        t={t.login}
-        onLoginSuccess={handleLoginSuccess}
-        forceAuthMessage={t.login.dashboardLockedMessage}
-      />
+      <Suspense fallback={<p role="status">{t.header.loading}</p>}>
+        <LoginPage
+          language={language}
+          setLanguage={setLanguage}
+          t={t.login}
+          onLoginSuccess={handleLoginSuccess}
+          forceAuthMessage={t.login.dashboardLockedMessage}
+        />
+      </Suspense>
     );
   }
 
   if (isDashboardPage) {
     return (
-      <DashboardPage
-        language={language}
-        setLanguage={setLanguage}
-        onLogout={handleLogout}
-      />
+      <Suspense fallback={<p role="status">{t.header.loading}</p>}>
+        <DashboardPage
+          language={language}
+          setLanguage={setLanguage}
+          onLogout={handleLogout}
+        />
+      </Suspense>
     );
   }
 
   if (isLoginPage) {
     return (
-      <LoginPage
-        language={language}
-        setLanguage={setLanguage}
-        t={t.login}
-        onLoginSuccess={handleLoginSuccess}
-      />
+      <Suspense fallback={<p role="status">{t.header.loading}</p>}>
+        <LoginPage
+          language={language}
+          setLanguage={setLanguage}
+          t={t.login}
+          onLoginSuccess={handleLoginSuccess}
+        />
+      </Suspense>
     );
   }
 
-  if (isTeamSpacePage || isLicensePage) {
+  if (isRankingPage) {
     return (
-      <div id="home" className="min-h-screen bg-slate-100">
+      <div id="home" className="fifve-app">
         <Header
           language={language}
           setLanguage={setLanguage}
@@ -252,30 +302,129 @@ export default function App() {
           onCloseMenu={() => setMobileMenuOpen(false)}
           onNavigate={navigateTo}
           isHome={false}
+          pathname={pathname}
+        />
+        <main className="route-page">
+          <div className="route-page__inner">
+            <h1 className="route-page__title">
+              {publicTranslations.ranking.title}
+            </h1>
+            <RankingSection ranking={ranking} t={publicTranslations.ranking} />
+          </div>
+        </main>
+        {dashboardConfig.sections.footer && (
+          <Footer
+            t={publicTranslations.footer}
+            navT={t.header}
+            homeT={t.homepage}
+          />
+        )}
+      </div>
+    );
+  }
+
+  if (isContentRoutePage) {
+    const routeTitle = isTeamsPage
+      ? t.header.nav.team
+      : isSchedulePage
+        ? t.header.nav.programmation
+        : isLocationPage
+          ? t.header.nav.lieu
+          : t.homepage.footerModule;
+
+    return (
+      <div id="home" className="fifve-app">
+        <Header
+          language={language}
+          setLanguage={setLanguage}
+          t={t.header}
+          mobileMenuOpen={mobileMenuOpen}
+          onToggleMenu={() => setMobileMenuOpen((prev) => !prev)}
+          onCloseMenu={() => setMobileMenuOpen(false)}
+          onNavigate={navigateTo}
+          isHome={false}
+          pathname={pathname}
+        />
+        <main className="route-page">
+          <div className="route-page__inner">
+            <h1 className={isTeamsPage ? "sr-only" : "route-page__title"}>
+              {routeTitle}
+            </h1>
+            {isTeamsPage && dashboardConfig.sections.team && (
+              <ClubTeamSection t={publicTranslations.team} />
+            )}
+            {isSchedulePage && dashboardConfig.sections.schedule && (
+              <ScheduleSection
+                isScheduleVisible={isScheduleVisible}
+                releaseDateLabel={releaseDateLabel}
+                t={publicTranslations.schedule}
+              />
+            )}
+            {isLocationPage && dashboardConfig.sections.location && (
+              <LocationSection t={publicTranslations.location} />
+            )}
+            {isModulePage && dashboardConfig.sections.module && (
+              <ModuleSection
+                classementRules={classementRules}
+                t={publicTranslations.module}
+              />
+            )}
+          </div>
+        </main>
+        {dashboardConfig.sections.footer && (
+          <Footer
+            t={publicTranslations.footer}
+            navT={t.header}
+            homeT={t.homepage}
+          />
+        )}
+      </div>
+    );
+  }
+
+  if (isTeamSpacePage || isLicensePage) {
+    return (
+      <div id="home" className="fifve-app">
+        <Header
+          language={language}
+          setLanguage={setLanguage}
+          t={t.header}
+          mobileMenuOpen={mobileMenuOpen}
+          onToggleMenu={() => setMobileMenuOpen((prev) => !prev)}
+          onCloseMenu={() => setMobileMenuOpen(false)}
+          onNavigate={navigateTo}
+          isHome={false}
+          pathname={pathname}
         />
         <div className="pb-14 pt-32 sm:pt-36">
-          {isTeamSpacePage ? (
-            <TeamWorkspaceSection
-              t={publicTranslations.teamWorkspace}
-              language={language}
-            />
-          ) : (
-            <LicenseApplicationSection
-              t={publicTranslations.license}
-              teams={licenseTeams}
-              isAvailable={false}
-            />
-          )}
+          <Suspense fallback={<p role="status">{t.header.loading}</p>}>
+            {isTeamSpacePage ? (
+              <TeamWorkspaceSection
+                t={publicTranslations.teamWorkspace}
+                language={language}
+              />
+            ) : (
+              <LicenseApplicationSection
+                t={publicTranslations.license}
+                teams={licenseTeams}
+                isAvailable={false}
+              />
+            )}
+          </Suspense>
         </div>
         {dashboardConfig.sections.footer && (
-          <Footer t={publicTranslations.footer} />
+          <Footer
+            t={publicTranslations.footer}
+            navT={t.header}
+            homeT={t.homepage}
+          />
         )}
       </div>
     );
   }
 
   return (
-    <div id="home">
+    <div id="home" className="fifve-app">
       {showWelcomeModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 py-6 backdrop-blur-sm">
           <div className="relative w-full max-w-xl overflow-hidden rounded-[28px] border border-white/20 bg-linear-to-br from-[#f2f7ff] via-white to-[#ecf7ef] p-6 shadow-2xl sm:p-8">
@@ -332,6 +481,7 @@ export default function App() {
         onToggleMenu={() => setMobileMenuOpen((prev) => !prev)}
         onCloseMenu={() => setMobileMenuOpen(false)}
         onNavigate={navigateTo}
+        pathname={pathname}
       />
 
       {dashboardConfig.sections.hero && (
@@ -343,52 +493,48 @@ export default function App() {
           scheduleT={publicTranslations.schedule}
         />
       )}
-      {dashboardConfig.sections.meeting && (
-        <MeetingSection t={publicTranslations.meeting} />
-      )}
-      {dashboardConfig.sections.documents && (
-        <DocumentsSection t={publicTranslations.documents} />
-      )}
       {(showExportSection || dashboardConfig.sections.export) && (
-        <ExportActionsSection t={t.export} />
+        <Suspense fallback={<p role="status">{t.export.preparingExport}</p>}>
+          <ExportActionsSection t={t.export} />
+        </Suspense>
       )}
 
-      <main className="mx-auto max-w-7xl space-y-16 px-6 py-14">
-        {dashboardConfig.sections.team && (
-          <ClubTeamSection t={publicTranslations.team} />
-        )}
+      <QuickNavigationSection
+        t={t.homepage}
+        onNavigate={navigateFromLink}
+      />
+
+      <main className="home-content">
         {dashboardConfig.sections.stats && (
-          <StatsSection t={publicTranslations.stats} />
-        )}
-        {dashboardConfig.sections.module && (
-          <ModuleSection
-            classementRules={classementRules}
-            t={publicTranslations.module}
-          />
-        )}
-        {dashboardConfig.sections.ranking && (
-          <RankingSection ranking={ranking} t={publicTranslations.ranking} />
-        )}
-        {dashboardConfig.sections.selected && (
-          <SelectedTeamsSection
+          <StatsSection
+            t={publicTranslations.stats}
+            ranking={ranking}
             selectedTeamsByCountry={selectedTeamsByCountry}
-            t={publicTranslations.selected}
           />
         )}
-        {dashboardConfig.sections.schedule && (
-          <ScheduleSection
-            isScheduleVisible={isScheduleVisible}
-            releaseDateLabel={releaseDateLabel}
-            t={publicTranslations.schedule}
-          />
-        )}
-        {dashboardConfig.sections.location && (
-          <LocationSection t={publicTranslations.location} />
+        <div className="feature-grid">
+          {dashboardConfig.sections.ranking && (
+            <RankingPreview
+              ranking={ranking}
+              t={{ ...publicTranslations.ranking, ...t.homepage }}
+              onViewAll={(event) => navigateFromLink(event, "/classement")}
+            />
+          )}
+          {dashboardConfig.sections.documents && (
+            <DocumentsSection t={publicTranslations.documents} />
+          )}
+        </div>
+        {dashboardConfig.sections.team && (
+          <HostClubBanner t={t.homepage} />
         )}
       </main>
 
       {dashboardConfig.sections.footer && (
-        <Footer t={publicTranslations.footer} />
+        <Footer
+          t={publicTranslations.footer}
+          navT={t.header}
+          homeT={t.homepage}
+        />
       )}
     </div>
   );

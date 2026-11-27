@@ -1,4 +1,34 @@
-# React + Vite
+# FIFVE 2027
+
+Site officiel du Week-End FIFVE 2027, construit avec React et Vite. Les vues
+publiques sont bilingues (français/anglais) et s'appuient actuellement sur les
+données locales de `src/data/fifveData.js`, encapsulées par
+`src/services/publicDataService.js`. Cette couche est le point d'adaptation
+prévu pour le futur service REST Java Spring Boot.
+
+## Développement
+
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+La page d'accueil présente le Top 5, les statistiques, les documents et le club
+hôte. Le classement complet est disponible sur `/classement`; les équipes, la
+programmation, le lieu et le module de classement sont accessibles sur
+`/equipes`, `/programmation`, `/lieu` et `/module`. L'espace équipe et les
+licences restent accessibles sur `/espace-cs` et `/licences`. Les pages
+d'administration restent sous `/admin/login` et `/admin/dashboard`.
+Le tableau de bord conserve ses outils existants et expose des écrans de
+préparation pour les modules Éditions FIFVE, Organisation et Utilisateurs ;
+ceux-ci ne modifient pas de données et attendent la future API.
+
+Définir `VITE_API_BASE_URL` dans un fichier `.env.local` pour configurer la base
+d'URL de l'API (voir `.env.example`). Aucune API ni base de données n'est créée
+par le frontend.
+
+## Application desktop
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 

@@ -1,98 +1,105 @@
-import {
-  Globe,
-  Mail,
-  MessageCircle,
-  Trophy,
-} from "lucide-react";
+import { Mail, MapPin, MessageCircle } from "lucide-react";
 
-export default function Footer({ t }) {
-  const whatsappNumber = "491711721204";
-  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+const facebookUrl = "https://www.facebook.com/fifve1";
+
+function FooterLinks({ title, links }) {
   return (
-    <footer className="relative overflow-hidden border-t border-white/15 bg-linear-to-br from-[#04379a] via-[#0646c4] to-[#0a5bcf] px-6 py-10 text-white">
-      <div className="pointer-events-none absolute -top-28 -right-20 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl"></div>
-      <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-emerald-300/10 blur-3xl"></div>
+    <div className="footer-column">
+      <h3>{title}</h3>
+      {links.map((link) => (
+        <a href={link.href} key={link.label}>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  );
+}
 
-      <div className="relative mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1fr_1.2fr_1fr]">
-        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-sm">
-          <img
-            src="/images/logo_fifve.jpeg"
-            alt="Logo FIFVE"
-            className="mb-4 h-20 w-20 rounded-full bg-white object-contain p-1 shadow-md"
-          />
-          <h3 className="text-xl font-bold tracking-wide">FIFVE</h3>
-          <p className="mt-1 text-blue-100">{t.slogan}</p>
+export default function Footer({ t, navT, homeT }) {
+  const whatsappNumber = "491711721204";
+
+  return (
+    <footer className="site-footer">
+      <div className="site-footer__main">
+        <div className="footer-brand">
+          <a href="/#home" className="footer-brand__lockup">
+            <img src="/images/logo_fifve.jpeg" alt="Logo FIFVE" />
+            <span>
+              <strong>FIFVE 2027</strong>
+              <small>{t.slogan}</small>
+            </span>
+          </a>
+          <p>{navT.federationName}</p>
         </div>
 
-        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-sm">
-          <h4 className="mb-3 text-lg font-bold">{t.contact}</h4>
+        <FooterLinks
+          title={homeT.footerNavigation}
+          links={[
+            { label: navT.nav.home, href: "/#home" },
+            { label: navT.nav.team, href: "/equipes" },
+            { label: navT.nav.classement, href: "/classement" },
+          ]}
+        />
+        <FooterLinks
+          title={homeT.footerTournament}
+          links={[
+            {
+              label: navT.nav.programmation,
+              href: "/programmation",
+            },
+            { label: navT.nav.lieu, href: "/lieu" },
+            { label: homeT.footerModule, href: "/module" },
+          ]}
+        />
+        <FooterLinks
+          title={homeT.footerInformation}
+          links={[
+            { label: navT.nav.documents, href: "/#documents" },
+            { label: navT.nav.licences, href: "/licences" },
+            { label: navT.nav.espaceEquipe, href: "/espace-cs" },
+          ]}
+        />
 
-          <div className="space-y-2.5 text-sm text-blue-100">
-            <p>
-              <a
-                href={`mailto:${t.email || "bureau@fifve.com"}`}
-                className="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 text-blue-100 transition hover:text-white"
-              >
-                <Mail size={16} className="shrink-0" />
-                {t.email || "bureau@fifve.com"}
-              </a>
-            </p>
-            <p>
-              <a
-                href={t.website || "https://www.fifve.com"}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 text-blue-100 transition hover:text-white"
-              >
-                <Globe size={16} className="shrink-0" />
-                {t.website || "https://www.fifve.com"}
-              </a>
-            </p>
-          </div>
-
-          <div className="mt-4 rounded-2xl border border-white/30 bg-white/10 p-4 backdrop-blur-sm">
-            <p className="text-sm font-semibold text-blue-100">
-              {t.whatsappLabel}
-            </p>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-[#06341d] transition hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-              aria-label={`${t.whatsappAction} +49 171 1721204`}
-            >
-              <MessageCircle size={18} />
-              {t.whatsappAction}
-            </a>
-            <p className="mt-2 text-xs text-blue-100">+49 171 1721204</p>
-            <p className="mt-1 text-xs text-blue-100">
-              {t.contactPersonLabel}:{" "}
-              <span className="font-semibold text-white">
-                {t.contactPerson || "Téofile Tchakoumi"}
-              </span>
-            </p>
-          </div>
+        <div className="footer-column footer-contact">
+          <h3>{t.contact}</h3>
+          <a href={`mailto:${t.email}`}>
+            <Mail size={15} />
+            {t.email}
+          </a>
+          <a
+            href={`https://wa.me/${whatsappNumber}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircle size={15} />
+            +49 171 1721204
+          </a>
+          <span>
+            <MapPin size={15} />
+            Karlsruhe, {t.country}
+          </span>
         </div>
 
-        <div className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-sm">
-          <h4 className="mb-3 text-lg font-bold">{t.tournament}</h4>
-          <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-semibold text-blue-100">
-            <Trophy size={14} />
-            {t.date}
-          </p>
-
-          <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-blue-100">
-            {t.venuesTitle}
-          </p>
-
-          <p className="mt-3 rounded-xl border border-dashed border-white/35 bg-white/10 p-4 text-sm leading-6 text-blue-100">
-            {t.venuesPending}
-          </p>
+        <div className="footer-column footer-social-column">
+          <h3>{homeT.footerFollow}</h3>
+          <a
+            className="footer-social"
+            href={facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook FIFVE"
+          >
+            <span aria-hidden="true">f</span>
+          </a>
         </div>
       </div>
 
-      <div className="relative mx-auto mt-7 max-w-7xl border-t border-white/25 pt-4 text-xs text-blue-100 md:text-sm">
-        {t.rights}
+      <div className="site-footer__bottom">
+        <p>{t.rights}</p>
+        <div>
+          <span>{homeT.legalNotice}</span>
+          <span>{homeT.privacy}</span>
+        </div>
       </div>
     </footer>
   );

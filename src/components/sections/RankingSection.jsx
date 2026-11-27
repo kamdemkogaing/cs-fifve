@@ -232,14 +232,14 @@ export default function RankingSection({ ranking, t }) {
                               0
                             </span>
                           ) : (
-                            parseBonusValues(team[3]).map((value) => {
+                            parseBonusValues(team[3]).map((value, bonusIndex) => {
                               const meta = bonusMeta.find(
                                 (item) => item.value === value,
                               ) ?? { value, label: "Bonus" };
 
                               return (
                                 <span
-                                  key={`${team[1]}-${team[0]}-${value}`}
+                                  key={`${team[1]}-${team[0]}-${value}-${bonusIndex}`}
                                   className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-[10px] font-bold text-[#0646c4]"
                                 >
                                   +{value} {meta.label}
@@ -307,14 +307,10 @@ export default function RankingSection({ ranking, t }) {
                                 0
                               </span>
                             ) : (
-                              parseBonusValues(team[3]).map((value) => {
-                                const meta = bonusMeta.find(
-                                  (item) => item.value === value,
-                                ) ?? { value, label: "Bonus" };
-
+                              parseBonusValues(team[3]).map((value, bonusIndex) => {
                                 return (
                                   <span
-                                    key={`${team[1]}-${team[0]}-${value}`}
+                                    key={`${team[1]}-${team[0]}-${value}-${bonusIndex}`}
                                     className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-[10px] font-bold text-[#0646c4]"
                                   >
                                     +{value}
@@ -407,14 +403,14 @@ export default function RankingSection({ ranking, t }) {
                       0
                     </span>
                   ) : (
-                    parseBonusValues(selectedTeam[3]).map((value) => {
+                    parseBonusValues(selectedTeam[3]).map((value, bonusIndex) => {
                       const meta = bonusMeta.find(
                         (item) => item.value === value,
                       ) ?? { value, label: "Bonus" };
 
                       return (
                         <span
-                          key={`${selectedTeam[1]}-${selectedTeam[0]}-${value}`}
+                          key={`${selectedTeam[1]}-${selectedTeam[0]}-${value}-${bonusIndex}`}
                           className="inline-flex items-center rounded-full bg-white px-2.5 py-1 text-xs font-bold text-[#0646c4] ring-1 ring-blue-200"
                         >
                           +{value} {meta.label}

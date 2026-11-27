@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "../config/api";
+
 /**
  * Admin API layer.
  *
@@ -12,10 +14,6 @@
  *   PUT  /api/admin/config           -> save config JSON
  *   POST /api/admin/publish          -> publish config, returns { publishedAt }
  */
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "").replace(
-  /\/$/,
-  "",
-);
 const TOKEN_KEY = "fifve-admin-token";
 
 export const isBackendConfigured = Boolean(API_BASE_URL);
